@@ -13,8 +13,8 @@ import { FloatingButton } from "@/components/ui/FloatingButton";
 
 export default function HomeScreen() {
 	const { data: budget } = useAxios<BudgetSummary>(getBudgetSummary);
-	const { data: accounts } = useAxios<Account[]>(getAccounts);
-	const { data: transactions } = useAxios<Transaction[]>(
+	const { data: accounts, reload: reloadAccounts, loaded: loadedAccounts } = useAxios<Account[]>(getAccounts);
+	const { data: transactions, reload, loaded } = useAxios<Transaction[]>(
 		getTransactionsMonthly,
 	);
 
@@ -25,19 +25,28 @@ export default function HomeScreen() {
 			<View style={styles.accounts}>
 				<View style={styles.sectionTitle}>
 					<ThemedText type="subtitle">Accounts</ThemedText>
-					<ThemedText style={styles.link} type="link">
-						See All
-					</ThemedText>
+					<Link href="/accounts">
+						<ThemedText style={styles.link} type="link">
+							See All
+						</ThemedText>
+					</Link>
 				</View>
 				<FlatList
 					keyExtractor={(item) => `${item.id}`}
 					data={accounts}
 					horizontal
 					renderItem={({ item }) => <AccountCard account={item} />}
+					ListEmptyComponent={() => (
+						<View style={styles.defaultContainer}>
+							<ThemedText type="default">No accounts</ThemedText>
+						</View>
+					)}
+					onRefresh={reloadAccounts}
+					refreshing={!loadedAccounts}
 				/>
 			</View>
 
-			<View>
+			<View style={{ flex: 1 }}>
 				<View style={styles.sectionTitle}>
 					<ThemedText type="subtitle">Last transactions</ThemedText>
 					<Link href="/transactions">
@@ -52,6 +61,13 @@ export default function HomeScreen() {
 					renderItem={({ item }) => (
 						<Transaction transaction={item} accounts={accounts} />
 					)}
+					ListEmptyComponent={() => (
+						<View style={styles.defaultContainer}>
+							<ThemedText type="default">No transactions</ThemedText>
+						</View>
+					)}
+					onRefresh={reload}
+					refreshing={!loaded}
 				/>
 			</View>
 
@@ -62,8 +78,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: "#fff",
-		paddingHorizontal: 24,
+		padding: 24,
 		flex: 1,
 	},
 	titleContainer: {

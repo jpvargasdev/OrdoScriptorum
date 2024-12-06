@@ -2,13 +2,17 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 
 import { Card } from "../Card";
 import { ThemedText } from "../ThemedText";
+import { router } from "expo-router";
 
 export function AccountCard({ account }: { account: Account }) {
 	return (
-		<TouchableOpacity>
+		<TouchableOpacity onPress={() => router.navigate({ pathname: '/account', params: { id: account.id } })}>
 			<Card style={styles.container}>
 				<ThemedText style={styles.accountName} type="subtitle">
 					{account.name}
+				</ThemedText>
+				<ThemedText style={styles.accountBalance} type="defaultSemiBold">
+					{account.type}
 				</ThemedText>
 				<ThemedText style={styles.accountBalance} type="defaultSemiBold">
 					{account.balance} {account.currency}

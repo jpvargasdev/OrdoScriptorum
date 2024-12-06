@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
 	dateButton: {
 		padding: 15,
 		borderRadius: 10,
-		backgroundColor: "#fff",
+		borderWidth: StyleSheet.hairlineWidth,
+		borderColor: "#ccc",
 		justifyContent: "space-between",
 		alignItems: "flex-start",
 		width: "100%",

@@ -1,44 +1,34 @@
-import React from 'react';
-import {
-	View,
-	Text,
-	TouchableOpacity,
-	StyleSheet,
-	Alert,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { deleteAllData } from "@/api";
+import { ThemedText } from "@/components/ThemedText";
+import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-const SettingsScreen = ({ onDeleteAllData }: { onDeleteAllData: () => void }) => {
+const SettingsScreen = () => {
+	const onDeleteAllData = async () => {
+		try {
+			await deleteAllData();
+			console.log("All data deleted successfully!");
+		} catch (error) {
+			console.error("Error deleting all data:", error);
+		}
+	};
+
 	const handleDeleteAllData = () => {
 		Alert.alert(
-			'Delete All Data',
-			'Are you sure you want to delete all data? This action cannot be undone.',
+			"Delete All Data",
+			"Are you sure you want to delete all data? This action cannot be undone.",
 			[
-				{ text: 'Cancel', style: 'cancel' },
-				{ text: 'Delete', style: 'destructive', onPress: onDeleteAllData },
-			]
+				{ text: "Cancel", style: "cancel" },
+				{ text: "Delete", style: "destructive", onPress: onDeleteAllData },
+			],
 		);
 	};
 
 	return (
 		<SafeAreaView style={styles.container}>
 			{/* Settings Title */}
-			<Text style={styles.header}>Settings</Text>
-
-			{/* List of Settings Options */}
-			<View style={styles.section}>
-				<TouchableOpacity style={styles.option}>
-					<Text style={styles.optionText}>Currency Settings</Text>
-				</TouchableOpacity>
-
-				<TouchableOpacity style={styles.option}>
-					<Text style={styles.optionText}>Budget Allocation</Text>
-				</TouchableOpacity>
-
-				<TouchableOpacity style={styles.option}>
-					<Text style={styles.optionText}>Notifications</Text>
-				</TouchableOpacity>
-			</View>
+			<ThemedText type="title">Settings</ThemedText>
 
 			{/* Delete All Data Button */}
 			<TouchableOpacity
@@ -56,25 +46,23 @@ export default SettingsScreen;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#F5F5F5',
-		padding: 20,
+		padding: 24,
 	},
 	header: {
-		fontSize: 24,
-		fontWeight: 'bold',
+		fontWeight: "bold",
 		marginBottom: 20,
-		textAlign: 'center',
-		color: '#333',
+		textAlign: "center",
+		color: "#333",
 	},
 	section: {
 		marginVertical: 20,
 	},
 	option: {
-		backgroundColor: '#fff',
+		backgroundColor: "#fff",
 		padding: 15,
 		marginBottom: 10,
 		borderRadius: 8,
-		shadowColor: '#000',
+		shadowColor: "#000",
 		shadowOffset: { width: 0, height: 2 },
 		shadowOpacity: 0.1,
 		shadowRadius: 3,
@@ -82,18 +70,18 @@ const styles = StyleSheet.create({
 	},
 	optionText: {
 		fontSize: 16,
-		color: '#333',
+		color: "#333",
 	},
 	deleteButton: {
-		backgroundColor: '#FF4D4D',
+		backgroundColor: "#FF4D4D",
 		padding: 15,
 		borderRadius: 8,
-		alignItems: 'center',
+		alignItems: "center",
 		marginTop: 20,
 	},
 	deleteButtonText: {
-		color: '#fff',
+		color: "#fff",
 		fontSize: 16,
-		fontWeight: 'bold',
+		fontWeight: "bold",
 	},
 });

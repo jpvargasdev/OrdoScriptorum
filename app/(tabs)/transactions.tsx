@@ -7,23 +7,23 @@ import { ThemedText } from "@/components/ThemedText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FloatingButton } from "@/components/ui/FloatingButton";
 import { router } from "expo-router";
-import { useState } from "react";
 
-export default function TabTwoScreen() {
-	const { data: transactions } = useAxios(getTransactions);
+export default function TransactionsScreen() {
+	const { data: transactions, reload, loaded } = useAxios(getTransactions);
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<View>
-				<View style={styles.sectionTitle}>
-					<ThemedText type="title">Transactions</ThemedText>
-				</View>
-			</View>
+			<ThemedText type="title">Transactions</ThemedText>
 			<FlatList
 				data={transactions}
 				keyExtractor={(item) => `${item.id}`}
 				renderItem={({ item }) => <Transaction transaction={item} />}
 				style={styles.transactions}
+				ListEmptyComponent={
+					<ThemedText type="default">No transactions</ThemedText>
+				}
+				refreshing={!loaded}
+				onRefresh={reload}
 			/>
 			<FloatingButton onPress={() => router.navigate("../new-transaction")} />
 		</SafeAreaView>
@@ -33,8 +33,7 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "#fff",
-		paddingHorizontal: 24,
+		padding: 24,
 	},
 	transactions: {
 		flex: 1,

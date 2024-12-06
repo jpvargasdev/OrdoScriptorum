@@ -14,7 +14,7 @@ export function Header({ budget }: { budget?: BudgetSummary }) {
 					<ThemedText type="title">{budget.net_balance} SEK</ThemedText>
 				</View>
 
-				<Card style={styles.budgets}>
+				<View style={styles.budgets}>
 					<View style={styles.headerTable}>
 						<ThemedText type="defaultSemiBold" style={styles.headerTitle}>
 							Budget
@@ -76,36 +76,28 @@ export function Header({ budget }: { budget?: BudgetSummary }) {
 							{budget.savings_percentage} %
 						</ThemedText>
 					</TouchableOpacity>
-				</Card>
+				</View>
 			</View>
 		</View>
 	);
 }
 
 const styles = StyleSheet.create({
-	container: {
-		minHeight: 250,
-	},
-	innerContainer: {
-		flex: 1,
-	},
+	container: {},
+	innerContainer: {},
 	balance: {
-		flex: 0.8,
 		justifyContent: "center",
 		alignItems: "flex-start",
 	},
 	budgets: {
-		flex: 1,
-		width: "100%",
-		justifyContent: "space-around",
-		alignItems: "center",
 		borderRadius: 4,
-		padding: 8,
+		height: 150,
+		marginVertical: 12,
 	},
 	amount: {
 		color: "red",
 		flex: 1,
-		textAlign: "right",
+		textAlign: "center",
 		alignSelf: "center",
 	},
 	topic: {
@@ -114,12 +106,12 @@ const styles = StyleSheet.create({
 	},
 	budgetText: {
 		flex: 1.2,
-		textAlign: "right",
+		textAlign: "center",
 		alignSelf: "center",
 	},
 	percentageText: {
 		flex: 1,
-		textAlign: "right",
+		textAlign: "center",
 		alignSelf: "center",
 	},
 	budgetItem: {

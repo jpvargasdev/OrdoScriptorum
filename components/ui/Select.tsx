@@ -9,6 +9,8 @@ import {
 	Modal,
 } from "react-native";
 import { IconSymbol } from "./IconSymbol";
+import { ThemedText } from "../ThemedText";
+import { ThemedView } from "../ThemedView";
 
 interface SelectProps {
 	placeholder: string;
@@ -43,9 +45,9 @@ const Select: React.FC<SelectProps> = ({
 				style={styles.selectBox}
 				onPress={() => setModalVisible(true)}
 			>
-				<Text style={{ ...styles.selectText, ...style }}>
+				<ThemedText style={{ ...styles.selectText, ...style }}>
 					{selectedItem || placeholder}
-				</Text>
+				</ThemedText>
 				<IconSymbol name="chevron.down" size={20} color="#333" />
 			</TouchableOpacity>
 
@@ -56,22 +58,26 @@ const Select: React.FC<SelectProps> = ({
 				transparent={true}
 				onRequestClose={() => setModalVisible(false)}
 			>
-				<View style={styles.modalOverlay}>
-					<View style={styles.modalContainer}>
+				<ThemedView style={styles.modalOverlay}>
+					<ThemedView style={styles.modalContainer}>
 						<FlatList
 							data={items}
 							keyExtractor={(item, index) => `${item}-${index}`}
-							renderItem={({ item }) => (
-								<TouchableOpacity
-									style={styles.item}
-									onPress={() => handleSelect(item)}
-								>
-									<Text style={styles.itemText}>{item}</Text>
-								</TouchableOpacity>
-							)}
+							renderItem={({ item, index }) => {
+								const noBorderBottom =
+									index === items.length - 1 ? { borderBottomWidth: 0 } : {};
+								return (
+									<TouchableOpacity
+										style={{ ...styles.item, ...noBorderBottom }}
+										onPress={() => handleSelect(item)}
+									>
+										<ThemedText style={styles.itemText}>{item}</ThemedText>
+									</TouchableOpacity>
+								);
+							}}
 						/>
-					</View>
-				</View>
+					</ThemedView>
+				</ThemedView>
 			</Modal>
 		</View>
 	);
@@ -83,7 +89,8 @@ const styles = StyleSheet.create({
 	selectBox: {
 		padding: 15,
 		borderRadius: 10,
-		backgroundColor: "#fff",
+		borderWidth: StyleSheet.hairlineWidth,
+		borderColor: "#ccc",
 		justifyContent: "space-between",
 		alignItems: "flex-start",
 		marginVertical: 5,
@@ -101,8 +108,6 @@ const styles = StyleSheet.create({
 	modalContainer: {
 		margin: 20,
 		backgroundColor: "#fff",
-		borderRadius: 10,
-		padding: 15,
 		maxHeight: "50%",
 	},
 	item: {

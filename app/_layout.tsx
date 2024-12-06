@@ -11,6 +11,8 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { Provider } from "jotai";
+import { defaultStore } from "@/state";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -32,16 +34,31 @@ export default function RootLayout() {
 	}
 
 	return (
-		<ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-			<Stack>
-				<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-				<Stack.Screen
-					name="new-transaction"
-					options={{ presentation: "modal", headerShown: false }}
-				/>
-				<Stack.Screen name="+not-found" />
-			</Stack>
-			<StatusBar style="auto" />
-		</ThemeProvider>
+		<Provider store={defaultStore}>
+			<ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+				<Stack>
+					<Stack.Screen name="(tabs)" options={{ headerShown: false, title: "Home" }} />
+					<Stack.Screen
+						name="new-transaction"
+						options={{
+							presentation: "modal",
+							headerShown: true,
+							title: "New Transaction",
+						}}
+					/>
+					<Stack.Screen
+						name="new-account"
+						options={{
+							presentation: "modal",
+							headerShown: true,
+							title: "New Account",
+						}}
+					/>
+					<Stack.Screen name="account" />
+					<Stack.Screen name="+not-found" />
+				</Stack>
+				<StatusBar style="auto" />
+			</ThemeProvider>
+		</Provider>
 	);
 }
