@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const API_BASE_URL =
-	"http://localhost:8080/api/v1"; // Replace with your API's base URL
-
+const API_BASE_URL = "http://192.168.0.38:8080/api/v1";
+// "https://guillimanexpenses-production.up.railway.app/api/v1";
+//
 const api = axios.create({
 	baseURL: API_BASE_URL,
 	timeout: 10000,
@@ -162,13 +162,13 @@ export const getTransactionsByAccount = async (
 	id: number,
 ): Promise<Transaction[]> => {
 	try {
-		const response = await api.get(`/transactions/account/${id}`)
-		return response.data
+		const response = await api.get(`/transactions/account/${id}`);
+		return response.data;
 	} catch (error) {
 		console.error("Error fetching transactions by account", error);
 		throw error;
 	}
-}
+};
 
 export const getBudgetSummary = async (): Promise<BudgetSummary> => {
 	try {

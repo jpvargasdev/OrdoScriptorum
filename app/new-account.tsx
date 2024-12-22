@@ -28,11 +28,7 @@ export default function Accounts() {
 		};
 
 		// validate account fields
-		if (
-			!account.name ||
-			!account.currency ||
-			!account.type
-		) {
+		if (!account.name || !account.currency || !account.type) {
 			alert("Please fill in all fields");
 			return;
 		}

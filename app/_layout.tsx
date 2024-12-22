@@ -37,7 +37,10 @@ export default function RootLayout() {
 		<Provider store={defaultStore}>
 			<ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
 				<Stack>
-					<Stack.Screen name="(tabs)" options={{ headerShown: false, title: "Home" }} />
+					<Stack.Screen
+						name="(tabs)"
+						options={{ headerShown: false, title: "Home" }}
+					/>
 					<Stack.Screen
 						name="new-transaction"
 						options={{

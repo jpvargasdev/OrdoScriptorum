@@ -25,7 +25,9 @@ export default function Accounts() {
 	const [description, setDescription] = useState("");
 	const [type, setType] = useState("Expense");
 	const [currency, setCurrency] = useState("SEK");
-	const [account, setAccount] = useState<string>(accounts && accounts[0] ? accounts[0].name : "");
+	const [account, setAccount] = useState<string>(
+		accounts && accounts[0] ? accounts[0].name : "",
+	);
 
 	const handleKeyPress = (key: string) => {
 		if (key === "delete") {
@@ -37,14 +39,7 @@ export default function Accounts() {
 
 	const onSubmit = useCallback(async () => {
 		// validate transaction fields
-		if (
-			!amount ||
-			!date ||
-			!description ||
-			!currency ||
-			!account ||
-			!type
-		) {
+		if (!amount || !date || !description || !currency || !account || !type) {
 			alert("All fields are required");
 			return;
 		}
