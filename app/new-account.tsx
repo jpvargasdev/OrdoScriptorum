@@ -57,87 +57,87 @@ export default function Accounts() {
 
 	return (
 		<SafeAreaView style={styles.container}>
-		<KeyboardAvoidingView
-			style={styles.container}
-			behavior={Platform.OS === "ios" ? "padding" : undefined}
-		>
-			{/* Amount Section */}
-			<View style={styles.amountContainer}>
-				<ThemedText type="title">
-					<ThemedText type="subtitle">Balance:  </ThemedText>
-					{balance.length > 0 ? balance : "0.00"}
-				</ThemedText>
-				<CurrencySelect
-					onSelect={setCurrency}
-					currencies={["SEK", "USD", "EUR", "COP"]}
-					currency={currency}
-				/>
-			</View>
-			{/* Name */}
-			<View style={styles.row}>
-				<TextInput
-					style={styles.notesInput}
-					placeholder="Account Name"
-					value={name}
-					onChangeText={setName}
-				/>
-			</View>
-
-			{/* Type */}
-			<Select
-				placeholder={"Account type"}
-				items={[
-					"Checking Account",
-					"Savings Account",
-					"Credit Card",
-					"Debit Card",
-					"Investment Account",
-					"Loan",
-					"Mortgage",
-					"Student Loan",
-					"Personal Loan",
-					"Business Loan",
-					"Other",
-				]}
-				onSelect={setType}
-				value={type}
-			/>
-
-			{/* Custom Keyboard */}
-			<View style={styles.keyboardContainer}>
-				<ThemedView style={styles.keyboard}>
-					{[
-						"1",
-						"2",
-						"3",
-						"4",
-						"5",
-						"6",
-						"7",
-						"8",
-						"9",
-						".",
-						"0",
-						"delete",
-					].map((key) => (
-						<TouchableOpacity
-							key={key}
-							style={styles.key}
-							onPress={() => handleKeyPress(key)}
-						>
-							<ThemedText type="subtitle">
-								{key === "delete" ? "⌫" : key}
-							</ThemedText>
-						</TouchableOpacity>
-					))}
-				</ThemedView>
-				<TouchableOpacity style={styles.button} onPress={onSubmit}>
-					<ThemedText type="subtitle" style={styles.buttonText}>
-						Save
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior={Platform.OS === "ios" ? "padding" : undefined}
+			>
+				{/* Amount Section */}
+				<View style={styles.amountContainer}>
+					<ThemedText type="title">
+						<ThemedText type="subtitle">Balance: </ThemedText>
+						{balance.length > 0 ? balance : "0.00"}
 					</ThemedText>
-				</TouchableOpacity>
-			</View>
-		</KeyboardAvoidingView>
+					<CurrencySelect
+						onSelect={setCurrency}
+						currencies={["SEK", "USD", "EUR", "COP"]}
+						currency={currency}
+					/>
+				</View>
+				{/* Name */}
+				<View style={styles.row}>
+					<TextInput
+						style={styles.notesInput}
+						placeholder="Account Name"
+						value={name}
+						onChangeText={setName}
+					/>
+				</View>
+
+				{/* Type */}
+				<Select
+					placeholder={"Account type"}
+					items={[
+						"Checking Account",
+						"Savings Account",
+						"Credit Card",
+						"Debit Card",
+						"Investment Account",
+						"Loan",
+						"Mortgage",
+						"Student Loan",
+						"Personal Loan",
+						"Business Loan",
+						"Other",
+					]}
+					onSelect={setType}
+					value={type}
+				/>
+
+				{/* Custom Keyboard */}
+				<View style={styles.keyboardContainer}>
+					<ThemedView style={styles.keyboard}>
+						{[
+							"1",
+							"2",
+							"3",
+							"4",
+							"5",
+							"6",
+							"7",
+							"8",
+							"9",
+							".",
+							"0",
+							"delete",
+						].map((key) => (
+							<TouchableOpacity
+								key={key}
+								style={styles.key}
+								onPress={() => handleKeyPress(key)}
+							>
+								<ThemedText type="subtitle">
+									{key === "delete" ? "⌫" : key}
+								</ThemedText>
+							</TouchableOpacity>
+						))}
+					</ThemedView>
+					<TouchableOpacity style={styles.button} onPress={onSubmit}>
+						<ThemedText type="subtitle" style={styles.buttonText}>
+							Save
+						</ThemedText>
+					</TouchableOpacity>
+				</View>
+			</KeyboardAvoidingView>
 		</SafeAreaView>
 	);
 }
@@ -199,18 +199,18 @@ const styles = StyleSheet.create({
 		color: "#333",
 	},
 	keyboard: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-  },
-  key: {
-    width: "33.33%",
-    padding: 15,
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: "#ccc",
-  },
+		flexDirection: "row",
+		flexWrap: "wrap",
+		justifyContent: "space-around",
+	},
+	key: {
+		width: "33.33%",
+		padding: 15,
+		alignItems: "center",
+		justifyContent: "center",
+		borderWidth: StyleSheet.hairlineWidth,
+		borderColor: "#ccc",
+	},
 	keyText: {
 		fontSize: 24,
 		fontWeight: "bold",

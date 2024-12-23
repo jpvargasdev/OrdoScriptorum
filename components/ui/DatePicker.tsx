@@ -30,9 +30,7 @@ const DatePicker = ({
 		<View style={styles.container}>
 			{/* Botón para abrir el date picker */}
 			<TouchableOpacity style={styles.dateButton} onPress={showDatePicker}>
-				<Text style={styles.dateText}>
-					{date.toDateString()}
-				</Text>
+				<Text style={styles.dateText}>{date.toDateString()}</Text>
 				<IconSymbol name="calendar" size={20} color="#333" />
 			</TouchableOpacity>
 

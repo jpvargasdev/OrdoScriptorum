@@ -6,10 +6,7 @@ import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FloatingButton } from "@/components/ui/FloatingButton";
 import { BudgetsGraph } from "@/components/ui/BudgetsGraph";
-import {
-	useGetBudgetSummary,
-	useGetCategories,
-} from "@/hooks/apiHooks";
+import { useGetBudgetSummary, useGetCategories } from "@/hooks/apiHooks";
 
 export default function HomeScreen() {
 	const { data: budget, execute: fetchBudgetSummary } = useGetBudgetSummary();
@@ -18,7 +15,7 @@ export default function HomeScreen() {
 	useEffect(() => {
 		fetchBudgetSummary();
 		fetchCategories();
-	}	, []);
+	}, []);
 
 	return (
 		<SafeAreaView style={styles.container}>

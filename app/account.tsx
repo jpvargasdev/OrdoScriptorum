@@ -17,8 +17,9 @@ export default function Account() {
 	}
 
 	const { data: accounts } = useGetAccounts();
-	const { data: transactions, execute: getTransactions } = useGetTransactionsByAccount();
-	
+	const { data: transactions, execute: getTransactions } =
+		useGetTransactionsByAccount();
+
 	const mAccount = accounts?.find((a) => a.id === Number(id)) as Account;
 
 	React.useEffect(() => {

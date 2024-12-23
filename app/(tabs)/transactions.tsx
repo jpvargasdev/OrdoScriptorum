@@ -9,7 +9,12 @@ import { useGetAccounts, useGetTransactions } from "@/hooks/apiHooks";
 import { useEffect } from "react";
 
 export default function TransactionsScreen() {
-	const { data: transactions, execute: getTransactions, reload, loading } = useGetTransactions();
+	const {
+		data: transactions,
+		execute: getTransactions,
+		reload,
+		loading,
+	} = useGetTransactions();
 	const { data: accounts } = useGetAccounts();
 
 	useEffect(() => {

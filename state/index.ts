@@ -2,7 +2,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8080/api/v1";
+const API_BASE_URL = "http://127.0.0.1:8000/api/v1";
 
 const api = axios.create({
 	baseURL: API_BASE_URL,
@@ -30,80 +30,80 @@ const initialState: Omit<RequestState<any>, "lastParams"> = {
 };
 
 export const request = <T>(
-  config: { method: string; url: string },
-  options?: {
-    onSuccess?: (res: any) => void;
-    onError?: (err: any) => void;
-    onFinal?: () => void;
-  }
+	config: { method: string; url: string },
+	options?: {
+		onSuccess?: (res: any) => void;
+		onError?: (err: any) => void;
+		onFinal?: () => void;
+	},
 ) =>
-  create<
-    RequestState<T> & {
-      execute: (params?: any) => Promise<void>;
-      reload: (params?: any) => Promise<void>;
-    }
-  >((set, get) => ({
-    ...initialState,
-    lastParams: null,
+	create<
+		RequestState<T> & {
+			execute: (params?: any) => Promise<void>;
+			reload: (params?: any) => Promise<void>;
+		}
+	>((set, get) => ({
+		...initialState,
+		lastParams: null,
 
-    execute: async (params = {}) => {
-      const { id, data, query, force } = params;
-      const { method, url } = config;
+		execute: async (params = {}) => {
+			const { id, data, query, force } = params;
+			const { method, url } = config;
 
-      // If this is a GET request and we already have data in the store,
-      // skip unless force === true
-      if (!force && method === 'GET' && get().data) {
-        return;
-      }
+			// If this is a GET request and we already have data in the store,
+			// skip unless force === true
+			if (!force && method === "GET" && get().data) {
+				return;
+			}
 
-      set({
-        ...initialState,
-        loading: true,
-        lastParams: params,
-      });
+			set({
+				...initialState,
+				loading: true,
+				lastParams: params,
+			});
 
-      try {
-        const res = await api({
-          method,
-          url: id ? `${url}/${id}` : url,
-          data,
-          params: query,
-        });
+			try {
+				const res = await api({
+					method,
+					url: id ? `${url}/${id}` : url,
+					data,
+					params: query,
+				});
 
-        set({
-          ...initialState,
-          data: res.data,
-          success: true,
-          lastParams: params,
-        });
-        options?.onSuccess?.(res);
-        params?.onSuccess?.(res);
-      } catch (err) {
-        set({
-          ...initialState,
-          error: true,
-          errorData: err,
-          lastParams: params,
-        });
+				set({
+					...initialState,
+					data: res.data,
+					success: true,
+					lastParams: params,
+				});
+				options?.onSuccess?.(res);
+				params?.onSuccess?.(res);
+			} catch (err) {
+				set({
+					...initialState,
+					error: true,
+					errorData: err,
+					lastParams: params,
+				});
 
-				console.error(err)
+				console.error(err);
 
-        options?.onError?.(err);
-        params?.onError?.(err);
-      } finally {
-        options?.onFinal?.();
-        params?.onFinal?.();
-      }
-    },
+				options?.onError?.(err);
+				params?.onError?.(err);
+			} finally {
+				options?.onFinal?.();
+				params?.onFinal?.();
+			}
+		},
 
-    // The reload method re-calls execute, always with force: true
-    reload: async (overrideParams = {}) => {
-      const { lastParams } = get();
-      const mergedParams = {
-        ...lastParams,
-        ...overrideParams,
-        force: true,
-      };
-      await get().execute(mergedParams);
-    },
-  }));
+		// The reload method re-calls execute, always with force: true
+		reload: async (overrideParams = {}) => {
+			const { lastParams } = get();
+			const mergedParams = {
+				...lastParams,
+				...overrideParams,
+				force: true,
+			};
+			await get().execute(mergedParams);
+		},
+	}));

@@ -12,7 +12,7 @@ export default function AccountsScreen() {
 		data: accounts,
 		execute: fetchAccounts,
 		reload: reloadAccounts,
-		loading
+		loading,
 	} = useGetAccounts();
 
 	useEffect(() => {
@@ -46,8 +46,7 @@ export default function AccountsScreen() {
 				keyExtractor={(item) => item.id.toString()}
 				onRefresh={reloadAccounts}
 				refreshing={loading}
-				ListEmptyComponent={
-					<ThemedText type="default">No accounts</ThemedText>}
+				ListEmptyComponent={<ThemedText type="default">No accounts</ThemedText>}
 				renderItem={({ item }) => (
 					<TouchableOpacity
 						style={styles.row}
