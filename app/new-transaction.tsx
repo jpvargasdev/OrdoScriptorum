@@ -1,4 +1,5 @@
 import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
 import CurrencySelect from "@/components/ui/CurrencySelect";
 import DatePicker from "@/components/ui/DatePicker";
 import Select from "@/components/ui/Select";
@@ -19,6 +20,7 @@ import {
   Platform,
 	ScrollView
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function NewTransaction() {
   const { execute: executeTransaction } = useCreateTransaction();
@@ -113,119 +115,120 @@ export default function NewTransaction() {
   ]);
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
-    >
-			<ScrollView>
-      {/* Amount Section */}
-      <View style={styles.amountContainer}>
-        <ThemedText type="title">
-          {type === "Expense" && "-"}
-          {amount.length > 0 ? amount : "0.00"}
-        </ThemedText>
-        <CurrencySelect
-          onSelect={setCurrency}
-          currencies={["SEK", "USD", "EUR", "COP"]}
-          currency={currency}
-        />
-      </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+      >
+        <View style={styles.form}>
+          {/* Amount Section */}
+          <View style={styles.amountContainer}>
+            <ThemedText type="title">
+              {type === "Expense" && "-"}
+              {amount.length > 0 ? amount : "0.00"}
+            </ThemedText>
+            <CurrencySelect
+              onSelect={setCurrency}
+              currencies={["SEK", "USD", "EUR", "COP"]}
+              currency={currency}
+            />
+          </View>
 
-      {/* Transaction Type */}
-      <Select
-        placeholder={"Transaction type"}
-        items={["Expense", "Income", "Transfer", "Savings"]}
-        onSelect={setType}
-        value={type}
-      />
+          {/* Transaction Type */}
+          <Select
+            placeholder={"Transaction type"}
+            items={["Expense", "Income", "Transfer", "Savings"]}
+            onSelect={setType}
+            value={type}
+          />
 
-      {/* Category (only relevant for Expense/Income, but you can still allow for Transfer if you'd like) */}
-      <Select
-        placeholder={"Category"}
-        items={categories?.map((c) => c.name) || []}
-        onSelect={setCategory}
-        value={category}
-      />
+          {/* Category (only relevant for Expense/Income, but you can still allow for Transfer if you'd like) */}
+          <Select
+            placeholder={"Category"}
+            items={categories?.map((c) => c.name) || []}
+            onSelect={setCategory}
+            value={category}
+          />
 
-      {/* From Account */}
-      <Select
-        placeholder={accounts && accounts[0] ? accounts[0].name : "Account"}
-        items={accounts?.map((a) => a.name) || []}
-        onSelect={setAccount}
-        value={account}
-      />
+          {/* From Account */}
+          <Select
+            placeholder={accounts && accounts[0] ? accounts[0].name : "Account"}
+            items={accounts?.map((a) => a.name) || []}
+            onSelect={setAccount}
+            value={account}
+          />
 
-      {/* 
-       * Destination Account if "Transfer" 
-       */}
-      {type === "Transfer" && (
-        <Select
-          placeholder={"Transfer To Account"}
-          items={accounts?.map((a) => a.name) || []}
-          onSelect={setTransferAccount}
-          value={transferAccount}
-        />
-      )}
+          {/* 
+          * Destination Account if "Transfer" 
+          */}
+          {type === "Transfer" && (
+            <Select
+              placeholder={"Transfer To Account"}
+              items={accounts?.map((a) => a.name) || []}
+              onSelect={setTransferAccount}
+              value={transferAccount}
+            />
+          )}
 
-      {/* Date */}
-      <DatePicker date={date} onChange={setDate} />
+          {/* Date */}
+          <DatePicker date={date} onChange={setDate} />
 
-      {/* Description */}
-      <View style={styles.row}>
-        <TextInput
-          style={styles.notesInput}
-          placeholder="Description"
-          value={description}
-          onChangeText={setDescription}
-        />
-      </View>
-
-      {/* Custom Keyboard */}
-      <View style={styles.keyboardContainer}>
-        <View style={styles.keyboard}>
-          {[
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            ".",
-            "0",
-            "delete",
-          ].map((key) => (
-            <TouchableOpacity
-              key={key}
-              style={styles.key}
-              onPress={() => handleKeyPress(key)}
-            >
-              <ThemedText type="subtitle">
-                {key === "delete" ? "⌫" : key}
-              </ThemedText>
-            </TouchableOpacity>
-          ))}
+          {/* Description */}
+          <View style={styles.row}>
+            <TextInput
+              style={styles.notesInput}
+              placeholder="Description"
+              value={description}
+              onChangeText={setDescription}
+            />
+          </View>
         </View>
-      </View>
-
-      <TouchableOpacity style={styles.button} onPress={onSubmit}>
-        <ThemedText type="subtitle" style={styles.buttonText}>
-          Save
-        </ThemedText>
-      </TouchableOpacity>
-			</ScrollView>
-    </KeyboardAvoidingView>
+        {/* Custom Keyboard */}
+        <View style={styles.keyboardContainer}>
+          <ThemedView style={styles.keyboard}>
+            {[
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              ".",
+              "0",
+              "delete",
+            ].map((key) => (
+              <TouchableOpacity
+                key={key}
+                style={styles.key}
+                onPress={() => handleKeyPress(key)}
+              >
+                <ThemedText type="subtitle">
+                  {key === "delete" ? "⌫" : key}
+                </ThemedText>
+              </TouchableOpacity>
+            ))}
+          </ThemedView>
+          <TouchableOpacity style={styles.button} onPress={onSubmit}>
+            <ThemedText type="subtitle" style={styles.buttonText}>
+              Save
+            </ThemedText>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  form: {
+    flex: 1,
+  },
   button: {
     backgroundColor: "#FF4D4D",
-    borderRadius: 10,
     padding: 15,
-    marginTop: 20,
     alignItems: "center",
   },
   buttonText: {
@@ -235,13 +238,12 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 20,
+    justifyContent: "space-between",
   },
   keyboardContainer: {
-    marginVertical: 20,
-  },
-  header: {
-    marginBottom: 10,
+    flex: 1,
+    position: "absolute",
+    bottom: 0,
   },
   amountContainer: {
     flexDirection: "row",
@@ -262,16 +264,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    borderRadius: 10,
     padding: 15,
     marginVertical: 5,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: 1,
     borderColor: "#ccc",
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: "500",
-    color: "#333",
   },
   notesInput: {
     flex: 1,
@@ -283,7 +279,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-around",
-    backgroundColor: "white",
   },
   key: {
     width: "33.33%",
@@ -292,9 +287,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: "#ccc",
-  },
-  keyText: {
-    fontSize: 24,
-    fontWeight: "bold",
   },
 });

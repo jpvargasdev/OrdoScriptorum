@@ -9,6 +9,7 @@ import {
 	Modal,
 } from "react-native";
 import { ThemedText } from "../ThemedText";
+import { IconSymbol } from "./IconSymbol";
 
 interface CurrencySelectProps {
 	currency: string;
@@ -39,9 +40,10 @@ const CurrencySelect: React.FC<CurrencySelectProps> = ({
 				style={styles.selectBox}
 				onPress={() => setModalVisible(true)}
 			>
-				<ThemedText type="title">
+				<ThemedText type="subtitle">
 					{selectedCurrency || "Select Currency"}
 				</ThemedText>
+				<IconSymbol name="chevron.down" size={16} color="#000" />
 			</TouchableOpacity>
 
 			{/* Modal con la lista de monedas */}
@@ -79,6 +81,7 @@ const styles = StyleSheet.create({
 		marginLeft: 8,
 		justifyContent: "center",
 		alignItems: "center",
+		flexDirection: "row",
 	},
 	selectText: {},
 	modalOverlay: {
@@ -89,12 +92,13 @@ const styles = StyleSheet.create({
 	modalContainer: {
 		margin: 20,
 		backgroundColor: "#fff",
-		borderRadius: 10,
 		padding: 15,
 		maxHeight: "50%",
 	},
 	item: {
 		padding: 15,
+		borderBottomWidth: 1,
+		borderBottomColor: "#ccc",
 	},
 	itemText: {
 		fontSize: 16,

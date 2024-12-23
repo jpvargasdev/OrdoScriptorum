@@ -1,4 +1,6 @@
 import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import CurrencySelect from "@/components/ui/CurrencySelect";
 import Select from "@/components/ui/Select";
 import { useCreateAccount } from "@/hooks/apiHooks";
 import { router } from "expo-router";
@@ -12,6 +14,7 @@ import {
 	KeyboardAvoidingView,
 	Platform,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Accounts() {
 	const { execute } = useCreateAccount();
@@ -53,10 +56,24 @@ export default function Accounts() {
 	};
 
 	return (
+		<SafeAreaView style={styles.container}>
 		<KeyboardAvoidingView
 			style={styles.container}
 			behavior={Platform.OS === "ios" ? "padding" : undefined}
 		>
+			{/* Amount Section */}
+			<View style={styles.amountContainer}>
+				<ThemedText type="title">
+					<ThemedText type="subtitle">Balance:  </ThemedText>
+					{type === "Expense" && "-"}
+					{balance.length > 0 ? balance : "0.00"}
+				</ThemedText>
+				<CurrencySelect
+					onSelect={setCurrency}
+					currencies={["SEK", "USD", "EUR", "COP"]}
+					currency={currency}
+				/>
+			</View>
 			{/* Name */}
 			<View style={styles.row}>
 				<TextInput
@@ -81,23 +98,9 @@ export default function Accounts() {
 				value={type}
 			/>
 
-			{/* Currency */}
-			<Select
-				placeholder={"Currency"}
-				items={["SEK", "USD", "EUR", "COP"]}
-				onSelect={setCurrency}
-				value={currency}
-			/>
-
-			<View style={styles.row}>
-				<ThemedText style={styles.notesInput}>
-					{balance.length > 0 ? balance : "Balance"}
-				</ThemedText>
-			</View>
-
 			{/* Custom Keyboard */}
 			<View style={styles.keyboardContainer}>
-				<View style={styles.keyboard}>
+				<ThemedView style={styles.keyboard}>
 					{[
 						"1",
 						"2",
@@ -122,24 +125,22 @@ export default function Accounts() {
 							</ThemedText>
 						</TouchableOpacity>
 					))}
-				</View>
+				</ThemedView>
+				<TouchableOpacity style={styles.button} onPress={onSubmit}>
+					<ThemedText type="subtitle" style={styles.buttonText}>
+						Save
+					</ThemedText>
+				</TouchableOpacity>
 			</View>
-
-			<TouchableOpacity style={styles.button} onPress={onSubmit}>
-				<ThemedText type="subtitle" style={styles.buttonText}>
-					Save
-				</ThemedText>
-			</TouchableOpacity>
 		</KeyboardAvoidingView>
+		</SafeAreaView>
 	);
 }
 
 const styles = StyleSheet.create({
 	button: {
 		backgroundColor: "#FF4D4D",
-		borderRadius: 10,
 		padding: 15,
-		marginTop: 20,
 		alignItems: "center",
 	},
 	buttonText: {
@@ -149,10 +150,10 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		flex: 1,
-		padding: 20,
 	},
 	keyboardContainer: {
-		marginVertical: 20,
+		position: "absolute",
+		bottom: 0,
 	},
 	header: {
 		marginBottom: 10,
@@ -176,10 +177,9 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "space-between",
-		borderRadius: 10,
 		padding: 15,
 		marginVertical: 5,
-		borderWidth: StyleSheet.hairlineWidth,
+		borderBottomWidth: 1,
 		borderColor: "#ccc",
 	},
 	label: {
@@ -194,19 +194,18 @@ const styles = StyleSheet.create({
 		color: "#333",
 	},
 	keyboard: {
-		flexDirection: "row",
-		flexWrap: "wrap",
-		justifyContent: "space-around",
-		backgroundColor: "white",
-	},
-	key: {
-		width: "33.33%",
-		padding: 15,
-		alignItems: "center",
-		justifyContent: "center",
-		borderWidth: StyleSheet.hairlineWidth,
-		borderColor: "#ccc",
-	},
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+  },
+  key: {
+    width: "33.33%",
+    padding: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: "#ccc",
+  },
 	keyText: {
 		fontSize: 24,
 		fontWeight: "bold",

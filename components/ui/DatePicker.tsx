@@ -55,12 +55,10 @@ const styles = StyleSheet.create({
 	container: {
 		alignItems: "center",
 		justifyContent: "center",
-		marginVertical: 5,
 	},
 	dateButton: {
 		padding: 15,
-		borderRadius: 10,
-		borderWidth: StyleSheet.hairlineWidth,
+		borderBottomWidth: 1,
 		borderColor: "#ccc",
 		justifyContent: "space-between",
 		alignItems: "flex-start",

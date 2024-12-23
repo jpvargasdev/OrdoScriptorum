@@ -88,12 +88,10 @@ export default Select;
 const styles = StyleSheet.create({
 	selectBox: {
 		padding: 15,
-		borderRadius: 10,
-		borderWidth: StyleSheet.hairlineWidth,
+		borderBottomWidth: 1,
 		borderColor: "#ccc",
 		justifyContent: "space-between",
 		alignItems: "flex-start",
-		marginVertical: 5,
 		flexDirection: "row",
 	},
 	selectText: {

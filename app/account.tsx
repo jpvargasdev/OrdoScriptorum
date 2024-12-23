@@ -1,13 +1,13 @@
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { Transaction } from "@/components/ui/Transaction";
+import { TransactionCard } from "@/components/ui/TransactionCard";
 import { useGetAccounts, useGetTransactionsByAccount } from "@/hooks/apiHooks";
 import { useLocalSearchParams } from "expo-router";
+import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 
 export default function Account() {
 	const { id } = useLocalSearchParams();
-
 	if (id === undefined) {
 		return (
 			<ThemedView>
@@ -17,10 +17,13 @@ export default function Account() {
 	}
 
 	const { data: accounts } = useGetAccounts();
-	// @ts-ignore
-	const { data: transactions } = useGetTransactionsByAccount(Number(id));
-
+	const { data: transactions, execute: getTransactions } = useGetTransactionsByAccount();
+	
 	const mAccount = accounts?.find((a) => a.id === Number(id)) as Account;
+
+	React.useEffect(() => {
+		getTransactions({ id: Number(id) });
+	}, [id]);
 
 	if (!mAccount) {
 		return (
@@ -50,7 +53,7 @@ export default function Account() {
 					data={transactions}
 					keyExtractor={(item) => `${item.id}`}
 					renderItem={({ item }) => (
-						<Transaction transaction={item} accounts={accounts} />
+						<TransactionCard transaction={item} accounts={accounts} />
 					)}
 					ListEmptyComponent={() => (
 						<ThemedText type="default">No transactions</ThemedText>

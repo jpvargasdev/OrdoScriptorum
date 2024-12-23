@@ -1,6 +1,6 @@
 import { StyleSheet, FlatList } from "react-native";
 
-import { Transaction } from "@/components/ui/Transaction";
+import { TransactionCard } from "@/components/ui/TransactionCard";
 import { ThemedText } from "@/components/ThemedText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FloatingButton } from "@/components/ui/FloatingButton";
@@ -23,7 +23,7 @@ export default function TransactionsScreen() {
 				data={transactions}
 				keyExtractor={(item) => `${item.id}`}
 				renderItem={({ item }) => (
-					<Transaction transaction={item} accounts={accounts} />
+					<TransactionCard transaction={item} accounts={accounts} />
 				)}
 				style={styles.transactions}
 				ListEmptyComponent={

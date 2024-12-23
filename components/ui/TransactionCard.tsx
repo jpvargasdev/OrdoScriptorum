@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { ThemedText } from "../ThemedText";
 
-export function Transaction({
+export function TransactionCard({
 	transaction,
 	accounts = [],
 }: { transaction: Transaction; accounts: Account[] | null }) {
@@ -19,7 +19,8 @@ export function Transaction({
 				<ThemedText type="defaultSemiBold">
 					{transaction.description}
 				</ThemedText>
-				<ThemedText type="default">{transaction.subcategory}</ThemedText>
+				<ThemedText type="default">{transaction.main_category} / {transaction.subcategory}</ThemedText>
+				<ThemedText type="default">{new Date(transaction.date * 1000).toDateString()}</ThemedText>
 			</View>
 			<View style={styles.amount}>
 				<ThemedText type="defaultSemiBold">

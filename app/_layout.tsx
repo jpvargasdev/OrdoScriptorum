@@ -44,6 +44,7 @@ export default function RootLayout() {
 						presentation: "modal",
 						headerShown: true,
 						title: "New Transaction",
+						headerBackButtonMenuEnabled: true,
 					}}
 				/>
 				<Stack.Screen
