@@ -1,8 +1,7 @@
-import { getAccounts, getTransactionsByAccount } from "@/api";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { Transaction } from "@/components/ui/Transaction";
-import { useAxios } from "@/hooks/useAxios";
+import { useGetAccounts, useGetTransactionsByAccount } from "@/hooks/apiHooks";
 import { useLocalSearchParams } from "expo-router";
 import { FlatList, StyleSheet, View } from "react-native";
 
@@ -17,13 +16,9 @@ export default function Account() {
 		);
 	}
 
-	const { data: accounts } = useAxios<Account[]>(getAccounts);
+	const { data: accounts } = useGetAccounts();
 	// @ts-ignore
-	const {
-		data: transactions,
-		loaded,
-		reload,
-	} = useAxios<Transaction[], number>(getTransactionsByAccount, Number(id));
+	const { data: transactions } = useGetTransactionsByAccount(Number(id));
 
 	const mAccount = accounts?.find((a) => a.id === Number(id)) as Account;
 
@@ -60,8 +55,6 @@ export default function Account() {
 					ListEmptyComponent={() => (
 						<ThemedText type="default">No transactions</ThemedText>
 					)}
-					refreshing={!loaded}
-					onRefresh={reload}
 				/>
 			</View>
 		</ThemedView>

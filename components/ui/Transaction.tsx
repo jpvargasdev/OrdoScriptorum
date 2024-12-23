@@ -6,10 +6,10 @@ import { ThemedText } from "../ThemedText";
 export function Transaction({
 	transaction,
 	accounts = [],
-}: { transaction: Transaction; accounts?: Account[] }) {
-	const account = accounts.find((a) => a.id === transaction.account_id);
-	const iconName = transaction.amount > 0 ? "arrow.right" : "arrow.left";
-	const iconColor = transaction.amount > 0 ? "green" : "red";
+}: { transaction: Transaction; accounts: Account[] | null }) {
+	const account = accounts?.find((a) => a.id === transaction.account_id);
+	const iconName = transaction.transaction_type === 'Transfer' ? "arrow.left.arrow.right" : transaction.amount > 0 ? "arrow.right" : "arrow.left";
+	const iconColor = transaction.transaction_type === 'Transfer' ? "blue" : transaction.amount > 0 ? "green" : "red";
 	return (
 		<TouchableOpacity style={styles.container}>
 			<View style={styles.icon}>

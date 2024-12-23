@@ -1,90 +1,30 @@
-import {
-	StyleSheet,
-	FlatList,
-	View,
-	RefreshControl,
-	ScrollView,
-} from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 
-import React from "react";
-import { getBudgetSummary, getAccounts, getTransactionsMonthly } from "@/api";
-import { useAxios } from "@/hooks/useAxios";
+import React, { useEffect } from "react";
 import { Header } from "@/components/ui/Header";
-import { AccountCard } from "@/components/ui/AccountCard";
-import { ThemedText } from "@/components/ThemedText";
-import { Transaction } from "@/components/ui/Transaction";
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FloatingButton } from "@/components/ui/FloatingButton";
 import { BudgetsGraph } from "@/components/ui/BudgetsGraph";
+import {
+	useGetBudgetSummary,
+	useGetCategories,
+} from "@/hooks/apiHooks";
 
 export default function HomeScreen() {
-	const { data: budget } = useAxios<BudgetSummary>(getBudgetSummary);
-	const {
-		data: accounts,
-		reload: reloadAccounts,
-		loaded: loadedAccounts,
-	} = useAxios<Account[]>(getAccounts);
-	const {
-		data: transactions,
-		reload,
-		loaded,
-	} = useAxios<Transaction[]>(getTransactionsMonthly);
+	const { data: budget, execute: fetchBudgetSummary } = useGetBudgetSummary();
+	const { execute: fetchCategories } = useGetCategories();
+
+	useEffect(() => {
+		fetchBudgetSummary();
+		fetchCategories();
+	}	, []);
 
 	return (
 		<SafeAreaView style={styles.container}>
 			<ScrollView style={{ flex: 1 }}>
 				<Header budget={budget} />
 				<BudgetsGraph budget={budget} />
-
-				{/* <View style={styles.accounts}> */}
-				{/* 	<View style={styles.sectionTitle}> */}
-				{/* 		<ThemedText type="subtitle">Accounts</ThemedText> */}
-				{/* 		<Link href="/accounts"> */}
-				{/* 			<ThemedText style={styles.link} type="link"> */}
-				{/* 				See All */}
-				{/* 			</ThemedText> */}
-				{/* 		</Link> */}
-				{/* 	</View> */}
-				{/* 	<FlatList */}
-				{/* 		keyExtractor={(item) => `${item.id}`} */}
-				{/* 		data={accounts} */}
-				{/* 		horizontal */}
-				{/* 		renderItem={({ item }) => <AccountCard account={item} />} */}
-				{/* 		ListEmptyComponent={() => ( */}
-				{/* 			<View style={styles.defaultContainer}> */}
-				{/* 				<ThemedText type="default">No accounts</ThemedText> */}
-				{/* 			</View> */}
-				{/* 		)} */}
-				{/* 		onRefresh={reloadAccounts} */}
-				{/* 		refreshing={!loadedAccounts} */}
-				{/* 	/> */}
-				{/* </View> */}
-
-				{/* <View style={{ flex: 1 }}> */}
-				{/* 	<View style={styles.sectionTitle}> */}
-				{/* 		<ThemedText type="subtitle">Last transactions</ThemedText> */}
-				{/* 		<Link href="/transactions"> */}
-				{/* 			<ThemedText style={styles.link} type="link"> */}
-				{/* 				See All */}
-				{/* 			</ThemedText> */}
-				{/* 		</Link> */}
-				{/* 	</View> */}
-				{/* 	<FlatList */}
-				{/* 		keyExtractor={(item) => `${item.id}`} */}
-				{/* 		data={transactions} */}
-				{/* 		renderItem={({ item }) => ( */}
-				{/* 			<Transaction transaction={item} accounts={accounts} /> */}
-				{/* 		)} */}
-				{/* 		ListEmptyComponent={() => ( */}
-				{/* 			<View style={styles.defaultContainer}> */}
-				{/* 				<ThemedText type="default">No transactions</ThemedText> */}
-				{/* 			</View> */}
-				{/* 		)} */}
-				{/* 		onRefresh={reload} */}
-				{/* 		refreshing={!loaded} */}
-				{/* 	/> */}
-				{/* </View> */}
 			</ScrollView>
 
 			<FloatingButton onPress={() => router.navigate("./new-transaction")} />

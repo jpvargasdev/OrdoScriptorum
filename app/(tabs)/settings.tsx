@@ -1,13 +1,14 @@
-import { deleteAllData } from "@/api";
 import { ThemedText } from "@/components/ThemedText";
+import { useDeleteAllData } from "@/hooks/apiHooks";
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const SettingsScreen = () => {
+	const { execute } = useDeleteAllData();
 	const onDeleteAllData = async () => {
 		try {
-			await deleteAllData();
+			await execute();
 			console.log("All data deleted successfully!");
 		} catch (error) {
 			console.error("Error deleting all data:", error);

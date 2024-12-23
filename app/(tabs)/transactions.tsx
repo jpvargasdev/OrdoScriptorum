@@ -1,15 +1,20 @@
-import { StyleSheet, FlatList, View } from "react-native";
+import { StyleSheet, FlatList } from "react-native";
 
-import { useAxios } from "@/hooks/useAxios";
-import { getTransactions, getTransactionsMonthly } from "@/api";
 import { Transaction } from "@/components/ui/Transaction";
 import { ThemedText } from "@/components/ThemedText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FloatingButton } from "@/components/ui/FloatingButton";
 import { router } from "expo-router";
+import { useGetAccounts, useGetTransactions } from "@/hooks/apiHooks";
+import { useEffect } from "react";
 
 export default function TransactionsScreen() {
-	const { data: transactions, reload, loaded } = useAxios(getTransactions);
+	const { data: transactions, execute: getTransactions, reload, loading } = useGetTransactions();
+	const { data: accounts } = useGetAccounts();
+
+	useEffect(() => {
+		getTransactions();
+	}, []);
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -17,12 +22,14 @@ export default function TransactionsScreen() {
 			<FlatList
 				data={transactions}
 				keyExtractor={(item) => `${item.id}`}
-				renderItem={({ item }) => <Transaction transaction={item} />}
+				renderItem={({ item }) => (
+					<Transaction transaction={item} accounts={accounts} />
+				)}
 				style={styles.transactions}
 				ListEmptyComponent={
 					<ThemedText type="default">No transactions</ThemedText>
 				}
-				refreshing={!loaded}
+				refreshing={loading}
 				onRefresh={reload}
 			/>
 			<FloatingButton onPress={() => router.navigate("../new-transaction")} />

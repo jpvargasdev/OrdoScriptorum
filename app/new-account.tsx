@@ -1,8 +1,8 @@
-import { addAccount } from "@/api";
 import { ThemedText } from "@/components/ThemedText";
 import Select from "@/components/ui/Select";
+import { useCreateAccount } from "@/hooks/apiHooks";
 import { router } from "expo-router";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
 	View,
 	Text,
@@ -14,10 +14,12 @@ import {
 } from "react-native";
 
 export default function Accounts() {
+	const { execute } = useCreateAccount();
+
 	const [name, setName] = useState("");
 	const [balance, setBalance] = useState("");
-	const [currency, setCurrency] = useState("USD");
-	const [type, setType] = useState("Expense");
+	const [currency, setCurrency] = useState("SEK");
+	const [type, setType] = useState("Cash");
 
 	const onSubmit = useCallback(async () => {
 		const account: Omit<Account, "id"> = {
@@ -34,7 +36,7 @@ export default function Accounts() {
 		}
 
 		try {
-			await addAccount(account);
+			await execute({ data: account });
 		} catch (error) {
 			console.error("Error adding account", error);
 		} finally {

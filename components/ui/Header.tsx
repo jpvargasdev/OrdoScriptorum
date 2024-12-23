@@ -1,11 +1,10 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { Card } from "../Card";
 import { ThemedText } from "../ThemedText";
-import { Link } from "expo-router";
 import { IconSymbol } from "./IconSymbol";
 
-export function Header({ budget }: { budget?: BudgetSummary }) {
+export function Header({ budget }: { budget: BudgetSummary | null }) {
 	if (!budget) return;
 	return (
 		<View style={styles.container}>

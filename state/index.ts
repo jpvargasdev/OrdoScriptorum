@@ -1,13 +1,110 @@
-import { getDefaultStore, atom, createStore } from "jotai";
+// requestFactory.ts
+import { create } from "zustand";
+import axios from "axios";
 
-// Átomo para el usuario
-export const userAtom = atom<string | null>(null); // Guarda el ID o nombre del usuario actual
+const API_BASE_URL = "http://192.168.0.241:8080/api/v1";
+// "https://guillimanexpenses-production.up.railway.app/api/v1";
 
-// Átomo para transacciones
-export const transactionsAtom = atom<Array<Transaction>>([]); // Lista de transacciones
+const api = axios.create({
+	baseURL: API_BASE_URL,
+	timeout: 10000,
+	headers: {
+		"Content-Type": "application/json",
+	},
+});
 
-export const accountsAtom = atom<Array<Account>>([]);
+interface RequestState<T> {
+	data: T | null;
+	loading: boolean;
+	error: boolean;
+	errorData: any;
+	success: boolean;
+	lastParams: any; // <-- store the last params used for execute
+}
 
-export const categoriesAtom = atom<Array<Category>>([]);
+const initialState: Omit<RequestState<any>, "lastParams"> = {
+	data: null,
+	loading: false,
+	error: false,
+	errorData: null,
+	success: false,
+};
 
-export const defaultStore = createStore();
+export const request = <T>(
+  config: { method: string; url: string },
+  options?: {
+    onSuccess?: (res: any) => void;
+    onError?: (err: any) => void;
+    onFinal?: () => void;
+  }
+) =>
+  create<
+    RequestState<T> & {
+      execute: (params?: any) => Promise<void>;
+      reload: (params?: any) => Promise<void>;
+    }
+  >((set, get) => ({
+    ...initialState,
+    lastParams: null,
+
+    execute: async (params = {}) => {
+      const { id, data, query, force } = params;
+      const { method, url } = config;
+
+      // If this is a GET request and we already have data in the store,
+      // skip unless force === true
+      if (!force && method === 'GET' && get().data) {
+        return;
+      }
+
+      set({
+        ...initialState,
+        loading: true,
+        lastParams: params,
+      });
+
+      try {
+        const res = await api({
+          method,
+          url: id ? `${url}/${id}` : url,
+          data,
+          params: query,
+        });
+
+        set({
+          ...initialState,
+          data: res.data,
+          success: true,
+          lastParams: params,
+        });
+        options?.onSuccess?.(res);
+        params?.onSuccess?.(res);
+      } catch (err) {
+        set({
+          ...initialState,
+          error: true,
+          errorData: err,
+          lastParams: params,
+        });
+
+				console.error(err)
+
+        options?.onError?.(err);
+        params?.onError?.(err);
+      } finally {
+        options?.onFinal?.();
+        params?.onFinal?.();
+      }
+    },
+
+    // The reload method re-calls execute, always with force: true
+    reload: async (overrideParams = {}) => {
+      const { lastParams } = get();
+      const mergedParams = {
+        ...lastParams,
+        ...overrideParams,
+        force: true,
+      };
+      await get().execute(mergedParams);
+    },
+  }));
