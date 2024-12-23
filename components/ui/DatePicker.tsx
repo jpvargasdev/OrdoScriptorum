@@ -31,7 +31,7 @@ const DatePicker = ({
 			{/* Botón para abrir el date picker */}
 			<TouchableOpacity style={styles.dateButton} onPress={showDatePicker}>
 				<Text style={styles.dateText}>
-					{date.toISOString().split("T")[0]} {/* Formato de fecha */}
+					{date.toDateString()}
 				</Text>
 				<IconSymbol name="calendar" size={20} color="#333" />
 			</TouchableOpacity>

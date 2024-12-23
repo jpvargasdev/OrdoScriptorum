@@ -2,7 +2,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const API_BASE_URL = "http://192.168.0.10:8080/api/v1"
+const API_BASE_URL = "https://guillimanexpenses-production.up.railway.app/api/v1";
 
 const api = axios.create({
 	baseURL: API_BASE_URL,

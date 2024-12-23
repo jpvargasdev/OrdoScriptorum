@@ -68,12 +68,12 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 				<ThemedText type="subtitle">Wants</ThemedText>
 				<View style={styles.budgetContainer}>
 					<View>
-						<ThemedText type="defaultSemiBold">- Available budget:</ThemedText>
-						<ThemedText> {budget.wants_budget} SEK</ThemedText>
+						<ThemedText type="defaultSemiBold">Available budget:</ThemedText>
+						<ThemedText>{budget.wants_budget} SEK</ThemedText>
 						<ThemedText type="defaultSemiBold">
-							- Spent: {budget.wants_percentage.toFixed(1)}%
+							Spent: {budget.wants_percentage.toFixed(1)}%
 						</ThemedText>
-						<ThemedText> -{budget.wants_amount} SEK</ThemedText>
+						<ThemedText type="default">-{budget.wants_amount} SEK</ThemedText>
 					</View>
 					<PieChart radius={40} data={data.wants} />
 				</View>
@@ -82,12 +82,12 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 				<ThemedText type="subtitle">Needs</ThemedText>
 				<View style={styles.budgetContainer}>
 					<View>
-						<ThemedText type="defaultSemiBold">- Available budget:</ThemedText>
-						<ThemedText> {budget.needs_budget} SEK</ThemedText>
+						<ThemedText type="defaultSemiBold">Available budget:</ThemedText>
+						<ThemedText>{budget.needs_budget} SEK</ThemedText>
 						<ThemedText type="defaultSemiBold">
-							- Spent: {budget.needs_percentage.toFixed(1)}%
+							Spent: {budget.needs_percentage.toFixed(1)}%
 						</ThemedText>
-						<ThemedText> -{budget.needs_amount} SEK</ThemedText>
+						<ThemedText type="default">-{budget.needs_amount} SEK</ThemedText>
 					</View>
 					<PieChart radius={40} data={data.needs} />
 				</View>
@@ -96,12 +96,12 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 				<ThemedText type="subtitle">Savings</ThemedText>
 				<View style={styles.budgetContainer}>
 					<View>
-						<ThemedText type="defaultSemiBold">- Available budget:</ThemedText>
-						<ThemedText> {budget.savings_budget} SEK</ThemedText>
+						<ThemedText type="defaultSemiBold">Available budget:</ThemedText>
+						<ThemedText>{budget.savings_budget} SEK</ThemedText>
 						<ThemedText type="defaultSemiBold">
-							- Spent: {budget.savings_percentage.toFixed(1)}%
+							Spent: {budget.savings_percentage.toFixed(1)}%
 						</ThemedText>
-						<ThemedText> -{budget.savings_amount} SEK</ThemedText>
+						<ThemedText type="default">-{budget.savings_amount} SEK</ThemedText>
 					</View>
 					<PieChart radius={40} data={data.savings} />
 				</View>

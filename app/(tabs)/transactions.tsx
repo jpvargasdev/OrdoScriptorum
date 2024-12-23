@@ -20,7 +20,7 @@ export default function TransactionsScreen() {
 		<SafeAreaView style={styles.container}>
 			<ThemedText type="title">Transactions</ThemedText>
 			<FlatList
-				data={transactions}
+				data={transactions?.reverse()}
 				keyExtractor={(item) => `${item.id}`}
 				renderItem={({ item }) => (
 					<TransactionCard transaction={item} accounts={accounts} />

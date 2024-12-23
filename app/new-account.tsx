@@ -65,7 +65,6 @@ export default function Accounts() {
 			<View style={styles.amountContainer}>
 				<ThemedText type="title">
 					<ThemedText type="subtitle">Balance:  </ThemedText>
-					{type === "Expense" && "-"}
 					{balance.length > 0 ? balance : "0.00"}
 				</ThemedText>
 				<CurrencySelect
@@ -88,11 +87,17 @@ export default function Accounts() {
 			<Select
 				placeholder={"Account type"}
 				items={[
-					"Bank Account",
-					"Cash",
-					"Credit Card",
+					"Checking Account",
 					"Savings Account",
+					"Credit Card",
 					"Debit Card",
+					"Investment Account",
+					"Loan",
+					"Mortgage",
+					"Student Loan",
+					"Personal Loan",
+					"Business Loan",
+					"Other",
 				]}
 				onSelect={setType}
 				value={type}
