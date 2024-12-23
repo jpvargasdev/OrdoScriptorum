@@ -23,7 +23,7 @@ export function Header({ budget }: { budget: BudgetSummary | null }) {
 					<View style={styles.money}>
 						<ThemedText type="defaultSemiBold" style={styles.text}>
 							{" "}
-							SEK {budget.net_balance}
+							SEK {budget.net_worth}
 						</ThemedText>
 					</View>
 					<View style={styles.space2} />

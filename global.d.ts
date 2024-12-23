@@ -14,6 +14,7 @@ declare interface BudgetSummary {
 	needs_budget: number;
 	wants_budget: number;
 	savings_budget: number;
+	net_worth: number;
 }
 
 declare interface Category {
