@@ -13,12 +13,12 @@ function getChartData(budget: BudgetSummary) {
 			// Needs
 			{
 				value: needs_percentage,
-				text: `${needs_percentage}% Spent`,
+				text: `${needs_percentage.toFixed(2)}%`,
 				color: "#79D2DE", // Light Blue for Needs Spent
 			},
 			{
-				value: 100 - needs_percentage,
-				text: `${(100 - needs_percentage).toFixed(1)}% Remaining`,
+				value: (100 - needs_percentage),
+				text: `${(100 - needs_percentage).toFixed(2)}%`,
 				color: "#FFABAB", // Light Red for Needs Remaining
 			},
 		],
@@ -26,12 +26,12 @@ function getChartData(budget: BudgetSummary) {
 			// Wants
 			{
 				value: wants_percentage,
-				text: `${wants_percentage}% Spent`,
+				text: `${wants_percentage.toFixed(2)}%`,
 				color: "#ED6665", // Bright Red for Wants Spent
 			},
 			{
 				value: 100 - wants_percentage,
-				text: `${(100 - wants_percentage).toFixed(1)}% Remaining`,
+				text: `${(100 - wants_percentage).toFixed(2)}%`,
 				color: "#FFC107", // Yellow for Wants Remaining
 			},
 		],
@@ -39,12 +39,12 @@ function getChartData(budget: BudgetSummary) {
 			// Savings
 			{
 				value: savings_percentage,
-				text: `${savings_percentage}% Spent`,
+				text: `${savings_percentage.toFixed(2)}%`,
 				color: "#4CAF50", // Green for Savings Spent
 			},
 			{
 				value: 100 - savings_percentage,
-				text: `${(100 - savings_percentage).toFixed(1)}% Remaining`,
+				text: `${(100 - savings_percentage).toFixed(2)}%`,
 				color: "#8BC34A", // Light Green for Savings Remaining
 			},
 		],
@@ -67,12 +67,16 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 					<View>
 						<ThemedText type="defaultSemiBold">Available budget:</ThemedText>
 						<ThemedText>{budget.wants_budget} SEK</ThemedText>
-						<ThemedText type="defaultSemiBold">
-							Spent: {budget.wants_percentage.toFixed(1)}%
-						</ThemedText>
+						<ThemedText type="defaultSemiBold">Spent:</ThemedText>
 						<ThemedText type="default">-{budget.wants_amount} SEK</ThemedText>
 					</View>
-					<PieChart radius={40} data={data.wants} showText />
+					<PieChart
+						data={data.wants}
+						showText
+            textColor="black"
+            radius={50}
+            textSize={20}
+					/>
 				</View>
 			</View>
 			<View style={styles.barContainer}>
@@ -81,12 +85,16 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 					<View>
 						<ThemedText type="defaultSemiBold">Available budget:</ThemedText>
 						<ThemedText>{budget.needs_budget} SEK</ThemedText>
-						<ThemedText type="defaultSemiBold">
-							Spent: {budget.needs_percentage.toFixed(1)}%
-						</ThemedText>
+						<ThemedText type="defaultSemiBold">Spent:</ThemedText>
 						<ThemedText type="default">-{budget.needs_amount} SEK</ThemedText>
 					</View>
-					<PieChart radius={40} data={data.needs} showText />
+					<PieChart
+						data={data.needs}
+						showText
+            textColor="black"
+            radius={50}
+            textSize={20}
+					/>
 				</View>
 			</View>
 			<View style={styles.barContainer}>
@@ -95,12 +103,16 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 					<View>
 						<ThemedText type="defaultSemiBold">Available budget:</ThemedText>
 						<ThemedText>{budget.savings_budget} SEK</ThemedText>
-						<ThemedText type="defaultSemiBold">
-							Spent: {budget.savings_percentage.toFixed(1)}%
-						</ThemedText>
+						<ThemedText type="defaultSemiBold">Spent:</ThemedText>
 						<ThemedText type="default">-{budget.savings_amount} SEK</ThemedText>
 					</View>
-					<PieChart radius={40} data={data.savings} showText />
+					<PieChart
+						data={data.savings}
+						showText
+            textColor="black"
+            radius={50}
+            textSize={20}
+					/>
 				</View>
 			</View>
 		</View>
