@@ -2,7 +2,11 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const API_BASE_URL = "http://127.0.0.1:8000/api/v1";
+const API_BASE_URL = process.env.API_BASE_URL
+	? `${process.env.API_BASE_URL}/api/v1`
+	: "http://127.0.0.1:8080/api/v1";
+
+console.log(API_BASE_URL);
 
 const api = axios.create({
 	baseURL: API_BASE_URL,

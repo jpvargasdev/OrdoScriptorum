@@ -6,15 +6,25 @@ import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FloatingButton } from "@/components/ui/FloatingButton";
 import { BudgetsGraph } from "@/components/ui/BudgetsGraph";
-import { useGetBudgetSummary, useGetCategories } from "@/hooks/apiHooks";
+import {
+	useGetAccounts,
+	useGetBudgetSummary,
+	useGetCategories,
+} from "@/hooks/apiHooks";
+import { useUserDefaultsStore } from "@/state/user";
 
 export default function HomeScreen() {
 	const { data: budget, execute: fetchBudgetSummary } = useGetBudgetSummary();
+	const { execute: fetchAccounts } = useGetAccounts();
+	const { startDayOfMonth, endDayOfMonth } = useUserDefaultsStore();
 	const { execute: fetchCategories } = useGetCategories();
 
 	useEffect(() => {
-		fetchBudgetSummary();
+		fetchBudgetSummary({
+			query: { start_day: startDayOfMonth, end_day: endDayOfMonth },
+		});
 		fetchCategories();
+		fetchAccounts();
 	}, []);
 
 	return (

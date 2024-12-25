@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { useUserDefaultsStore } from "@/state/user";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -26,6 +27,18 @@ export default function RootLayout() {
 			SplashScreen.hideAsync();
 		}
 	}, [loaded]);
+
+	// rehydrate user defaults
+	useEffect(() => {
+		const unsub = useUserDefaultsStore.persist.onFinishHydration(() => {
+			console.log("User defaults rehydrated");
+		});
+
+		// Cleanup subscription on component unmount
+		return () => {
+			unsub();
+		};
+	}, []);
 
 	if (!loaded) {
 		return null;

@@ -1,11 +1,22 @@
 import { ThemedText } from "@/components/ThemedText";
 import { useDeleteAllData } from "@/hooks/apiHooks";
+import { useUserDefaultsStore } from "@/state/user";
 import React from "react";
-import { Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import {
+	Text,
+	TouchableOpacity,
+	StyleSheet,
+	Alert,
+	View,
+	TextInput,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const SettingsScreen = () => {
 	const { execute } = useDeleteAllData();
+	const { setStartDay, setEndDay, startDayOfMonth, endDayOfMonth } =
+		useUserDefaultsStore();
+
 	const onDeleteAllData = async () => {
 		try {
 			await execute();
@@ -31,6 +42,30 @@ const SettingsScreen = () => {
 			{/* Settings Title */}
 			<ThemedText type="title">Settings</ThemedText>
 
+			{/* User settings */}
+			<View style={styles.section}>
+				<ThemedText type="subtitle">Budget:</ThemedText>
+				<View style={styles.inputContainer}>
+					<ThemedText type="defaultSemiBold">Start Day of Month:</ThemedText>
+					<TextInput
+						style={styles.input}
+						value={startDayOfMonth.toString()}
+						onChangeText={(text) => setStartDay(Number(text))}
+						keyboardType="numeric"
+					/>
+				</View>
+
+				<View style={styles.inputContainer}>
+					<ThemedText type="defaultSemiBold">End Day of Month:</ThemedText>
+					<TextInput
+						style={styles.input}
+						value={endDayOfMonth.toString()}
+						onChangeText={(text) => setEndDay(Number(text))}
+						keyboardType="numeric"
+					/>
+				</View>
+			</View>
+
 			{/* Delete All Data Button */}
 			<TouchableOpacity
 				style={styles.deleteButton}
@@ -48,6 +83,21 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		padding: 8,
+	},
+	input: {
+		width: "40%",
+		borderWidth: 2,
+		borderColor: "#ccc",
+		fontSize: 16,
+		padding: 8,
+		textAlign: "center",
+	},
+	inputContainer: {
+		alignItems: "center",
+		flexDirection: "row",
+		justifyContent: "space-between",
+		marginBottom: 10,
+		marginLeft: 16,
 	},
 	header: {
 		fontWeight: "bold",
