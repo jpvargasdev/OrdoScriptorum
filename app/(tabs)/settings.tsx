@@ -46,28 +46,28 @@ const SettingsScreen = () => {
 
 			{/* User settings */}
 			<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-			<View style={styles.section}>
-				<ThemedText type="subtitle">Budget:</ThemedText>
-				<View style={styles.inputContainer}>
-					<ThemedText type="defaultSemiBold">Start Day of Month:</ThemedText>
-					<TextInput
-						style={styles.input}
-						value={startDayOfMonth.toString()}
-						onChangeText={(text) => setStartDay(Number(text))}
-						keyboardType="numeric"
-					/>
-				</View>
+				<View style={styles.section}>
+					<ThemedText type="subtitle">Budget:</ThemedText>
+					<View style={styles.inputContainer}>
+						<ThemedText type="defaultSemiBold">Start Day of Month:</ThemedText>
+						<TextInput
+							style={styles.input}
+							value={startDayOfMonth.toString()}
+							onChangeText={(text) => setStartDay(Number(text))}
+							keyboardType="numeric"
+						/>
+					</View>
 
-				<View style={styles.inputContainer}>
-					<ThemedText type="defaultSemiBold">End Day of Month:</ThemedText>
-					<TextInput
-						style={styles.input}
-						value={endDayOfMonth.toString()}
-						onChangeText={(text) => setEndDay(Number(text))}
-						keyboardType="numeric"
-					/>
+					<View style={styles.inputContainer}>
+						<ThemedText type="defaultSemiBold">End Day of Month:</ThemedText>
+						<TextInput
+							style={styles.input}
+							value={endDayOfMonth.toString()}
+							onChangeText={(text) => setEndDay(Number(text))}
+							keyboardType="numeric"
+						/>
+					</View>
 				</View>
-			</View>
 			</TouchableWithoutFeedback>
 
 			{/* Delete All Data Button */}

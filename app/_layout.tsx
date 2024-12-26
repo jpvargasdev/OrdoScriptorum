@@ -68,8 +68,8 @@ export default function RootLayout() {
 						title: "New Account",
 					}}
 				/>
-				<Stack.Screen 
-					name="transactions-by" 
+				<Stack.Screen
+					name="transactions-by"
 					options={{
 						presentation: "modal",
 						headerShown: true,

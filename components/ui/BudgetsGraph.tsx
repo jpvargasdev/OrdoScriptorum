@@ -18,7 +18,7 @@ function getChartData(budget: BudgetSummary) {
 				color: "#79D2DE", // Light Blue for Needs Spent
 			},
 			{
-				value: (100 - needs_percentage),
+				value: 100 - needs_percentage,
 				text: `${(100 - needs_percentage).toFixed(2)}%`,
 				color: "#FFABAB", // Light Red for Needs Remaining
 			},
@@ -64,12 +64,15 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 			</ThemedText>
 			<View style={styles.barContainer}>
 				<ThemedText type="subtitle">Wants</ThemedText>
-				<TouchableOpacity 
+				<TouchableOpacity
 					style={styles.budgetContainer}
 					onPress={() =>
-						router.navigate({ pathname: "/transactions-by", params: { id: 'Wants' } })
+						router.navigate({
+							pathname: "/transactions-by",
+							params: { id: "Wants" },
+						})
 					}
-					>
+				>
 					<View>
 						<ThemedText type="defaultSemiBold">Available budget:</ThemedText>
 						<ThemedText>{budget.wants_budget} SEK</ThemedText>
@@ -79,20 +82,23 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 					<PieChart
 						data={data.wants}
 						showText
-            textColor="black"
-            radius={50}
-            textSize={20}
+						textColor="black"
+						radius={50}
+						textSize={20}
 					/>
 				</TouchableOpacity>
 			</View>
 			<View style={styles.barContainer}>
 				<ThemedText type="subtitle">Needs</ThemedText>
-				<TouchableOpacity 
+				<TouchableOpacity
 					style={styles.budgetContainer}
 					onPress={() =>
-						router.navigate({ pathname: "/transactions-by", params: { id: 'Needs' } })
+						router.navigate({
+							pathname: "/transactions-by",
+							params: { id: "Needs" },
+						})
 					}
-					>
+				>
 					<View>
 						<ThemedText type="defaultSemiBold">Available budget:</ThemedText>
 						<ThemedText>{budget.needs_budget} SEK</ThemedText>
@@ -102,20 +108,23 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 					<PieChart
 						data={data.needs}
 						showText
-            textColor="black"
-            radius={50}
-            textSize={20}
+						textColor="black"
+						radius={50}
+						textSize={20}
 					/>
 				</TouchableOpacity>
 			</View>
 			<View style={styles.barContainer}>
 				<ThemedText type="subtitle">Savings</ThemedText>
-				<TouchableOpacity 
+				<TouchableOpacity
 					style={styles.budgetContainer}
 					onPress={() =>
-						router.navigate({ pathname: "/transactions-by", params: { id: 'Savings' } })
+						router.navigate({
+							pathname: "/transactions-by",
+							params: { id: "Savings" },
+						})
 					}
-					>
+				>
 					<View>
 						<ThemedText type="defaultSemiBold">Available budget:</ThemedText>
 						<ThemedText>{budget.savings_budget} SEK</ThemedText>
@@ -125,9 +134,9 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 					<PieChart
 						data={data.savings}
 						showText
-            textColor="black"
-            radius={50}
-            textSize={20}
+						textColor="black"
+						radius={50}
+						textSize={20}
 					/>
 				</TouchableOpacity>
 			</View>

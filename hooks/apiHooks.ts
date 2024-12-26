@@ -88,7 +88,7 @@ export const useGetSavings = request<Transaction[]>({
 export const useGetTransactionsByMainCategory = request<Transaction[]>({
 	method: "GET",
 	url: "/transactions/category",
-})
+});
 
 export const useGetTransactionsByPeriod = request<Transaction[]>({
 	method: "GET",
