@@ -1,7 +1,8 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { PieChart } from "react-native-gifted-charts";
 import { ThemedText } from "../ThemedText";
 import React from "react";
+import { router } from "expo-router";
 
 function getChartData(budget: BudgetSummary) {
 	const { needs_percentage } = budget;
@@ -63,7 +64,12 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 			</ThemedText>
 			<View style={styles.barContainer}>
 				<ThemedText type="subtitle">Wants</ThemedText>
-				<View style={styles.budgetContainer}>
+				<TouchableOpacity 
+					style={styles.budgetContainer}
+					onPress={() =>
+						router.navigate({ pathname: "/transactions-by", params: { id: 'Wants' } })
+					}
+					>
 					<View>
 						<ThemedText type="defaultSemiBold">Available budget:</ThemedText>
 						<ThemedText>{budget.wants_budget} SEK</ThemedText>
@@ -77,11 +83,16 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
             radius={50}
             textSize={20}
 					/>
-				</View>
+				</TouchableOpacity>
 			</View>
 			<View style={styles.barContainer}>
 				<ThemedText type="subtitle">Needs</ThemedText>
-				<View style={styles.budgetContainer}>
+				<TouchableOpacity 
+					style={styles.budgetContainer}
+					onPress={() =>
+						router.navigate({ pathname: "/transactions-by", params: { id: 'Needs' } })
+					}
+					>
 					<View>
 						<ThemedText type="defaultSemiBold">Available budget:</ThemedText>
 						<ThemedText>{budget.needs_budget} SEK</ThemedText>
@@ -95,11 +106,16 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
             radius={50}
             textSize={20}
 					/>
-				</View>
+				</TouchableOpacity>
 			</View>
 			<View style={styles.barContainer}>
 				<ThemedText type="subtitle">Savings</ThemedText>
-				<View style={styles.budgetContainer}>
+				<TouchableOpacity 
+					style={styles.budgetContainer}
+					onPress={() =>
+						router.navigate({ pathname: "/transactions-by", params: { id: 'Savings' } })
+					}
+					>
 					<View>
 						<ThemedText type="defaultSemiBold">Available budget:</ThemedText>
 						<ThemedText>{budget.savings_budget} SEK</ThemedText>
@@ -113,7 +129,7 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
             radius={50}
             textSize={20}
 					/>
-				</View>
+				</TouchableOpacity>
 			</View>
 		</View>
 	);
