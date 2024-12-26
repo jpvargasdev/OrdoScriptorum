@@ -29,12 +29,9 @@ const TransactionSelector = ({
 						style={[styles.button, isSelected && styles.selectedButton]}
 						onPress={() => onSelect(item)}
 					>
-						<ThemedText
-							style={[styles.buttonText, isSelected && styles.selectedText]}
-						>
+						<ThemedText style={isSelected && styles.selectedText}>
 							{item}
 						</ThemedText>
-						{isSelected && <View style={styles.selector} />}
 					</TouchableOpacity>
 				);
 			})}
@@ -46,27 +43,23 @@ const styles = StyleSheet.create({
 	container: {
 		flexDirection: "row",
 		justifyContent: "space-between",
-		borderRadius: 8,
+		borderRadius: 30,
+		backgroundColor: "#E0E0E0",
+		padding: 4,
 	},
 	button: {
 		flex: 1, // Buttons take equal space
-		paddingVertical: 12,
+		paddingVertical: 8,
 		alignItems: "center",
 		justifyContent: "center",
 	},
-	selectedButton: {},
-	buttonText: {
-		fontSize: 16,
+	selectedButton: {
+		backgroundColor: "black",
+		borderRadius: 30,
 	},
 	selectedText: {
 		fontWeight: "bold",
-	},
-	selector: {
-		marginTop: 4,
-		height: 3,
-		width: "50%",
-		borderRadius: 8,
-		backgroundColor: "#F9D6D2",
+		color: "white",
 	},
 });
 

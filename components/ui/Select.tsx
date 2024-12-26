@@ -59,7 +59,7 @@ const Select: React.FC<SelectProps> = ({
 				>
 					{selectedItem || placeholder}
 				</ThemedText>
-				<IconSymbol name="chevron.down" size={14} color="#333" />
+				<IconSymbol name="chevron.down" size={16} color="#333" />
 			</TouchableOpacity>
 
 			<Modal

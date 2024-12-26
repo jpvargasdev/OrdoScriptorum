@@ -35,8 +35,6 @@ const CustomKeyboard = ({
 		if (key === "check") keyStyle = [styles.checkKey];
 		if (key === "$") keyStyle = [styles.key, styles.currencyKey];
 
-		const handleKeyPress = useCallback(() => {}, []);
-
 		return (
 			<TouchableOpacity
 				key={index}
@@ -112,8 +110,8 @@ const styles = StyleSheet.create({
 		marginVertical: 0,
 		marginHorizontal: 4,
 		height: height / 2.7 / 4,
-		borderRadius: 15,
-		backgroundColor: "#fafafa",
+		borderRadius: 30,
+		backgroundColor: "#E0E0E0",
 		alignItems: "center",
 		justifyContent: "center",
 	},

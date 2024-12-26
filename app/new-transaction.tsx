@@ -1,10 +1,10 @@
 import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
 import CurrencySelect from "@/components/ui/CurrencySelect";
 import CustomKeyboard from "@/components/ui/CustomKeyboard";
 import DatePicker from "@/components/ui/DatePicker";
 import Select from "@/components/ui/Select";
 import TransactionSelector from "@/components/ui/TransactionSelector";
+import { CommonColors } from "@/constants/Colors";
 import {
 	useCreateTransaction,
 	useCreateTransfer,
@@ -12,15 +12,14 @@ import {
 	useGetCategories,
 } from "@/hooks/apiHooks";
 import { router } from "expo-router";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import {
 	View,
 	TextInput,
-	TouchableOpacity,
 	StyleSheet,
 	KeyboardAvoidingView,
 	Platform,
-	ScrollView,
+	Keyboard,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -30,6 +29,7 @@ export default function NewTransaction() {
 	const { data: categories } = useGetCategories();
 	const { data: accounts } = useGetAccounts();
 
+	const [showKeyboard, setShowKeyboard] = useState(true);
 	const [amount, setAmount] = useState("");
 	const [category, setCategory] = useState("Category");
 	const [date, setDate] = useState(new Date());
@@ -42,6 +42,20 @@ export default function NewTransaction() {
 	const [transferAccount, setTransferAccount] = useState<string>(
 		accounts && accounts[0] ? accounts[0].name : "",
 	);
+
+	useEffect(() => {
+		const showSubscription = Keyboard.addListener("keyboardWillShow", () => {
+			setShowKeyboard(false);
+		});
+		const hideSubscription = Keyboard.addListener("keyboardWillHide", () => {
+			setShowKeyboard(true);
+		});
+
+		return () => {
+			showSubscription.remove();
+			hideSubscription.remove();
+		};
+	}, []);
 
 	const handleKeyPress = (key: string) => {
 		if (key === "delete") {
@@ -135,8 +149,10 @@ export default function NewTransaction() {
 							onSelect={setAccount}
 							value={account}
 							style={{
-								boxStyle: { ...styles.select, backgroundColor: "#c6def1" },
-								textStyle: { fontSize: 14 },
+								boxStyle: {
+									...styles.select,
+									backgroundColor: CommonColors.blue,
+								},
 							}}
 						/>
 						{/* Category */}
@@ -147,17 +163,21 @@ export default function NewTransaction() {
 							onSelect={setCategory}
 							value={category}
 							style={{
-								boxStyle: { ...styles.select, backgroundColor: "#C9e4d3" },
-								textStyle: { fontSize: 14 },
+								boxStyle: {
+									...styles.select,
+									backgroundColor: CommonColors.greenaccent,
+								},
 							}}
 						/>
 					</View>
+
 					<TransactionSelector
 						items={["Expense", "Income", "Transfer", "Savings"]}
 						onSelect={setType}
 						value={type}
 						style={styles.transactionSelector}
 					/>
+
 					<View style={styles.amountContainer}>
 						<ThemedText type="defaultSemiBold" style={styles.amount}>
 							{type === "Expense" && "-"}
@@ -170,20 +190,42 @@ export default function NewTransaction() {
 						/>
 					</View>
 
-					{/*
-					 * Destination Account if "Transfer"
-					 */}
+					{/* Destination Account if "Transfer" */}
 					{type === "Transfer" && (
-						<Select
-							placeholder={"Transfer To Account"}
-							items={accounts?.map((a) => a.name) || []}
-							onSelect={setTransferAccount}
-							value={transferAccount}
-						/>
+						<View style={styles.row}>
+							<ThemedText type="defaultSemiBold">To: </ThemedText>
+							<Select
+								iconName="wallet.pass"
+								placeholder={
+									accounts && accounts[0] ? accounts[0].name : "Account"
+								}
+								items={accounts?.map((a) => a.name) || []}
+								onSelect={setAccount}
+								value={account}
+								style={{
+									boxStyle: {
+										...styles.select,
+										backgroundColor: CommonColors.redaccent,
+									},
+								}}
+							/>
+						</View>
 					)}
 
 					{/* Date */}
-					<DatePicker date={date} onChange={setDate} />
+					<View style={styles.row}>
+						<ThemedText type="defaultSemiBold">Date: </ThemedText>
+						<DatePicker
+							date={date}
+							onChange={setDate}
+							style={{
+								boxStyle: {
+									...styles.select,
+									backgroundColor: CommonColors.blue,
+								},
+							}}
+						/>
+					</View>
 
 					{/* Description */}
 					<View style={styles.row}>
@@ -196,7 +238,9 @@ export default function NewTransaction() {
 					</View>
 				</View>
 				{/* Custom Keyboard */}
-				<CustomKeyboard onKeyPress={handleKeyPress} onSubmit={onSubmit} />
+				{showKeyboard && (
+					<CustomKeyboard onKeyPress={handleKeyPress} onSubmit={onSubmit} />
+				)}
 			</KeyboardAvoidingView>
 		</SafeAreaView>
 	);
@@ -250,13 +294,14 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "space-between",
-		padding: 15,
-		marginVertical: 5,
+		paddingHorizontal: 10,
+		marginVertical: 4,
 	},
 	notesInput: {
+		fontSize: 24,
+		fontWeight: "500",
+		marginTop: 10,
 		flex: 1,
-		fontSize: 16,
-		fontWeight: "400",
 		color: "#333",
 		textAlign: "center",
 	},
@@ -281,15 +326,15 @@ const styles = StyleSheet.create({
 	select: {
 		borderBottomWidth: 0,
 		flexDirection: "row",
-		minWidth: "40%",
+		minWidth: "45%",
 		borderRadius: 30,
 	},
 	title: {
 		textAlign: "center",
 		marginTop: 20,
-		fontSize: 14,
 	},
 	transactionSelector: {
 		marginHorizontal: 10,
+		marginVertical: 10,
 	},
 });

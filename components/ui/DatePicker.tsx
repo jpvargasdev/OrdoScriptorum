@@ -5,33 +5,46 @@ import {
 	TouchableOpacity,
 	StyleSheet,
 	Platform,
+	ViewStyle,
+	TextStyle,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { IconSymbol } from "./IconSymbol";
+import { ThemedText } from "../ThemedText";
 
 const DatePicker = ({
 	date,
 	onChange,
-}: { date: Date; onChange: (event: any, selectedDate?: Date) => void }) => {
+	style: { boxStyle, textStyle } = {},
+}: {
+	date: Date;
+	onChange: (event: any, selectedDate?: Date) => void;
+	style?: { boxStyle?: ViewStyle; textStyle?: TextStyle };
+}) => {
 	const [showPicker, setShowPicker] = useState(false); // Estado para mostrar el picker
 
-	const onChangeDate = (event: any, selectedDate?: Date) => {
+	const onChangeDate = (_: any, selectedDate?: Date) => {
 		setShowPicker(false); // Oculta el picker después de seleccionar
 		if (selectedDate) {
 			onChange(selectedDate);
 		}
 	};
 
-	const showDatePicker = () => {
-		setShowPicker(true);
-	};
-
 	return (
-		<View style={styles.container}>
+		<View style={{ ...styles.container, ...boxStyle }}>
 			{/* Botón para abrir el date picker */}
-			<TouchableOpacity style={styles.dateButton} onPress={showDatePicker}>
-				<Text style={styles.dateText}>{date.toDateString()}</Text>
-				<IconSymbol name="calendar" size={20} color="#333" />
+			<TouchableOpacity
+				style={{ ...styles.selectBox, ...boxStyle }}
+				onPress={() => setShowPicker(true)}
+			>
+				<IconSymbol name="calendar" size={16} color="#333" />
+				<ThemedText
+					style={{ ...styles.selectText, ...textStyle }}
+					type="defaultSemiBold"
+				>
+					{date.toDateString()}
+				</ThemedText>
+				<IconSymbol name="chevron.down" size={16} color="#333" />
 			</TouchableOpacity>
 
 			{/* Picker nativo */}
@@ -39,7 +52,7 @@ const DatePicker = ({
 				<DateTimePicker
 					value={date}
 					mode="date"
-					display={Platform.OS === "ios" ? "spinner" : "default"} // Diferente UI en iOS y Android
+					display={"default"} // Diferente UI en iOS y Android
 					onChange={onChangeDate}
 				/>
 			)}
@@ -54,17 +67,18 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 	},
-	dateButton: {
-		padding: 15,
+	selectBox: {
+		paddingHorizontal: 10,
+		paddingVertical: 8,
 		borderBottomWidth: 1,
 		borderColor: "#ccc",
 		justifyContent: "space-between",
-		alignItems: "flex-start",
-		width: "100%",
+		alignItems: "center",
 		flexDirection: "row",
 	},
-	dateText: {
+	selectText: {
 		fontSize: 16,
 		color: "#333",
+		marginHorizontal: 4,
 	},
 });
