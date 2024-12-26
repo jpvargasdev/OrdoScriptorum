@@ -55,8 +55,7 @@ export default function RootLayout() {
 					name="new-transaction"
 					options={{
 						presentation: "modal",
-						headerShown: true,
-						title: "New Transaction",
+						headerShown: false,
 						headerBackButtonMenuEnabled: true,
 					}}
 				/>

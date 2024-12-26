@@ -40,7 +40,7 @@ const CurrencySelect: React.FC<CurrencySelectProps> = ({
 				style={styles.selectBox}
 				onPress={() => setModalVisible(true)}
 			>
-				<ThemedText type="subtitle">
+				<ThemedText type="defaultSemiBold">
 					{selectedCurrency || "Select Currency"}
 				</ThemedText>
 				<IconSymbol name="chevron.down" size={16} color="#000" />

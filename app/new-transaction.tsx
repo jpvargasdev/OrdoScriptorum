@@ -1,8 +1,10 @@
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import CurrencySelect from "@/components/ui/CurrencySelect";
+import CustomKeyboard from "@/components/ui/CustomKeyboard";
 import DatePicker from "@/components/ui/DatePicker";
 import Select from "@/components/ui/Select";
+import TransactionSelector from "@/components/ui/TransactionSelector";
 import {
 	useCreateTransaction,
 	useCreateTransfer,
@@ -29,12 +31,12 @@ export default function NewTransaction() {
 	const { data: accounts } = useGetAccounts();
 
 	const [amount, setAmount] = useState("");
-	const [category, setCategory] = useState("Add a category");
+	const [category, setCategory] = useState("Category");
 	const [date, setDate] = useState(new Date());
 	const [description, setDescription] = useState("");
 	const [type, setType] = useState("Expense");
 	const [currency, setCurrency] = useState("SEK");
-	const [account, setAccount] = useState<string>("Select Account");
+	const [account, setAccount] = useState<string>("Account");
 
 	// New state for the destination account in case of Transfer
 	const [transferAccount, setTransferAccount] = useState<string>(
@@ -116,16 +118,50 @@ export default function NewTransaction() {
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
+			<View style={styles.chip} />
 			<KeyboardAvoidingView
 				style={styles.container}
 				behavior={Platform.OS === "ios" ? "padding" : undefined}
 			>
 				<View style={styles.form}>
-					{/* Amount Section */}
+					<View style={styles.header}>
+						{/* From Account */}
+						<Select
+							iconName="wallet.pass"
+							placeholder={
+								accounts && accounts[0] ? accounts[0].name : "Account"
+							}
+							items={accounts?.map((a) => a.name) || []}
+							onSelect={setAccount}
+							value={account}
+							style={{
+								boxStyle: { ...styles.select, backgroundColor: "#c6def1" },
+								textStyle: { fontSize: 14 },
+							}}
+						/>
+						{/* Category */}
+						<Select
+							iconName="list.bullet"
+							placeholder={"Category"}
+							items={categories?.map((c) => c.name) || []}
+							onSelect={setCategory}
+							value={category}
+							style={{
+								boxStyle: { ...styles.select, backgroundColor: "#C9e4d3" },
+								textStyle: { fontSize: 14 },
+							}}
+						/>
+					</View>
+					<TransactionSelector
+						items={["Expense", "Income", "Transfer", "Savings"]}
+						onSelect={setType}
+						value={type}
+						style={styles.transactionSelector}
+					/>
 					<View style={styles.amountContainer}>
-						<ThemedText type="title">
+						<ThemedText type="defaultSemiBold" style={styles.amount}>
 							{type === "Expense" && "-"}
-							{amount.length > 0 ? amount : "0.00"}
+							{amount.length > 0 ? amount : "0.0"}
 						</ThemedText>
 						<CurrencySelect
 							onSelect={setCurrency}
@@ -133,30 +169,6 @@ export default function NewTransaction() {
 							currency={currency}
 						/>
 					</View>
-
-					{/* Transaction Type */}
-					<Select
-						placeholder={"Transaction type"}
-						items={["Expense", "Income", "Transfer", "Savings"]}
-						onSelect={setType}
-						value={type}
-					/>
-
-					{/* Category (only relevant for Expense/Income, but you can still allow for Transfer if you'd like) */}
-					<Select
-						placeholder={"Category"}
-						items={categories?.map((c) => c.name) || []}
-						onSelect={setCategory}
-						value={category}
-					/>
-
-					{/* From Account */}
-					<Select
-						placeholder={accounts && accounts[0] ? accounts[0].name : "Account"}
-						items={accounts?.map((a) => a.name) || []}
-						onSelect={setAccount}
-						value={account}
-					/>
 
 					{/*
 					 * Destination Account if "Transfer"
@@ -177,46 +189,14 @@ export default function NewTransaction() {
 					<View style={styles.row}>
 						<TextInput
 							style={styles.notesInput}
-							placeholder="Description"
+							placeholder="Add a comment..."
 							value={description}
 							onChangeText={setDescription}
 						/>
 					</View>
 				</View>
 				{/* Custom Keyboard */}
-				<View style={styles.keyboardContainer}>
-					<ThemedView style={styles.keyboard}>
-						{[
-							"1",
-							"2",
-							"3",
-							"4",
-							"5",
-							"6",
-							"7",
-							"8",
-							"9",
-							".",
-							"0",
-							"delete",
-						].map((key) => (
-							<TouchableOpacity
-								key={key}
-								style={styles.key}
-								onPress={() => handleKeyPress(key)}
-							>
-								<ThemedText type="subtitle">
-									{key === "delete" ? "⌫" : key}
-								</ThemedText>
-							</TouchableOpacity>
-						))}
-					</ThemedView>
-					<TouchableOpacity style={styles.button} onPress={onSubmit}>
-						<ThemedText type="subtitle" style={styles.buttonText}>
-							Save
-						</ThemedText>
-					</TouchableOpacity>
-				</View>
+				<CustomKeyboard onKeyPress={handleKeyPress} onSubmit={onSubmit} />
 			</KeyboardAvoidingView>
 		</SafeAreaView>
 	);
@@ -227,7 +207,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	button: {
-		backgroundColor: "#FF4D4D",
 		padding: 15,
 		alignItems: "center",
 	},
@@ -239,10 +218,18 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		justifyContent: "space-between",
+		paddingVertical: 16,
+	},
+	chip: {
+		backgroundColor: "#bbb",
+		height: 5,
+		width: 30,
+		borderRadius: 10,
+		marginTop: 5,
+		alignSelf: "center",
 	},
 	keyboardContainer: {
 		flex: 1,
-		position: "absolute",
 		bottom: 0,
 	},
 	amountContainer: {
@@ -257,8 +244,7 @@ const styles = StyleSheet.create({
 		marginRight: 10,
 	},
 	amount: {
-		fontSize: 36,
-		fontWeight: "bold",
+		fontSize: 56,
 	},
 	row: {
 		flexDirection: "row",
@@ -266,14 +252,13 @@ const styles = StyleSheet.create({
 		justifyContent: "space-between",
 		padding: 15,
 		marginVertical: 5,
-		borderBottomWidth: 1,
-		borderColor: "#ccc",
 	},
 	notesInput: {
 		flex: 1,
 		fontSize: 16,
 		fontWeight: "400",
 		color: "#333",
+		textAlign: "center",
 	},
 	keyboard: {
 		flexDirection: "row",
@@ -287,5 +272,24 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		borderWidth: StyleSheet.hairlineWidth,
 		borderColor: "#ccc",
+	},
+	header: {
+		flexDirection: "row",
+		justifyContent: "space-around",
+		marginBottom: 16,
+	},
+	select: {
+		borderBottomWidth: 0,
+		flexDirection: "row",
+		minWidth: "40%",
+		borderRadius: 30,
+	},
+	title: {
+		textAlign: "center",
+		marginTop: 20,
+		fontSize: 14,
+	},
+	transactionSelector: {
+		marginHorizontal: 10,
 	},
 });
