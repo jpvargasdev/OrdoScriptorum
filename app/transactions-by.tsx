@@ -7,10 +7,12 @@ import { FloatingButton } from "@/components/ui/FloatingButton";
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import { useGetAccounts, useGetTransactionsByMainCategory } from "@/hooks/apiHooks";
 import { useEffect, useLayoutEffect } from "react";
+import { useUserDefaultsStore } from "@/state/user";
 
 export default function TransactionsByScreen() {
   const { id } = useLocalSearchParams();
   const navigation = useNavigation()
+  const { startDayOfMonth, endDayOfMonth } = useUserDefaultsStore();
   const {
     data: transactions,
     execute: getTransactions,
@@ -20,7 +22,7 @@ export default function TransactionsByScreen() {
   const { data: accounts } = useGetAccounts();
 
   useEffect(() => {
-    getTransactions({ id: id, force: true });
+    getTransactions({ id: id, force: true, query: { start: startDayOfMonth, end: endDayOfMonth } });
   }, []);
 
   useLayoutEffect(() => {

@@ -9,6 +9,8 @@ import {
 	Alert,
 	View,
 	TextInput,
+	TouchableWithoutFeedback,
+	Keyboard,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -43,6 +45,7 @@ const SettingsScreen = () => {
 			<ThemedText type="title">Settings</ThemedText>
 
 			{/* User settings */}
+			<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 			<View style={styles.section}>
 				<ThemedText type="subtitle">Budget:</ThemedText>
 				<View style={styles.inputContainer}>
@@ -65,6 +68,7 @@ const SettingsScreen = () => {
 					/>
 				</View>
 			</View>
+			</TouchableWithoutFeedback>
 
 			{/* Delete All Data Button */}
 			<TouchableOpacity
