@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { ThemedText } from "../ThemedText";
 import { IconSymbol } from "./IconSymbol";
+import { CommonColors } from "@/constants/Colors";
+
 
 interface CurrencySelectProps {
 	currency: string;
@@ -43,7 +45,7 @@ const CurrencySelect: React.FC<CurrencySelectProps> = ({
 				<ThemedText type="defaultSemiBold">
 					{selectedCurrency || "Select Currency"}
 				</ThemedText>
-				<IconSymbol name="chevron.down" size={16} color="#000" />
+				<IconSymbol name="chevron.down" size={16} color={CommonColors.black} />
 			</TouchableOpacity>
 
 			{/* Modal con la lista de monedas */}
@@ -87,21 +89,21 @@ const styles = StyleSheet.create({
 	modalOverlay: {
 		flex: 1,
 		justifyContent: "center",
-		backgroundColor: "rgba(0, 0, 0, 0.5)",
+		backgroundColor: CommonColors.opacity_85_black,
 	},
 	modalContainer: {
 		margin: 20,
-		backgroundColor: "#fff",
+		backgroundColor: CommonColors.white,
 		padding: 15,
 		maxHeight: "50%",
 	},
 	item: {
 		padding: 15,
 		borderBottomWidth: 1,
-		borderBottomColor: "#ccc",
+		borderBottomColor: CommonColors.grey,
 	},
 	itemText: {
 		fontSize: 16,
-		color: "#333",
+		color: CommonColors.darkGrey,
 	},
 });

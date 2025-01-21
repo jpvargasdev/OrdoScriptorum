@@ -3,6 +3,8 @@ import { StyleSheet, View } from "react-native";
 import { Card } from "../Card";
 import { ThemedText } from "../ThemedText";
 import { IconSymbol } from "./IconSymbol";
+import { CommonColors } from "@/constants/Colors";
+
 
 export function Header({ budget }: { budget: BudgetSummary | null }) {
 	if (!budget) return;
@@ -11,8 +13,8 @@ export function Header({ budget }: { budget: BudgetSummary | null }) {
 			<Card style={styles.card2}>
 				<View style={styles.iconContainer2}>
 					<IconSymbol
-						name="norwegiankronesign.bank.building"
-						color="white"
+						name= "norwegiankronesign.bank.building"
+						color={CommonColors.white}
 						size={40}
 					/>
 				</View>
@@ -35,7 +37,7 @@ export function Header({ budget }: { budget: BudgetSummary | null }) {
 
 			<Card style={styles.card1}>
 				<View style={styles.iconContainer}>
-					<IconSymbol name="wallet.bifold" color="white" size={40} />
+					<IconSymbol name="wallet.bifold" color={CommonColors.white} size={40} />
 				</View>
 				<View style={styles.cardInfo}>
 					<ThemedText type="defaultSemiBold" style={styles.text}>
@@ -64,12 +66,12 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	card1: {
-		backgroundColor: "#EA4335",
+		backgroundColor: CommonColors.red,
 		flexDirection: "row",
 		marginBottom: 8,
 	},
 	card2: {
-		backgroundColor: "#4285f4",
+		backgroundColor: CommonColors.blueMedium,
 		flexDirection: "row",
 		marginBottom: 8,
 	},
@@ -80,13 +82,13 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	iconContainer: {
-		backgroundColor: "#A50E0E",
+		backgroundColor: CommonColors.darkRed,
 		justifyContent: "center",
 		alignItems: "center",
 		padding: 10,
 	},
 	iconContainer2: {
-		backgroundColor: "#174ea6",
+		backgroundColor: CommonColors.darkBlue,
 		justifyContent: "center",
 		alignItems: "center",
 		padding: 10,
@@ -95,18 +97,18 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 	},
 	space: {
-		backgroundColor: "#A50E0E",
+		backgroundColor: CommonColors.darkRed,
 		width: "100%",
 		height: 4,
 	},
 	space2: {
-		backgroundColor: "#174ea6",
+		backgroundColor: CommonColors.darkBlue,
 		width: "100%",
 		height: 4,
 	},
 	text: {
 		padding: 4,
-		color: "#fafafa",
+		color: 	CommonColors.white,
 		textAlign: "left",
 	},
 });

@@ -3,6 +3,7 @@ import { PieChart } from "react-native-gifted-charts";
 import { ThemedText } from "../ThemedText";
 import React from "react";
 import { router } from "expo-router";
+import { CommonColors } from "@/constants/Colors";
 
 function getChartData(budget: BudgetSummary) {
 	const { needs_percentage } = budget;
@@ -15,12 +16,12 @@ function getChartData(budget: BudgetSummary) {
 			{
 				value: needs_percentage,
 				text: `${needs_percentage.toFixed(2)}%`,
-				color: "#79D2DE", // Light Blue for Needs Spent
+				color: 	CommonColors.lightBlue, // Light Blue for Needs Spent
 			},
 			{
 				value: 100 - needs_percentage,
 				text: `${(100 - needs_percentage).toFixed(2)}%`,
-				color: "#FFABAB", // Light Red for Needs Remaining
+				color: CommonColors.lightRed, // Light Red for Needs Remaining
 			},
 		],
 		wants: [
@@ -28,12 +29,12 @@ function getChartData(budget: BudgetSummary) {
 			{
 				value: wants_percentage,
 				text: `${wants_percentage.toFixed(2)}%`,
-				color: "#ED6665", // Bright Red for Wants Spent
+				color: CommonColors.BrightRed, // Bright Red for Wants Spent
 			},
 			{
 				value: 100 - wants_percentage,
 				text: `${(100 - wants_percentage).toFixed(2)}%`,
-				color: "#FFC107", // Yellow for Wants Remaining
+				color: CommonColors.Yellow, // Yellow for Wants Remaining
 			},
 		],
 		savings: [
@@ -41,12 +42,12 @@ function getChartData(budget: BudgetSummary) {
 			{
 				value: savings_percentage,
 				text: `${savings_percentage.toFixed(2)}%`,
-				color: "#4CAF50", // Green for Savings Spent
+				color: CommonColors.Green, // Green for Savings Spent
 			},
 			{
 				value: 100 - savings_percentage,
 				text: `${(100 - savings_percentage).toFixed(2)}%`,
-				color: "#8BC34A", // Light Green for Savings Remaining
+				color: CommonColors.lightGreen, // Light Green for Savings Remaining
 			},
 		],
 	};
@@ -82,7 +83,7 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 					<PieChart
 						data={data.wants}
 						showText
-						textColor="black"
+						textColor={CommonColors.black}
 						radius={50}
 						textSize={20}
 					/>
@@ -108,7 +109,7 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 					<PieChart
 						data={data.needs}
 						showText
-						textColor="black"
+						textColor={CommonColors.black}
 						radius={50}
 						textSize={20}
 					/>
@@ -134,7 +135,7 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 					<PieChart
 						data={data.savings}
 						showText
-						textColor="black"
+						textColor={CommonColors.black}
 						radius={50}
 						textSize={20}
 					/>

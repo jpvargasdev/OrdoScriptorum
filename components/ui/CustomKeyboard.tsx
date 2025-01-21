@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { ThemedText } from "../ThemedText";
 import { IconSymbol } from "./IconSymbol";
+import { CommonColors } from "@/constants/Colors";
 
 const { height } = Dimensions.get("window");
 
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
 		marginHorizontal: 4,
 		height: height / 2.7 / 4,
 		borderRadius: 30,
-		backgroundColor: "#E0E0E0",
+		backgroundColor: CommonColors.grey,
 		alignItems: "center",
 		justifyContent: "center",
 	},
@@ -119,13 +120,13 @@ const styles = StyleSheet.create({
 		fontSize: 32,
 	},
 	deleteKey: {
-		backgroundColor: "#F9D6D2",
+		backgroundColor: CommonColors.pastelPink,
 	},
 	calendarKey: {
-		backgroundColor: "#c6def1",
+		backgroundColor: CommonColors.pastelBlue,
 	},
 	currencyKey: {
-		backgroundColor: "#FFF3CC",
+		backgroundColor: CommonColors.pastelYellow,
 	},
 	checkKey: {
 		flex: 1, // Default flex for all keys
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
 		marginHorizontal: 4,
 		height: height / 3 / 2 + 24,
 		borderRadius: 15,
-		backgroundColor: "black",
+		backgroundColor: CommonColors.black,
 		alignItems: "center",
 		justifyContent: "center",
 	},

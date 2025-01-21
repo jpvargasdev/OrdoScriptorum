@@ -13,6 +13,8 @@ import {
 	Keyboard,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { CommonColors } from "@/constants/Colors";
+
 
 const SettingsScreen = () => {
 	const { execute } = useDeleteAllData();
@@ -91,7 +93,7 @@ const styles = StyleSheet.create({
 	input: {
 		width: "40%",
 		borderWidth: 2,
-		borderColor: "#ccc",
+		borderColor: CommonColors.grey,
 		fontSize: 16,
 		padding: 8,
 		textAlign: "center",
@@ -107,17 +109,17 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		marginBottom: 20,
 		textAlign: "center",
-		color: "#333",
+		color: CommonColors.darkGrey,
 	},
 	section: {
 		marginVertical: 20,
 	},
 	option: {
-		backgroundColor: "#fff",
+		backgroundColor: CommonColors.white,
 		padding: 15,
 		marginBottom: 10,
 		borderRadius: 8,
-		shadowColor: "#000",
+		shadowColor: CommonColors.black,
 		shadowOffset: { width: 0, height: 2 },
 		shadowOpacity: 0.1,
 		shadowRadius: 3,
@@ -125,17 +127,17 @@ const styles = StyleSheet.create({
 	},
 	optionText: {
 		fontSize: 16,
-		color: "#333",
+		color: CommonColors.darkGrey,
 	},
 	deleteButton: {
-		backgroundColor: "#FF4D4D",
+		backgroundColor: CommonColors.salmonRed,
 		padding: 15,
 		borderRadius: 8,
 		alignItems: "center",
 		marginTop: 20,
 	},
 	deleteButtonText: {
-		color: "#fff",
+		color: CommonColors.white,
 		fontSize: 16,
 		fontWeight: "bold",
 	},
