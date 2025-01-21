@@ -10,7 +10,8 @@ export const CommonColors = {
 
 	// colors
 	Primary: "#156960",
-	Secondary: "FFA813",
+	Secondary: "#FFA813",
+	primary_opacity: "#228d84",
 
 	black:"#000000",
 	darkGrey: "#333",

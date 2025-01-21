@@ -6,7 +6,7 @@ import { router } from 'expo-router';
 const LoginScreen = () => {
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>LOGIN IN</Text>
+            <Text style={styles.text}>SIGN UP</Text>
             <View style={styles.form}>
                 <View style={styles.input}>
                     <TextInput placeholder='Email' placeholderTextColor={CommonColors.primary_opacity}/>
@@ -16,13 +16,13 @@ const LoginScreen = () => {
                 </View>
                 <View style={styles.contentButton}>
                     <TouchableOpacity style={styles.button}>
-                        <Text style={styles.textButton}>Login</Text>
+                        <Text style={styles.textButton}>Sing Up</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.textSignin}>
                     <Text>Allready have an account? </Text>
-                    <TouchableOpacity onPress={() => router.navigate("/(tabs)/signUp")}>
-                        <Text style={styles.singin}>SignUp</Text>
+                    <TouchableOpacity onPress={() => router.navigate("/(tabs)/login")}>
+                        <Text style={styles.singin}>Login</Text>
                     </TouchableOpacity>
                 </View>
             </View>
