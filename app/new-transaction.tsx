@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	buttonText: {
-		color: "#FFF",
+		color: CommonColors.white,
 		fontSize: 16,
 		fontWeight: "bold",
 	},
@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 16,
 	},
 	chip: {
-		backgroundColor: "#bbb",
+		backgroundColor: CommonColors.grey,
 		height: 5,
 		width: 30,
 		borderRadius: 10,
@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
 		fontWeight: "500",
 		marginTop: 10,
 		flex: 1,
-		color: "#333",
+		color: CommonColors.darkGrey,
 		textAlign: "center",
 	},
 	keyboard: {
@@ -316,7 +316,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		borderWidth: StyleSheet.hairlineWidth,
-		borderColor: "#ccc",
+		borderColor: CommonColors.grey,
 	},
 	header: {
 		flexDirection: "row",

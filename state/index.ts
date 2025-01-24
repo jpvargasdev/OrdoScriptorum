@@ -4,7 +4,7 @@ import axios from "axios";
 
 const API_BASE_URL = process.env.API_BASE_URL
 	? `${process.env.API_BASE_URL}/api/v1`
-	: "http://localhost:8080/api/v1";
+	: "http://192.168.20.157:8080/api/v1";
 
 console.log(API_BASE_URL);
 

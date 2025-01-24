@@ -1,5 +1,7 @@
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { IconSymbol } from "./IconSymbol";
+import { CommonColors } from "@/constants/Colors";
+
 
 export function FloatingButton({ onPress }: { onPress?: () => void }) {
 	return (
@@ -17,7 +19,7 @@ const styles = StyleSheet.create({
 		width: 60,
 		height: 60,
 		borderRadius: 30,
-		backgroundColor: "#EA4335",
+		backgroundColor: CommonColors.red,
 		justifyContent: "center",
 		alignItems: "center",
 		zIndex: 999,

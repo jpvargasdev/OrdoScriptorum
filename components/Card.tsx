@@ -2,6 +2,8 @@ import { StyleSheet } from "react-native";
 
 import { ThemedView } from "./ThemedView";
 import type { ReactNode } from "react";
+import { CommonColors } from "@/constants/Colors";
+
 
 export function Card(props: { children: ReactNode; style: object }) {
 	return (
@@ -13,7 +15,7 @@ export function Card(props: { children: ReactNode; style: object }) {
 
 const styles = StyleSheet.create({
 	container: {
-		shadowColor: "#000",
+		shadowColor: CommonColors.black,
 		shadowOffset: {
 			width: 0,
 			height: 1,
