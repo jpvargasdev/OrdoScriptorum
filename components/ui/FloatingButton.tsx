@@ -2,7 +2,6 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { IconSymbol } from "./IconSymbol";
 import { CommonColors } from "@/constants/Colors";
 
-
 export function FloatingButton({ onPress }: { onPress?: () => void }) {
 	return (
 		<TouchableOpacity style={styles.container} onPress={onPress}>

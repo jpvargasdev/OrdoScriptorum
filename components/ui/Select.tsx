@@ -53,14 +53,20 @@ const Select: React.FC<SelectProps> = ({
 				style={{ ...styles.selectBox, ...boxStyle }}
 				onPress={() => setModalVisible(true)}
 			>
-				{iconName && <IconSymbol name={iconName} size={16} color={CommonColors.black} />}
+				{iconName && (
+					<IconSymbol name={iconName} size={16} color={CommonColors.black} />
+				)}
 				<ThemedText
 					style={{ ...styles.selectText, ...textStyle }}
 					type="defaultSemiBold"
 				>
 					{selectedItem || placeholder}
 				</ThemedText>
-				<IconSymbol name="chevron.down" size={16} color={CommonColors.darkGrey} />
+				<IconSymbol
+					name="chevron.down"
+					size={16}
+					color={CommonColors.darkGrey}
+				/>
 			</TouchableOpacity>
 
 			<Modal

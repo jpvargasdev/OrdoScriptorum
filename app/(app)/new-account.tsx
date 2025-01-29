@@ -191,13 +191,13 @@ const styles = StyleSheet.create({
 	label: {
 		fontSize: 16,
 		fontWeight: "500",
-		color:CommonColors.darkGrey,
+		color: CommonColors.darkGrey,
 	},
 	notesInput: {
 		flex: 1,
 		fontSize: 16,
 		fontWeight: "400",
-		color:CommonColors.darkGrey,
+		color: CommonColors.darkGrey,
 	},
 	keyboard: {
 		flexDirection: "row",

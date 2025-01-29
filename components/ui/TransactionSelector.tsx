@@ -9,7 +9,6 @@ import {
 import { ThemedText } from "../ThemedText";
 import { CommonColors } from "@/constants/Colors";
 
-
 const TransactionSelector = ({
 	items,
 	onSelect,

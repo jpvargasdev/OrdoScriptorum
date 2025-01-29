@@ -16,7 +16,7 @@ function getChartData(budget: BudgetSummary) {
 			{
 				value: needs_percentage,
 				text: `${needs_percentage.toFixed(2)}%`,
-				color: 	CommonColors.lightBlue, // Light Blue for Needs Spent
+				color: CommonColors.lightBlue, // Light Blue for Needs Spent
 			},
 			{
 				value: 100 - needs_percentage,

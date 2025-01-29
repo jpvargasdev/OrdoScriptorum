@@ -1,18 +1,22 @@
 // requestFactory.ts
 import { create } from "zustand";
 import axios from "axios";
+import { useUserDefaultsStore } from "./user";
 
 const API_BASE_URL = process.env.API_BASE_URL
 	? `${process.env.API_BASE_URL}/api/v1`
-	: "http://192.168.20.157:8080/api/v1";
+	: "http://localhost:8080/api/v1";
 
 console.log(API_BASE_URL);
+
+const session = useUserDefaultsStore.getState().session;
 
 const api = axios.create({
 	baseURL: API_BASE_URL,
 	timeout: 10000,
 	headers: {
 		"Content-Type": "application/json",
+		Authorization: "Bearer " + session,
 	},
 });
 

@@ -7,22 +7,21 @@ const tintColorLight = "#0a7ea4";
 const tintColorDark = "#fff";
 
 export const CommonColors = {
-
 	// colors
 	Primary: "#156960",
 	Secondary: "#FFA813",
 	primary_opacity: "#228d84",
 
-	black:"#000000",
+	black: "#000000",
 	darkGrey: "#333",
-	white:"#FFFFFF",
+	white: "#FFFFFF",
 	opacity_85_black: "#00000087",
-	
+
 	blueMedium: "#4285f4",
 	darkRed: "#A50E0E",
 	darkBlue: "#174ea6",
 	salmonRed: "#FF4D4D",
-	
+
 	pink: "#FFC4D6",
 	purple: "#C0BFFF",
 	red: "#EA4335",
@@ -47,7 +46,7 @@ export const CommonColors = {
 
 	grey: "#E0E0E0",
 	pastelBlue: "#c6def1",
-	pastelPink:"#F9D6D2",
+	pastelPink: "#F9D6D2",
 	pastelYellow: "#FFF3CC",
 };
 

@@ -7,6 +7,30 @@ export const useGetCategories = request<Category[]>({
 	url: "/categories",
 });
 
+export const useUpdateCategory = request<Category[]>(
+	{
+		method: "PUT",
+		url: "/categories",
+	},
+	{
+		onSuccess: () => {
+			useGetCategories.getState().execute({ force: true });
+		},
+	},
+);
+
+export const useDeleteCategory = request<Category[]>(
+	{
+		method: "DELETE",
+		url: "/categories",
+	},
+	{
+		onSuccess: () => {
+			useGetCategories.getState().execute({ force: true });
+		},
+	},
+);
+
 export const useCreateCategory = request<Category>(
 	{ method: "POST", url: "/categories" },
 	{
@@ -33,6 +57,16 @@ export const useCreateAccount = request<Account>(
 	},
 );
 
+export const useUpdateAccount = request<Account>(
+	{ method: "PUT", url: "/accounts" },
+	{
+		onSuccess: () => {
+			useGetAccounts.getState().execute({ force: true });
+			useGetBudgetSummary.getState().execute({ force: true });
+		},
+	}
+)
+
 export const useDeleteAccount = request<null>(
 	{ method: "DELETE", url: "/accounts" },
 	{
@@ -48,6 +82,11 @@ export const useGetTransactions = request<Transaction[]>({
 	method: "GET",
 	url: "/transactions",
 });
+
+export const useGetTransactionsByID = request<Transaction[]>({
+	method: "GET",
+	url: "/transactions",
+})
 
 export const useCreateTransaction = request<Transaction>(
 	{ method: "POST", url: "/transactions" },
@@ -68,6 +107,16 @@ export const useDeleteTransaction = request<null>(
 		},
 	},
 );
+
+export const useUpdateTransaction = request<Transaction>(
+	{ method: "PUT", url: "/transactions" },
+	{
+		onSuccess: () => {
+			useGetTransactions.getState().execute({ force: true });
+			useGetBudgetSummary.getState().execute({ force: true });
+		},
+	},
+)
 
 // Example custom endpoints for "expenses", "incomes", "savings", etc.
 export const useGetExpenses = request<Transaction[]>({
@@ -126,6 +175,13 @@ export const useCreateTransfer = request<Transaction>(
 		},
 	},
 );
+
+/** ---------- USER ---------- */
+
+export const useCreateUser = request<User>({
+	method: "POST",
+	url: "/users/create",
+});
 
 /** ---------- RESET DATA ---------- */
 export const useDeleteAllData = request<null>({

@@ -4,7 +4,6 @@ import { ThemedView } from "./ThemedView";
 import type { ReactNode } from "react";
 import { CommonColors } from "@/constants/Colors";
 
-
 export function Card(props: { children: ReactNode; style: object }) {
 	return (
 		<ThemedView style={{ ...styles.container, ...props.style }}>

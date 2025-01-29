@@ -45,7 +45,11 @@ const DatePicker = ({
 				>
 					{date.toDateString()}
 				</ThemedText>
-				<IconSymbol name="chevron.down" size={16} color={CommonColors.darkGrey} />
+				<IconSymbol
+					name="chevron.down"
+					size={16}
+					color={CommonColors.darkGrey}
+				/>
 			</TouchableOpacity>
 
 			{/* Picker nativo */}

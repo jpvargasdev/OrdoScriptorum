@@ -4,7 +4,6 @@ import { IconSymbol } from "@/components/ui/IconSymbol";
 import { ThemedText } from "../ThemedText";
 import { CommonColors } from "@/constants/Colors";
 
-
 export function TransactionCard({
 	transaction,
 	accounts = [],

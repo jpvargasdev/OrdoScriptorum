@@ -12,7 +12,6 @@ import { ThemedText } from "../ThemedText";
 import { IconSymbol } from "./IconSymbol";
 import { CommonColors } from "@/constants/Colors";
 
-
 interface CurrencySelectProps {
 	currency: string;
 	currencies: string[]; // Lista de monedas (ISO 4217 códigos como 'USD', 'EUR', 'SEK')

@@ -47,3 +47,12 @@ declare interface Account {
 	currency: string; // TEXT NOT NULL - Currency of the account
 	balance: number; // REAL DEFAULT 0 - Current balance of the account
 }
+
+declare interface User {
+	id: string;
+	name: string | null;
+	email: string;
+	photo: string | null;
+	familyName: string | null;
+	givenName: string | null;
+};

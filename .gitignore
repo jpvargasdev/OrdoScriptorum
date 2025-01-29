@@ -41,3 +41,5 @@ app-example
 *.db
 
 *.env
+GoogleService-Info.plist
+google-services.json

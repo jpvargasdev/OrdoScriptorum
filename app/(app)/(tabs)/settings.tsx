@@ -15,7 +15,6 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CommonColors } from "@/constants/Colors";
 
-
 const SettingsScreen = () => {
 	const { execute } = useDeleteAllData();
 	const { setStartDay, setEndDay, startDayOfMonth, endDayOfMonth } =

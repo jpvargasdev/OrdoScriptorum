@@ -5,7 +5,6 @@ import { ThemedText } from "../ThemedText";
 import { IconSymbol } from "./IconSymbol";
 import { CommonColors } from "@/constants/Colors";
 
-
 export function Header({ budget }: { budget: BudgetSummary | null }) {
 	if (!budget) return;
 	return (
@@ -13,7 +12,7 @@ export function Header({ budget }: { budget: BudgetSummary | null }) {
 			<Card style={styles.card2}>
 				<View style={styles.iconContainer2}>
 					<IconSymbol
-						name= "norwegiankronesign.bank.building"
+						name="norwegiankronesign.bank.building"
 						color={CommonColors.white}
 						size={40}
 					/>
@@ -37,7 +36,11 @@ export function Header({ budget }: { budget: BudgetSummary | null }) {
 
 			<Card style={styles.card1}>
 				<View style={styles.iconContainer}>
-					<IconSymbol name="wallet.bifold" color={CommonColors.white} size={40} />
+					<IconSymbol
+						name="wallet.bifold"
+						color={CommonColors.white}
+						size={40}
+					/>
 				</View>
 				<View style={styles.cardInfo}>
 					<ThemedText type="defaultSemiBold" style={styles.text}>
@@ -108,7 +111,7 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		padding: 4,
-		color: 	CommonColors.white,
+		color: CommonColors.white,
 		textAlign: "left",
 	},
 });
