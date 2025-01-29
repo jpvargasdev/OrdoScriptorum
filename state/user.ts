@@ -5,7 +5,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 interface UserDefaultsState {
 	startDayOfMonth: number;
 	endDayOfMonth: number;
-	user?: User;
+	user?: User | null;
 	session: string | null;
 	setUser: (user: User) => void;
 	setSession: (session: string | null) => void;
@@ -32,7 +32,8 @@ export const useUserDefaultsStore = create(
 			setSession: (session: string | null) => set({ session }),
 
 			// Reset to default values
-			resetDefaults: () => set({ startDayOfMonth: 25, endDayOfMonth: 24 }),
+			resetDefaults: () =>
+				set({ startDayOfMonth: 25, endDayOfMonth: 24, session: null }),
 		}),
 		{
 			name: "user-defaults-storage", // Unique storage key

@@ -14,8 +14,10 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CommonColors } from "@/constants/Colors";
+import { useSession } from "@/components/SessionProvider";
 
 const SettingsScreen = () => {
+	const { signOut } = useSession();
 	const { execute } = useDeleteAllData();
 	const { setStartDay, setEndDay, startDayOfMonth, endDayOfMonth } =
 		useUserDefaultsStore();
@@ -70,6 +72,11 @@ const SettingsScreen = () => {
 					</View>
 				</View>
 			</TouchableWithoutFeedback>
+
+			{/* Logout Button */}
+			<TouchableOpacity style={styles.logoutButton} onPress={signOut}>
+				<Text style={styles.logoutButtonText}>Logout</Text>
+			</TouchableOpacity>
 
 			{/* Delete All Data Button */}
 			<TouchableOpacity
@@ -128,8 +135,20 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		color: CommonColors.darkGrey,
 	},
-	deleteButton: {
+	logoutButtonText: {
+		color: CommonColors.white,
+		fontSize: 16,
+		fontWeight: "bold",
+	},
+	logoutButton: {
 		backgroundColor: CommonColors.salmonRed,
+		padding: 15,
+		borderRadius: 8,
+		alignItems: "center",
+		marginTop: 20,
+	},
+	deleteButton: {
+		backgroundColor: CommonColors.Secondary,
 		padding: 15,
 		borderRadius: 8,
 		alignItems: "center",

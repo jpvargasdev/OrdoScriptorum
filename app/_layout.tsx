@@ -14,6 +14,7 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 SplashScreen.preventAutoHideAsync();
 
 import { useUserDefaultsStore } from "@/state/user";
+import { SessionProvider } from "@/components/SessionProvider";
 
 export default function AppLayout() {
 	const colorScheme = useColorScheme();
@@ -40,7 +41,9 @@ export default function AppLayout() {
 
 	return (
 		<ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-			<Slot />
+			<SessionProvider>
+				<Slot />
+			</SessionProvider>
 			<StatusBar style="auto" />
 		</ThemeProvider>
 	);

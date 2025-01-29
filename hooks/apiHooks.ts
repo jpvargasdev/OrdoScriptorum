@@ -64,8 +64,8 @@ export const useUpdateAccount = request<Account>(
 			useGetAccounts.getState().execute({ force: true });
 			useGetBudgetSummary.getState().execute({ force: true });
 		},
-	}
-)
+	},
+);
 
 export const useDeleteAccount = request<null>(
 	{ method: "DELETE", url: "/accounts" },
@@ -86,7 +86,7 @@ export const useGetTransactions = request<Transaction[]>({
 export const useGetTransactionsByID = request<Transaction[]>({
 	method: "GET",
 	url: "/transactions",
-})
+});
 
 export const useCreateTransaction = request<Transaction>(
 	{ method: "POST", url: "/transactions" },
@@ -116,7 +116,7 @@ export const useUpdateTransaction = request<Transaction>(
 			useGetBudgetSummary.getState().execute({ force: true });
 		},
 	},
-)
+);
 
 // Example custom endpoints for "expenses", "incomes", "savings", etc.
 export const useGetExpenses = request<Transaction[]>({

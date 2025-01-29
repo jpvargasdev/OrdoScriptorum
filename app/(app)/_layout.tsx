@@ -1,8 +1,13 @@
 import { Redirect, Stack } from "expo-router";
-import { useUserDefaultsStore } from "@/state/user";
+import { useSession } from "@/components/SessionProvider";
+import { ThemedText } from "@/components/ThemedText";
 
 export default function AppLayout() {
-	const { session } = useUserDefaultsStore();
+	const { session, isLoading } = useSession();
+
+	if (isLoading) {
+		return <ThemedText>Loading...</ThemedText>;
+	}
 
 	// Only require authentication within the (app) group's layout as users
 	// need to be able to access the (auth) group and sign in again.
@@ -13,5 +18,9 @@ export default function AppLayout() {
 	}
 
 	// This layout can be deferred because it's not the root layout.
-	return <Stack />;
+	return (
+		<Stack>
+			<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+		</Stack>
+	);
 }

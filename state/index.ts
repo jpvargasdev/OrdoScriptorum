@@ -5,9 +5,7 @@ import { useUserDefaultsStore } from "./user";
 
 const API_BASE_URL = process.env.API_BASE_URL
 	? `${process.env.API_BASE_URL}/api/v1`
-	: "http://localhost:8080/api/v1";
-
-console.log(API_BASE_URL);
+	: "http://192.168.0.235:8080/api/v1";
 
 const session = useUserDefaultsStore.getState().session;
 
@@ -19,6 +17,13 @@ const api = axios.create({
 		Authorization: "Bearer " + session,
 	},
 });
+
+export const setHeaders = (headers: any) => {
+	api.defaults.headers = {
+		...api.defaults.headers,
+		...headers,
+	};
+};
 
 interface RequestState<T> {
 	data: T | null;
@@ -55,7 +60,7 @@ export const request = <T>(
 		lastParams: null,
 
 		execute: async (params = {}) => {
-			const { id, data, query, force } = params;
+			const { id, data, query, force, headers } = params;
 			const { method, url } = config;
 
 			// If this is a GET request and we already have data in the store,
@@ -76,6 +81,7 @@ export const request = <T>(
 					url: id ? `${url}/${id}` : url,
 					data,
 					params: query,
+					headers,
 				});
 
 				set({
