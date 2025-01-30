@@ -49,7 +49,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
 		};
 		// get new auth token
 		if (session) {
-			console.log("create new token");
 			createNewSessionToken();
 		} else {
 			setIsLoading(false);
