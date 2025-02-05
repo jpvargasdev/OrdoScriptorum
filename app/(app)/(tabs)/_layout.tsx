@@ -7,14 +7,16 @@ import { IconSymbol } from "@/components/ui/IconSymbol";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { useThemeColor } from "@/hooks/useThemeColor";
 
 export default function TabLayout() {
 	const colorScheme = useColorScheme();
+	const tintColor = useThemeColor({}, "textPrimary")
 
 	return (
 		<Tabs
 			screenOptions={{
-				tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+				tabBarActiveTintColor: tintColor as string,
 				headerShown: false,
 				tabBarButton: HapticTab,
 				tabBarBackground: TabBarBackground,
@@ -37,7 +39,7 @@ export default function TabLayout() {
 				}}
 			/>
 
-			<Tabs.Screen
+			{/* <Tabs.Screen
 				name="transactions"
 				options={{
 					title: "Transactions",
@@ -65,7 +67,7 @@ export default function TabLayout() {
 						<IconSymbol size={28} name="gear" color={color} />
 					),
 				}}
-			/>
+			/> */}
 		</Tabs>
 	);
 }

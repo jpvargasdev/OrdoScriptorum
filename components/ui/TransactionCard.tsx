@@ -2,7 +2,6 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { ThemedText } from "../ThemedText";
-import { CommonColors } from "@/constants/Colors";
 
 export function TransactionCard({
 	transaction,
@@ -17,10 +16,10 @@ export function TransactionCard({
 				: "arrow.left";
 	const iconColor =
 		transaction.transaction_type === "Transfer"
-			? CommonColors.blue
+			? 'blue'
 			: transaction.amount > 0
-				? CommonColors.green
-				: CommonColors.red;
+				? 'green'
+				: 'red';
 	return (
 		<TouchableOpacity style={styles.container}>
 			<View style={styles.icon}>
@@ -53,7 +52,7 @@ const styles = StyleSheet.create({
 		color: "red",
 		justifyContent: "space-between",
 		borderBottomWidth: StyleSheet.hairlineWidth,
-		borderColor: CommonColors.grey,
+		borderColor: 'gray',
 		marginVertical: 0,
 		paddingVertical: 8,
 	},

@@ -4,7 +4,6 @@ import CurrencySelect from "@/components/ui/CurrencySelect";
 import Select from "@/components/ui/Select";
 import { useCreateAccount } from "@/hooks/apiHooks";
 import { router } from "expo-router";
-import { CommonColors } from "@/constants/Colors";
 import React, { useCallback, useState } from "react";
 import {
 	View,
@@ -145,12 +144,12 @@ export default function Accounts() {
 
 const styles = StyleSheet.create({
 	button: {
-		backgroundColor: CommonColors.salmonRed,
+		backgroundColor: 'red',
 		padding: 15,
 		alignItems: "center",
 	},
 	buttonText: {
-		color: CommonColors.white,
+		color: 'white',
 		fontSize: 16,
 		fontWeight: "bold",
 	},
@@ -186,18 +185,18 @@ const styles = StyleSheet.create({
 		padding: 15,
 		marginVertical: 5,
 		borderBottomWidth: 1,
-		borderColor: CommonColors.grey,
+		borderColor: 'gray',
 	},
 	label: {
 		fontSize: 16,
 		fontWeight: "500",
-		color: CommonColors.darkGrey,
+		color: 'gray',
 	},
 	notesInput: {
 		flex: 1,
 		fontSize: 16,
 		fontWeight: "400",
-		color: CommonColors.darkGrey,
+		color: 'gray',
 	},
 	keyboard: {
 		flexDirection: "row",
@@ -210,22 +209,22 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		borderWidth: StyleSheet.hairlineWidth,
-		borderColor: CommonColors.grey,
+		borderColor: 'gray',
 	},
 	keyText: {
 		fontSize: 24,
 		fontWeight: "bold",
 	},
 	expenseBg: {
-		backgroundColor: CommonColors.white,
+		backgroundColor: 'white',
 	},
 	incomeBg: {
-		backgroundColor: CommonColors.white,
+		backgroundColor: 'white',
 	},
 	transactionBg: {
-		backgroundColor: CommonColors.white,
+		backgroundColor: 'white',
 	},
 	savingsBg: {
-		backgroundColor: CommonColors.white,
+		backgroundColor: 'white',
 	},
 });

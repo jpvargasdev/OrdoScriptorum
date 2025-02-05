@@ -1,117 +1,58 @@
-import { StyleSheet, View } from "react-native";
-
-import { Card } from "../Card";
+import { StyleSheet, View, Image } from "react-native";
 import { ThemedText } from "../ThemedText";
-import { IconSymbol } from "./IconSymbol";
-import { CommonColors } from "@/constants/Colors";
+import { useUserDefaultsStore } from "@/state/user";
+import { useEffect, useState } from "react";
+
+const money_wings = require("../../assets/images/flying-money.png");
 
 export function Header({ budget }: { budget: BudgetSummary | null }) {
-	if (!budget) return;
+	const [daysLeft, setDaysLeft] = useState(0);
+	const {endDayOfMonth} = useUserDefaultsStore();
+
+	useEffect(() => {
+		// Get current day of month
+		const today = new Date();
+		const currentDay = today.getDate();
+		// Get number of days left substracting endDayOfMonth minus currentDay
+		const daysLeft = endDayOfMonth - currentDay;
+		setDaysLeft(daysLeft);
+	}, [endDayOfMonth]);
+
 	return (
 		<View style={styles.container}>
-			<Card style={styles.card2}>
-				<View style={styles.iconContainer2}>
-					<IconSymbol
-						name="norwegiankronesign.bank.building"
-						color={CommonColors.white}
-						size={40}
-					/>
-				</View>
-				<View style={styles.cardInfo}>
-					<ThemedText type="defaultSemiBold" style={styles.text}>
-						NET WORTH
-					</ThemedText>
-					<View style={styles.money}>
-						<ThemedText type="defaultSemiBold" style={styles.text}>
-							{" "}
-							SEK {budget.net_worth}
-						</ThemedText>
-					</View>
-					<View style={styles.space2} />
-					<View style={styles.money}>
-						<ThemedText type="defaultSemiBold" style={styles.text}></ThemedText>
-					</View>
-				</View>
-			</Card>
-
-			<Card style={styles.card1}>
-				<View style={styles.iconContainer}>
-					<IconSymbol
-						name="wallet.bifold"
-						color={CommonColors.white}
-						size={40}
-					/>
-				</View>
-				<View style={styles.cardInfo}>
-					<ThemedText type="defaultSemiBold" style={styles.text}>
-						IN + OUT THIS PERIOD
-					</ThemedText>
-					<View style={styles.money}>
-						<ThemedText type="defaultSemiBold" style={styles.text}>
-							{" "}
-							SEK {budget.net_balance}
-						</ThemedText>
-					</View>
-					<View style={styles.space} />
-					<View style={styles.money}>
-						<ThemedText type="defaultSemiBold" style={styles.text}>
-							SEK {budget.total_income} + -{budget.total_expenses}
-						</ThemedText>
-					</View>
-				</View>
-			</Card>
+			<ThemedText type="subtitle">You've already spent</ThemedText>
+			<View style={styles.total_expenses}>
+				<Image source={money_wings} style={styles.money_wings} />
+				<ThemedText type="subtitle" style={styles.amount}>{budget?.total_expenses.toLocaleString()}</ThemedText>
+				<ThemedText type="small" style={styles.currency}> SEK</ThemedText>
+			</View>
+			<ThemedText type="small">
+				and there's still {daysLeft} days left until payday
+			</ThemedText>
 		</View>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
+		marginVertical: 8,
+		padding: 8,
 	},
-	card1: {
-		backgroundColor: CommonColors.red,
+	total_expenses: {
 		flexDirection: "row",
-		marginBottom: 8,
+		paddingHorizontal: 16,
+		paddingVertical: 8,
+		marginTop: 8,
 	},
-	card2: {
-		backgroundColor: CommonColors.blueMedium,
-		flexDirection: "row",
-		marginBottom: 8,
+	money_wings: {
+		width: 28,
+		height: 28,
+		marginRight: 8,
 	},
-	cardIcon: {
-		height: "100%",
+	amount: {
+		fontWeight: "bold",
 	},
-	cardInfo: {
-		flex: 1,
-	},
-	iconContainer: {
-		backgroundColor: CommonColors.darkRed,
-		justifyContent: "center",
-		alignItems: "center",
-		padding: 10,
-	},
-	iconContainer2: {
-		backgroundColor: CommonColors.darkBlue,
-		justifyContent: "center",
-		alignItems: "center",
-		padding: 10,
-	},
-	money: {
-		flexDirection: "row",
-	},
-	space: {
-		backgroundColor: CommonColors.darkRed,
-		width: "100%",
-		height: 4,
-	},
-	space2: {
-		backgroundColor: CommonColors.darkBlue,
-		width: "100%",
-		height: 4,
-	},
-	text: {
-		padding: 4,
-		color: CommonColors.white,
-		textAlign: "left",
-	},
+	currency: {
+		fontWeight: "700",
+	}
 });

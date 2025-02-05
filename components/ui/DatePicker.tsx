@@ -11,7 +11,6 @@ import {
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { IconSymbol } from "./IconSymbol";
 import { ThemedText } from "../ThemedText";
-import { CommonColors } from "@/constants/Colors";
 
 const DatePicker = ({
 	date,
@@ -38,7 +37,7 @@ const DatePicker = ({
 				style={{ ...styles.selectBox, ...boxStyle }}
 				onPress={() => setShowPicker(true)}
 			>
-				<IconSymbol name="calendar" size={16} color={CommonColors.darkGrey} />
+				<IconSymbol name="calendar" size={16} color={'gray'} />
 				<ThemedText
 					style={{ ...styles.selectText, ...textStyle }}
 					type="defaultSemiBold"
@@ -48,7 +47,7 @@ const DatePicker = ({
 				<IconSymbol
 					name="chevron.down"
 					size={16}
-					color={CommonColors.darkGrey}
+					color={'gray'}
 				/>
 			</TouchableOpacity>
 
@@ -76,14 +75,14 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 10,
 		paddingVertical: 8,
 		borderBottomWidth: 1,
-		borderColor: CommonColors.grey,
+		borderColor: 'gray',
 		justifyContent: "space-between",
 		alignItems: "center",
 		flexDirection: "row",
 	},
 	selectText: {
 		fontSize: 16,
-		color: CommonColors.darkGrey,
+		color: 'gray',
 		marginHorizontal: 4,
 	},
 });

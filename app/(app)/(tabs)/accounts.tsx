@@ -6,7 +6,6 @@ import { router } from "expo-router";
 import React, { useEffect } from "react";
 import { StyleSheet, TouchableOpacity, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { CommonColors } from "@/constants/Colors";
 
 export default function AccountsScreen() {
 	const {
@@ -92,7 +91,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 8,
 		alignItems: "center",
 		borderBottomWidth: StyleSheet.hairlineWidth,
-		borderBottomColor: CommonColors.grey,
+		borderBottomColor: 'gray',
 	},
 	cell: {
 		flex: 1,
@@ -103,20 +102,20 @@ const styles = StyleSheet.create({
 	},
 	headerText: {
 		fontWeight: "bold",
-		color: CommonColors.darkGrey,
+		color: 'gray',
 	},
 	tableBody: {
 		marginTop: 10,
 	},
 	addButton: {
-		backgroundColor: CommonColors.green,
+		backgroundColor: 'green',
 		paddingVertical: 12,
 		borderRadius: 4,
 		alignItems: "center",
 		marginTop: 20,
 	},
 	addButtonText: {
-		color: CommonColors.white,
+		color: 'white',
 		fontWeight: "bold",
 		fontSize: 14,
 	},

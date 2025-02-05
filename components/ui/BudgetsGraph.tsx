@@ -1,147 +1,82 @@
 import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { PieChart } from "react-native-gifted-charts";
+import { PieChart, pieDataItem } from "react-native-gifted-charts";
 import { ThemedText } from "../ThemedText";
 import React from "react";
 import { router } from "expo-router";
-import { CommonColors } from "@/constants/Colors";
+import { useThemeColor } from "@/hooks/useThemeColor";
+import { ThemedView } from "../ThemedView";
+import { Colors } from "@/constants/Colors";
+import Section from "./Section";
+import { HorizontalBarChart } from "./HorizontalChart";
 
-function getChartData(budget: BudgetSummary) {
-	const { needs_percentage } = budget;
-	const { wants_percentage } = budget;
-	const { savings_percentage } = budget;
+interface ChartData {
+	needs: {
+		totalBudget: number;
+		currentSpent: number;
+		spentPercentage: number;
+	};
+	wants: {
+		totalBudget: number;
+		currentSpent: number;
+		spentPercentage: number;
+	}
+	savings: {
+		totalBudget: number;
+		currentSpent: number;
+		spentPercentage: number;
+	}
+}
 
-	const pieData = {
-		needs: [
-			// Needs
-			{
-				value: needs_percentage,
-				text: `${needs_percentage.toFixed(2)}%`,
-				color: CommonColors.lightBlue, // Light Blue for Needs Spent
-			},
-			{
-				value: 100 - needs_percentage,
-				text: `${(100 - needs_percentage).toFixed(2)}%`,
-				color: CommonColors.lightRed, // Light Red for Needs Remaining
-			},
-		],
-		wants: [
-			// Wants
-			{
-				value: wants_percentage,
-				text: `${wants_percentage.toFixed(2)}%`,
-				color: CommonColors.BrightRed, // Bright Red for Wants Spent
-			},
-			{
-				value: 100 - wants_percentage,
-				text: `${(100 - wants_percentage).toFixed(2)}%`,
-				color: CommonColors.Yellow, // Yellow for Wants Remaining
-			},
-		],
-		savings: [
-			// Savings
-			{
-				value: savings_percentage,
-				text: `${savings_percentage.toFixed(2)}%`,
-				color: CommonColors.Green, // Green for Savings Spent
-			},
-			{
-				value: 100 - savings_percentage,
-				text: `${(100 - savings_percentage).toFixed(2)}%`,
-				color: CommonColors.lightGreen, // Light Green for Savings Remaining
-			},
-		],
+function getChartData(budget: BudgetSummary | null) : ChartData | null {
+	if (!budget) {
+		return null;
+	}
+
+	const chartData = {
+		needs: {
+			totalBudget: budget.needs_budget,
+			currentSpent: budget.needs_amount,
+			spentPercentage: budget.needs_percentage,
+		},
+		wants: {
+			totalBudget: budget.wants_budget,
+			currentSpent: budget.wants_amount,
+			spentPercentage: budget.wants_percentage,
+		},
+		savings: {
+			totalBudget: budget.savings_budget,
+			currentSpent: budget.savings_amount,
+			spentPercentage: budget.savings_percentage,
+		},
 	};
 
-	return pieData;
+	return chartData;
 }
 
 export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
-	if (!budget) return;
-	const data = React.useMemo(() => getChartData(budget), [budget]);
+	const backgroundColor = useThemeColor({}, "background");
+  const textColor = useThemeColor({}, "textSecondary");
+	
+	const data = getChartData(budget);
+	
 	return (
-		<View>
-			<ThemedText type="title" style={styles.subtitle}>
-				Budgets:
-			</ThemedText>
-			<View style={styles.barContainer}>
-				<ThemedText type="subtitle">Wants</ThemedText>
-				<TouchableOpacity
-					style={styles.budgetContainer}
-					onPress={() =>
-						router.navigate({
-							pathname: "/transactions-by",
-							params: { id: "Wants" },
-						})
-					}
-				>
-					<View>
-						<ThemedText type="defaultSemiBold">Available budget:</ThemedText>
-						<ThemedText>{budget.wants_budget} SEK</ThemedText>
-						<ThemedText type="defaultSemiBold">Spent:</ThemedText>
-						<ThemedText type="default">-{budget.wants_amount} SEK</ThemedText>
-					</View>
-					<PieChart
-						data={data.wants}
-						showText
-						textColor={CommonColors.black}
-						radius={50}
-						textSize={20}
-					/>
-				</TouchableOpacity>
-			</View>
-			<View style={styles.barContainer}>
-				<ThemedText type="subtitle">Needs</ThemedText>
-				<TouchableOpacity
-					style={styles.budgetContainer}
-					onPress={() =>
-						router.navigate({
-							pathname: "/transactions-by",
-							params: { id: "Needs" },
-						})
-					}
-				>
-					<View>
-						<ThemedText type="defaultSemiBold">Available budget:</ThemedText>
-						<ThemedText>{budget.needs_budget} SEK</ThemedText>
-						<ThemedText type="defaultSemiBold">Spent:</ThemedText>
-						<ThemedText type="default">-{budget.needs_amount} SEK</ThemedText>
-					</View>
-					<PieChart
-						data={data.needs}
-						showText
-						textColor={CommonColors.black}
-						radius={50}
-						textSize={20}
-					/>
-				</TouchableOpacity>
-			</View>
-			<View style={styles.barContainer}>
-				<ThemedText type="subtitle">Savings</ThemedText>
-				<TouchableOpacity
-					style={styles.budgetContainer}
-					onPress={() =>
-						router.navigate({
-							pathname: "/transactions-by",
-							params: { id: "Savings" },
-						})
-					}
-				>
-					<View>
-						<ThemedText type="defaultSemiBold">Available budget:</ThemedText>
-						<ThemedText>{budget.savings_budget} SEK</ThemedText>
-						<ThemedText type="defaultSemiBold">Spent:</ThemedText>
-						<ThemedText type="default">-{budget.savings_amount} SEK</ThemedText>
-					</View>
-					<PieChart
-						data={data.savings}
-						showText
-						textColor={CommonColors.black}
-						radius={50}
-						textSize={20}
-					/>
-				</TouchableOpacity>
-			</View>
-		</View>
+		<ThemedView lightColor={backgroundColor} darkColor={backgroundColor}>
+			<Section text="Needs" >
+				{data?.needs && (
+				  <HorizontalBarChart totalBudget={data.needs.totalBudget} currentSpent={data.needs.currentSpent} spentPercentage={data.needs.spentPercentage} />
+				)}	
+			</Section>
+			<Section text="Wants" >
+				{data?.wants && (
+				  <HorizontalBarChart totalBudget={data.needs.totalBudget} currentSpent={data.needs.currentSpent} spentPercentage={data.needs.spentPercentage} />
+				)}
+			</Section>
+			<Section text="Savings" >
+				{data?.savings && (
+				  <HorizontalBarChart totalBudget={data.needs.totalBudget} currentSpent={data.needs.currentSpent} spentPercentage={data.needs.spentPercentage} />
+				)}
+			</Section>
+		</ThemedView>
 	);
 }
 
@@ -158,6 +93,5 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "space-around",
 		alignItems: "center",
-	},
-	labelTextStyle: {},
+	},	
 });

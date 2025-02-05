@@ -13,7 +13,6 @@ import { IconSymbol } from "./IconSymbol";
 import { ThemedText } from "../ThemedText";
 import { ThemedView } from "../ThemedView";
 import { SFSymbol } from "expo-symbols";
-import { CommonColors } from "@/constants/Colors";
 
 interface SelectProps {
 	iconName?: SFSymbol;
@@ -54,7 +53,7 @@ const Select: React.FC<SelectProps> = ({
 				onPress={() => setModalVisible(true)}
 			>
 				{iconName && (
-					<IconSymbol name={iconName} size={16} color={CommonColors.black} />
+					<IconSymbol name={iconName} size={16} color={'black'} />
 				)}
 				<ThemedText
 					style={{ ...styles.selectText, ...textStyle }}
@@ -65,7 +64,7 @@ const Select: React.FC<SelectProps> = ({
 				<IconSymbol
 					name="chevron.down"
 					size={16}
-					color={CommonColors.darkGrey}
+					color={'gray'}
 				/>
 			</TouchableOpacity>
 
@@ -107,32 +106,31 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 10,
 		paddingVertical: 8,
 		borderBottomWidth: 1,
-		borderColor: CommonColors.grey,
+		borderColor: 'gray',
 		justifyContent: "space-between",
 		alignItems: "center",
 		flexDirection: "row",
 	},
 	selectText: {
 		fontSize: 16,
-		color: CommonColors.darkGrey,
+		color: 'gray',
 	},
 	modalOverlay: {
 		flex: 1,
 		justifyContent: "center",
-		backgroundColor: CommonColors.opacity_85_black,
 	},
 	modalContainer: {
 		margin: 20,
-		backgroundColor: CommonColors.white,
+		backgroundColor: 'white',
 		maxHeight: "50%",
 	},
 	item: {
 		padding: 15,
 		borderBottomWidth: 1,
-		borderBottomColor: CommonColors.grey,
+		borderBottomColor: 'gray',
 	},
 	itemText: {
 		fontSize: 16,
-		color: CommonColors.darkGrey,
+		color: 'gray',
 	},
 });

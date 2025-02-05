@@ -5,18 +5,19 @@ import { Header } from "@/components/ui/Header";
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FloatingButton } from "@/components/ui/FloatingButton";
-import { BudgetsGraph } from "@/components/ui/BudgetsGraph";
 import {
 	useGetAccounts,
 	useGetBudgetSummary,
 	useGetCategories,
 } from "@/hooks/apiHooks";
 import { useUserDefaultsStore } from "@/state/user";
+import { ThemedText } from "@/components/ThemedText";
+import { BudgetsGraph } from "@/components/ui/BudgetsGraph";
 
 export default function HomeScreen() {
 	const { data: budget, execute: fetchBudgetSummary } = useGetBudgetSummary();
 	const { execute: fetchAccounts } = useGetAccounts();
-	const { startDayOfMonth, endDayOfMonth } = useUserDefaultsStore();
+	const { startDayOfMonth, endDayOfMonth, user } = useUserDefaultsStore();
 	const { execute: fetchCategories } = useGetCategories();
 
 	useEffect(() => {
@@ -29,11 +30,9 @@ export default function HomeScreen() {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<ScrollView style={{ flex: 1 }}>
-				<Header budget={budget} />
-				<BudgetsGraph budget={budget} />
-			</ScrollView>
-
+			<ThemedText type="title" style={styles.title}>Hello {user?.display_name?.split(" ")[0]}</ThemedText>
+			<Header budget={budget} />
+			<BudgetsGraph budget={budget} />
 			<FloatingButton onPress={() => router.navigate("./new-transaction")} />
 		</SafeAreaView>
 	);
@@ -41,32 +40,12 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
 	container: {
-		padding: 8,
 		flex: 1,
 	},
-	titleContainer: {
-		flexDirection: "row",
-		alignItems: "center",
-		margin: 8,
-		justifyContent: "center",
+	innerContainer: {
+		flex: 1,
 	},
-	defaultContainer: {
-		flexDirection: "column",
-		alignItems: "flex-start",
-		margin: 8,
-	},
-	sectionTitle: {
-		flexDirection: "row",
-		justifyContent: "space-between",
-		marginBottom: 8,
-	},
-	link: {
-		color: "gray",
-	},
-	accounts: {
-		marginVertical: 8,
-	},
-	subtitle: {
-		marginVertical: 8,
-	},
+	title: {
+		padding: 8,
+	}
 });

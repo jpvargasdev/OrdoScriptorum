@@ -7,7 +7,6 @@ import {
 	ViewStyle,
 } from "react-native";
 import { ThemedText } from "../ThemedText";
-import { CommonColors } from "@/constants/Colors";
 
 const TransactionSelector = ({
 	items,
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "space-between",
 		borderRadius: 30,
-		backgroundColor: CommonColors.grey,
+		backgroundColor: 'gray',
 		padding: 4,
 	},
 	button: {
@@ -55,12 +54,12 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	selectedButton: {
-		backgroundColor: CommonColors.black,
+		backgroundColor: 'black',
 		borderRadius: 30,
 	},
 	selectedText: {
 		fontWeight: "bold",
-		color: CommonColors.white,
+		color: 'white',
 	},
 });
 

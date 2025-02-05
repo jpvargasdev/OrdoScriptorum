@@ -4,7 +4,6 @@ import CustomKeyboard from "@/components/ui/CustomKeyboard";
 import DatePicker from "@/components/ui/DatePicker";
 import Select from "@/components/ui/Select";
 import TransactionSelector from "@/components/ui/TransactionSelector";
-import { CommonColors } from "@/constants/Colors";
 import {
 	useCreateTransaction,
 	useCreateTransfer,
@@ -151,7 +150,7 @@ export default function NewTransaction() {
 							style={{
 								boxStyle: {
 									...styles.select,
-									backgroundColor: CommonColors.blue,
+									backgroundColor: 'blue',
 								},
 							}}
 						/>
@@ -165,7 +164,7 @@ export default function NewTransaction() {
 							style={{
 								boxStyle: {
 									...styles.select,
-									backgroundColor: CommonColors.greenaccent,
+									backgroundColor: 'green',
 								},
 							}}
 						/>
@@ -205,7 +204,7 @@ export default function NewTransaction() {
 								style={{
 									boxStyle: {
 										...styles.select,
-										backgroundColor: CommonColors.redaccent,
+										backgroundColor: 'red',
 									},
 								}}
 							/>
@@ -221,7 +220,7 @@ export default function NewTransaction() {
 							style={{
 								boxStyle: {
 									...styles.select,
-									backgroundColor: CommonColors.blue,
+									backgroundColor: 'blue',
 								},
 							}}
 						/>
@@ -255,7 +254,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	buttonText: {
-		color: CommonColors.white,
+		color: 'white',
 		fontSize: 16,
 		fontWeight: "bold",
 	},
@@ -265,7 +264,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 16,
 	},
 	chip: {
-		backgroundColor: CommonColors.grey,
+		backgroundColor: 'gray',
 		height: 5,
 		width: 30,
 		borderRadius: 10,
@@ -302,7 +301,7 @@ const styles = StyleSheet.create({
 		fontWeight: "500",
 		marginTop: 10,
 		flex: 1,
-		color: CommonColors.darkGrey,
+		color: 'gray',
 		textAlign: "center",
 	},
 	keyboard: {
@@ -316,7 +315,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		borderWidth: StyleSheet.hairlineWidth,
-		borderColor: CommonColors.grey,
+		borderColor: 'gray',
 	},
 	header: {
 		flexDirection: "row",

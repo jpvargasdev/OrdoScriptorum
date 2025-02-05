@@ -13,7 +13,6 @@ import {
 	Keyboard,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { CommonColors } from "@/constants/Colors";
 import { useSession } from "@/components/SessionProvider";
 
 const SettingsScreen = () => {
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
 	input: {
 		width: "40%",
 		borderWidth: 2,
-		borderColor: CommonColors.grey,
+		borderColor: 'gray',
 		fontSize: 16,
 		padding: 8,
 		textAlign: "center",
@@ -115,17 +114,17 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		marginBottom: 20,
 		textAlign: "center",
-		color: CommonColors.darkGrey,
+		color: 'gray',
 	},
 	section: {
 		marginVertical: 20,
 	},
 	option: {
-		backgroundColor: CommonColors.white,
+		backgroundColor: 'white',
 		padding: 15,
 		marginBottom: 10,
 		borderRadius: 8,
-		shadowColor: CommonColors.black,
+		shadowColor: 'black',
 		shadowOffset: { width: 0, height: 2 },
 		shadowOpacity: 0.1,
 		shadowRadius: 3,
@@ -133,29 +132,29 @@ const styles = StyleSheet.create({
 	},
 	optionText: {
 		fontSize: 16,
-		color: CommonColors.darkGrey,
+		color: 'gray',
 	},
 	logoutButtonText: {
-		color: CommonColors.white,
+		color: 'white',
 		fontSize: 16,
 		fontWeight: "bold",
 	},
 	logoutButton: {
-		backgroundColor: CommonColors.salmonRed,
+		backgroundColor: 'red',
 		padding: 15,
 		borderRadius: 8,
 		alignItems: "center",
 		marginTop: 20,
 	},
 	deleteButton: {
-		backgroundColor: CommonColors.Secondary,
+		backgroundColor: 'green',
 		padding: 15,
 		borderRadius: 8,
 		alignItems: "center",
 		marginTop: 20,
 	},
 	deleteButtonText: {
-		color: CommonColors.white,
+		color: 'white',
 		fontSize: 16,
 		fontWeight: "bold",
 	},

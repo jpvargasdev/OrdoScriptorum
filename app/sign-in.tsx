@@ -9,7 +9,6 @@ import {
 
 import auth from "@react-native-firebase/auth";
 
-import { CommonColors } from "@/constants/Colors";
 import { StyleSheet } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
@@ -17,11 +16,13 @@ import { useCreateUser } from "@/hooks/apiHooks";
 import { useSession } from "@/components/SessionProvider";
 import { setHeaders } from "@/state";
 import { router } from "expo-router";
+import { useThemeColor } from "@/hooks/useThemeColor";
 
 GoogleSignin.configure();
 
 const SignInScreen = () => {
 	const { execute: executeCreateUser } = useCreateUser();
+	const textPrimaryColor = useThemeColor({}, "textPrimary");
 	const { signIn } = useSession();
 
 	const onSignin = React.useCallback(async () => {
@@ -86,8 +87,6 @@ const SignInScreen = () => {
 		<ThemedView style={styles.container}>
 			<ThemedText
 				type="title"
-				lightColor="#fff"
-				darkColor="#fff"
 				style={styles.title}
 			>
 				Welcome to Expenses
@@ -95,7 +94,7 @@ const SignInScreen = () => {
 			<GoogleSigninButton
 				onPress={onSignin}
 				size={GoogleSigninButton.Size.Wide}
-				color={GoogleSigninButton.Color.Light}
+				color={GoogleSigninButton.Color.Dark}
 			/>
 		</ThemedView>
 	);
@@ -104,7 +103,6 @@ const SignInScreen = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: CommonColors.Primary,
 		justifyContent: "space-around",
 		alignItems: "center",
 	},
