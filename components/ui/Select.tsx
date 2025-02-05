@@ -15,6 +15,7 @@ import { ThemedView } from "../ThemedView";
 import { SFSymbol } from "expo-symbols";
 
 interface SelectProps {
+	showIcon: boolean;
 	iconName?: SFSymbol;
 	placeholder: string;
 	items: string[];
@@ -27,6 +28,7 @@ interface SelectProps {
 }
 
 const Select: React.FC<SelectProps> = ({
+	showIcon,
 	iconName,
 	items,
 	onSelect,
@@ -45,6 +47,8 @@ const Select: React.FC<SelectProps> = ({
 		onSelect(item);
 	};
 
+	const showIconStyle = showIcon ? {} : { marginLeft: 5 };
+
 	return (
 		<View>
 			{/* Selector visible */}
@@ -56,16 +60,18 @@ const Select: React.FC<SelectProps> = ({
 					<IconSymbol name={iconName} size={16} color={'black'} />
 				)}
 				<ThemedText
-					style={{ ...styles.selectText, ...textStyle }}
+					style={{ ...styles.selectText, ...textStyle, ...showIconStyle }}
 					type="defaultSemiBold"
 				>
 					{selectedItem || placeholder}
 				</ThemedText>
-				<IconSymbol
-					name="chevron.down"
-					size={16}
-					color={'gray'}
-				/>
+				{showIcon && (
+					<IconSymbol
+						name="chevron.down"
+						size={16}
+						color={'gray'}
+					/>
+				)}
 			</TouchableOpacity>
 
 			<Modal

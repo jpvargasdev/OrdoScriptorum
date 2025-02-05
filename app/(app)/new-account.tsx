@@ -1,18 +1,17 @@
 import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
 import CurrencySelect from "@/components/ui/CurrencySelect";
+import CustomKeyboard from "@/components/ui/CustomKeyboard";
 import Select from "@/components/ui/Select";
 import { useCreateAccount } from "@/hooks/apiHooks";
 import { router } from "expo-router";
 import React, { useCallback, useState } from "react";
 import {
 	View,
-	Text,
 	TextInput,
-	TouchableOpacity,
 	StyleSheet,
 	KeyboardAvoidingView,
 	Platform,
+	TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -57,14 +56,16 @@ export default function Accounts() {
 
 	return (
 		<SafeAreaView style={styles.container}>
+			<View style={styles.chip} />
 			<KeyboardAvoidingView
 				style={styles.container}
 				behavior={Platform.OS === "ios" ? "padding" : undefined}
 			>
 				{/* Amount Section */}
 				<View style={styles.amountContainer}>
+					<ThemedText type="default">Balance: </ThemedText>
+
 					<ThemedText type="title">
-						<ThemedText type="subtitle">Balance: </ThemedText>
 						{balance.length > 0 ? balance : "0.00"}
 					</ThemedText>
 					<CurrencySelect
@@ -81,10 +82,14 @@ export default function Accounts() {
 						value={name}
 						onChangeText={setName}
 					/>
+					<TouchableOpacity onPress={onSubmit} style={styles.button}>
+						<ThemedText type="default">Save</ThemedText>
+					</TouchableOpacity>
 				</View>
 
 				{/* Type */}
 				<Select
+					showIcon
 					placeholder={"Account type"}
 					items={[
 						"Checking Account",
@@ -104,39 +109,7 @@ export default function Accounts() {
 				/>
 
 				{/* Custom Keyboard */}
-				<View style={styles.keyboardContainer}>
-					<ThemedView style={styles.keyboard}>
-						{[
-							"1",
-							"2",
-							"3",
-							"4",
-							"5",
-							"6",
-							"7",
-							"8",
-							"9",
-							".",
-							"0",
-							"delete",
-						].map((key) => (
-							<TouchableOpacity
-								key={key}
-								style={styles.key}
-								onPress={() => handleKeyPress(key)}
-							>
-								<ThemedText type="subtitle">
-									{key === "delete" ? "⌫" : key}
-								</ThemedText>
-							</TouchableOpacity>
-						))}
-					</ThemedView>
-					<TouchableOpacity style={styles.button} onPress={onSubmit}>
-						<ThemedText type="subtitle" style={styles.buttonText}>
-							Save
-						</ThemedText>
-					</TouchableOpacity>
-				</View>
+				<CustomKeyboard onKeyPress={handleKeyPress} onSubmit={onSubmit} />
 			</KeyboardAvoidingView>
 		</SafeAreaView>
 	);
@@ -144,9 +117,11 @@ export default function Accounts() {
 
 const styles = StyleSheet.create({
 	button: {
-		backgroundColor: 'red',
-		padding: 15,
-		alignItems: "center",
+		alignSelf: "center",
+		backgroundColor: 'lightgray',
+		paddingVertical: 4,
+		paddingHorizontal: 12,
+		borderRadius: 20,
 	},
 	buttonText: {
 		color: 'white',
@@ -156,6 +131,14 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 	},
+	chip: {
+		backgroundColor: 'gray',
+		height: 5,
+		width: 30,
+		borderRadius: 10,
+		marginTop: 5,
+		alignSelf: "center",
+	},
 	keyboardContainer: {
 		position: "absolute",
 		bottom: 0,
@@ -164,10 +147,10 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	amountContainer: {
+		flex: 1,
 		flexDirection: "row",
-		alignItems: "center",
 		justifyContent: "center",
-		marginVertical: 10,
+		alignItems: "center",
 	},
 	currency: {
 		fontSize: 20,

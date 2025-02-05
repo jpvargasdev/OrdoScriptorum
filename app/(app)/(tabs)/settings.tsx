@@ -24,7 +24,8 @@ const SettingsScreen = () => {
 	const onDeleteAllData = async () => {
 		try {
 			await execute();
-			console.log("All data deleted successfully!");
+			Alert.alert("All data deleted successfully!");
+			signOut();
 		} catch (error) {
 			console.error("Error deleting all data:", error);
 		}
@@ -50,8 +51,9 @@ const SettingsScreen = () => {
 			<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 				<View style={styles.section}>
 					<ThemedText type="subtitle">Budget:</ThemedText>
+
 					<View style={styles.inputContainer}>
-						<ThemedText type="defaultSemiBold">Start Day of Month:</ThemedText>
+						<ThemedText type="default">Start Day of Month:</ThemedText>
 						<TextInput
 							style={styles.input}
 							value={startDayOfMonth.toString()}
@@ -61,7 +63,7 @@ const SettingsScreen = () => {
 					</View>
 
 					<View style={styles.inputContainer}>
-						<ThemedText type="defaultSemiBold">End Day of Month:</ThemedText>
+						<ThemedText type="default">End Day of Month:</ThemedText>
 						<TextInput
 							style={styles.input}
 							value={endDayOfMonth.toString()}
@@ -96,18 +98,18 @@ const styles = StyleSheet.create({
 		padding: 8,
 	},
 	input: {
-		width: "40%",
-		borderWidth: 2,
+		width: "30%",
+		borderBottomWidth: StyleSheet.hairlineWidth,
 		borderColor: 'gray',
 		fontSize: 16,
-		padding: 8,
+		padding: 4,
 		textAlign: "center",
 	},
 	inputContainer: {
 		alignItems: "center",
 		flexDirection: "row",
 		justifyContent: "space-between",
-		marginBottom: 10,
+		marginVertical: 10,
 		marginLeft: 16,
 	},
 	header: {
@@ -140,18 +142,15 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 	},
 	logoutButton: {
-		backgroundColor: 'red',
-		padding: 15,
-		borderRadius: 8,
+		backgroundColor: 'black',
+		padding: 5,
 		alignItems: "center",
-		marginTop: 20,
 	},
 	deleteButton: {
-		backgroundColor: 'green',
-		padding: 15,
-		borderRadius: 8,
+		backgroundColor: 'black',
+		padding: 5,
 		alignItems: "center",
-		marginTop: 20,
+		marginTop: 5,
 	},
 	deleteButtonText: {
 		color: 'white',

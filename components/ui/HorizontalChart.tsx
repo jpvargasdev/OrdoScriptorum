@@ -7,14 +7,15 @@ interface BarChartProps {
   totalBudget: number;
   currentSpent: number;
   spentPercentage: number;
+  title?: string;
 }
 
-export function HorizontalBarChart({ totalBudget, currentSpent, spentPercentage }: BarChartProps) {
+export function HorizontalBarChart({ title = "Total Budget", totalBudget, currentSpent, spentPercentage }: BarChartProps) {
   const backgroundColor = useThemeColor({}, "border");
   const accendColor = useThemeColor({}, "blue");
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Total Budget: ${totalBudget.toFixed(2)}</Text>
+      <Text style={styles.label}>{title}: ${totalBudget.toFixed(2)}</Text>
 
       <Svg height="30" width="100%">
         <Rect x="0" y="5" width="100%" height="20" rx="10" fill={backgroundColor} />

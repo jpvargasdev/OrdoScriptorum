@@ -1,15 +1,13 @@
-import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { PieChart, pieDataItem } from "react-native-gifted-charts";
-import { ThemedText } from "../ThemedText";
 import React from "react";
-import { router } from "expo-router";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { ThemedView } from "../ThemedView";
-import { Colors } from "@/constants/Colors";
 import Section from "./Section";
 import { HorizontalBarChart } from "./HorizontalChart";
 
 interface ChartData {
+	net_worth: number;
+	net_balance: number;
+	net_percentage: number;
 	needs: {
 		totalBudget: number;
 		currentSpent: number;
@@ -27,12 +25,15 @@ interface ChartData {
 	}
 }
 
-function getChartData(budget: BudgetSummary | null) : ChartData | null {
+function getChartData(budget: BudgetSummary | null): ChartData | null {
 	if (!budget) {
 		return null;
 	}
 
 	const chartData = {
+		net_worth: budget.net_worth,
+		net_balance: budget.net_balance,
+		net_percentage: Math.min((budget.net_worth / budget.net_balance) * 100, 100),
 		needs: {
 			totalBudget: budget.needs_budget,
 			currentSpent: budget.needs_amount,
@@ -55,43 +56,30 @@ function getChartData(budget: BudgetSummary | null) : ChartData | null {
 
 export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 	const backgroundColor = useThemeColor({}, "background");
-  const textColor = useThemeColor({}, "textSecondary");
-	
 	const data = getChartData(budget);
-	
+
 	return (
 		<ThemedView lightColor={backgroundColor} darkColor={backgroundColor}>
+			<Section text="Budget Summary" >
+				{data && (
+					<HorizontalBarChart totalBudget={data.net_worth} currentSpent={data.net_balance || 0} spentPercentage={data.net_percentage} title="Net Worth" />
+				)}
+			</Section>
 			<Section text="Needs" >
 				{data?.needs && (
-				  <HorizontalBarChart totalBudget={data.needs.totalBudget} currentSpent={data.needs.currentSpent} spentPercentage={data.needs.spentPercentage} />
-				)}	
+					<HorizontalBarChart totalBudget={data.needs.totalBudget} currentSpent={data.needs.currentSpent} spentPercentage={data.needs.spentPercentage} />
+				)}
 			</Section>
 			<Section text="Wants" >
 				{data?.wants && (
-				  <HorizontalBarChart totalBudget={data.needs.totalBudget} currentSpent={data.needs.currentSpent} spentPercentage={data.needs.spentPercentage} />
+					<HorizontalBarChart totalBudget={data.needs.totalBudget} currentSpent={data.needs.currentSpent} spentPercentage={data.needs.spentPercentage} />
 				)}
 			</Section>
 			<Section text="Savings" >
 				{data?.savings && (
-				  <HorizontalBarChart totalBudget={data.needs.totalBudget} currentSpent={data.needs.currentSpent} spentPercentage={data.needs.spentPercentage} />
+					<HorizontalBarChart totalBudget={data.needs.totalBudget} currentSpent={data.needs.currentSpent} spentPercentage={data.needs.spentPercentage} />
 				)}
 			</Section>
 		</ThemedView>
 	);
 }
-
-const styles = StyleSheet.create({
-	barContainer: {
-		flexDirection: "column",
-		width: "100%",
-		marginVertical: 4,
-	},
-	subtitle: {
-		marginVertical: 8,
-	},
-	budgetContainer: {
-		flexDirection: "row",
-		justifyContent: "space-around",
-		alignItems: "center",
-	},	
-});

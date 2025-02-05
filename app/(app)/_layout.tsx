@@ -21,10 +21,10 @@ export default function AppLayout() {
 	return (
 		<Stack>
 			<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="new-account" options={{ headerShown: false, presentation: "modal" }} />
-      <Stack.Screen name="account" options={{ headerShown: false }} />
-      <Stack.Screen name="new-transaction" options={{ headerShown: false, presentation: "modal" }} />
-      <Stack.Screen name="transactions-by" options={{ headerShown: false }} />
+			<Stack.Screen name="new-account" options={{ headerShown: false, presentation: "modal" }} />
+			<Stack.Screen name="account" options={{ headerShown: false }} />
+			<Stack.Screen name="new-transaction" options={{ headerShown: false, presentation: "modal" }} />
+			<Stack.Screen name="transactions-by" options={{ headerShown: false }} />
 		</Stack>
 	);
 }

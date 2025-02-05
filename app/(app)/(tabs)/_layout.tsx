@@ -1,73 +1,80 @@
 import { Tabs } from "expo-router";
 import React from "react";
-import { Platform } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 import { HapticTab } from "@/components/HapticTab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
-import TabBarBackground from "@/components/ui/TabBarBackground";
-import { Colors } from "@/constants/Colors";
-import { useColorScheme } from "@/hooks/useColorScheme";
 import { useThemeColor } from "@/hooks/useThemeColor";
+import { BlurView } from "expo-blur";
 
 export default function TabLayout() {
-	const colorScheme = useColorScheme();
-	const tintColor = useThemeColor({}, "textPrimary")
+  const tintColor = useThemeColor({}, "textPrimary")
 
-	return (
-		<Tabs
-			screenOptions={{
-				tabBarActiveTintColor: tintColor as string,
-				headerShown: false,
-				tabBarButton: HapticTab,
-				tabBarBackground: TabBarBackground,
-				tabBarStyle: Platform.select({
-					ios: {
-						// Use a transparent background on iOS to show the blur effect
-						position: "absolute",
-					},
-					default: {},
-				}),
-			}}
-		>
-			<Tabs.Screen
-				name="index"
-				options={{
-					title: "Dashboard",
-					tabBarIcon: ({ color }) => (
-						<IconSymbol size={28} name="house.fill" color={color} />
-					),
-				}}
-			/>
+  return (
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: tintColor as string,
+        headerShown: false,
+        tabBarButton: HapticTab,
+        tabBarStyle: {
+          position: "absolute",
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+        },
+        tabBarBackground: () => (
+          <BlurView
+            tint="prominent"
+            intensity={80}
+            style={{
+              ...StyleSheet.absoluteFillObject,
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+              overflow: "hidden",
+              backgroundColor: "transparent"
+            }}
+          />
+        ),
+      }}
+    >
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: "Dashboard",
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="house.fill" color={color} />
+          ),
+        }}
+      />
 
-			{/* <Tabs.Screen
-				name="transactions"
-				options={{
-					title: "Transactions",
-					tabBarIcon: ({ color }) => (
-						<IconSymbol size={28} name="arrow.2.circlepath" color={color} />
-					),
-				}}
-			/>
+      <Tabs.Screen
+        name="transactions"
+        options={{
+          title: "Transactions",
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="arrow.2.circlepath" color={color} />
+          ),
+        }}
+      />
 
-			<Tabs.Screen
-				name="accounts"
-				options={{
-					title: "Accounts",
-					tabBarIcon: ({ color }) => (
-						<IconSymbol size={28} name="banknote" color={color} />
-					),
-				}}
-			/>
+      <Tabs.Screen
+        name="accounts"
+        options={{
+          title: "Accounts",
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="banknote" color={color} />
+          ),
+        }}
+      />
 
-			<Tabs.Screen
-				name="settings"
-				options={{
-					title: "Settings",
-					tabBarIcon: ({ color }) => (
-						<IconSymbol size={28} name="gear" color={color} />
-					),
-				}}
-			/> */}
-		</Tabs>
-	);
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: "Settings",
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="gear" color={color} />
+          ),
+        }}
+      />
+    </Tabs>
+  );
 }

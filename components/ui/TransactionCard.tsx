@@ -12,8 +12,8 @@ export function TransactionCard({
 		transaction.transaction_type === "Transfer"
 			? "arrow.left.arrow.right"
 			: transaction.amount > 0
-				? "arrow.right"
-				: "arrow.left";
+				? "plus"
+				: "minus";
 	const iconColor =
 		transaction.transaction_type === "Transfer"
 			? 'blue'
@@ -23,16 +23,16 @@ export function TransactionCard({
 	return (
 		<TouchableOpacity style={styles.container}>
 			<View style={styles.icon}>
-				<IconSymbol size={28} color={iconColor} name={iconName} />
+				<IconSymbol size={20} color={iconColor} name={iconName} />
 			</View>
 			<View style={styles.description}>
 				<ThemedText type="defaultSemiBold">
 					{transaction.description}
 				</ThemedText>
-				<ThemedText type="default">
+				<ThemedText type="small">
 					{transaction.main_category} / {transaction.subcategory}
 				</ThemedText>
-				<ThemedText type="default">
+				<ThemedText type="small">
 					{new Date(transaction.date * 1000).toDateString()}
 				</ThemedText>
 			</View>
@@ -40,7 +40,7 @@ export function TransactionCard({
 				<ThemedText type="defaultSemiBold">
 					{transaction.amount} {transaction.currency}
 				</ThemedText>
-				<ThemedText type="default">{account?.name}</ThemedText>
+				<ThemedText type="small">{account?.name}</ThemedText>
 			</View>
 		</TouchableOpacity>
 	);

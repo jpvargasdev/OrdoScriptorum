@@ -1,13 +1,14 @@
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, ImageURISource, TouchableOpacity } from "react-native";
 import { ThemedText } from "../ThemedText";
 import { useUserDefaultsStore } from "@/state/user";
 import { useEffect, useState } from "react";
+import { router } from "expo-router";
 
 const money_wings = require("../../assets/images/flying-money.png");
 
 export function Header({ budget }: { budget: BudgetSummary | null }) {
 	const [daysLeft, setDaysLeft] = useState(0);
-	const {endDayOfMonth} = useUserDefaultsStore();
+	const { endDayOfMonth, user } = useUserDefaultsStore();
 
 	useEffect(() => {
 		// Get current day of month
@@ -20,6 +21,14 @@ export function Header({ budget }: { budget: BudgetSummary | null }) {
 
 	return (
 		<View style={styles.container}>
+			<View style={styles.header}>
+				<ThemedText type="title">Hello {user?.display_name?.split(" ")[0]}</ThemedText>
+				{user?.photo_url && (
+					<TouchableOpacity onPress={() => router.navigate("../settings")}>
+						<Image source={{ uri: user.photo_url }} style={styles.avatar} />
+					</TouchableOpacity>
+				)}
+			</View>
 			<ThemedText type="subtitle">You've already spent</ThemedText>
 			<View style={styles.total_expenses}>
 				<Image source={money_wings} style={styles.money_wings} />
@@ -38,6 +47,12 @@ const styles = StyleSheet.create({
 		marginVertical: 8,
 		padding: 8,
 	},
+	header: {
+		flexDirection: 'row',
+		marginBottom: 8,
+		justifyContent: "space-between",
+		alignItems: "center",
+	},
 	total_expenses: {
 		flexDirection: "row",
 		paddingHorizontal: 16,
@@ -54,5 +69,10 @@ const styles = StyleSheet.create({
 	},
 	currency: {
 		fontWeight: "700",
+	},
+	avatar: {
+		width: 40,
+		height: 40,
+		borderRadius: 20,
 	}
 });

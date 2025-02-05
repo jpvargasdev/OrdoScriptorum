@@ -19,8 +19,11 @@ import {
 	KeyboardAvoidingView,
 	Platform,
 	Keyboard,
+	TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Colors } from "@/constants/Colors";
+import { IconSymbol } from "@/components/ui/IconSymbol";
 
 export default function NewTransaction() {
 	const { execute: executeTransaction } = useCreateTransaction();
@@ -136,11 +139,42 @@ export default function NewTransaction() {
 				style={styles.container}
 				behavior={Platform.OS === "ios" ? "padding" : undefined}
 			>
-				<View style={styles.form}>
-					<View style={styles.header}>
-						{/* From Account */}
+				<TransactionSelector
+					items={["Expense", "Income", "Transfer", "Savings"]}
+					onSelect={setType}
+					value={type}
+				/>
+
+				<View style={styles.amountContainer}>
+					<ThemedText type="defaultSemiBold" style={styles.amount}>
+						{type === "Expense" && "-"}
+						{amount.length > 0 ? amount : "0.0"}
+					</ThemedText>
+					<CurrencySelect
+						onSelect={setCurrency}
+						currencies={["SEK", "USD", "EUR", "COP"]}
+						currency={currency}
+					/>
+				</View>
+
+				<View style={styles.row}>
+					<DatePicker
+						date={date}
+						onChange={setDate}
+					/>
+					<TextInput
+						style={styles.notesInput}
+						placeholder="Add Note"
+						value={description}
+						onChangeText={setDescription}
+					/>
+				</View>
+
+				<View style={styles.rowWithBorder}>
+					<View style={styles.row}>
 						<Select
-							iconName="wallet.pass"
+							showIcon={false}
+							iconName="building.2"
 							placeholder={
 								accounts && accounts[0] ? accounts[0].name : "Account"
 							}
@@ -148,93 +182,27 @@ export default function NewTransaction() {
 							onSelect={setAccount}
 							value={account}
 							style={{
-								boxStyle: {
-									...styles.select,
-									backgroundColor: 'blue',
-								},
+								boxStyle: styles.select,
 							}}
 						/>
+						{/* Right arrow icon */}
+						<IconSymbol name="arrow.right" size={12} color="gray" />
 						{/* Category */}
 						<Select
-							iconName="list.bullet"
+							showIcon={false}
+							iconName="list.bullet.indent"
 							placeholder={"Category"}
 							items={categories?.map((c) => c.name) || []}
 							onSelect={setCategory}
 							value={category}
 							style={{
-								boxStyle: {
-									...styles.select,
-									backgroundColor: 'green',
-								},
+								boxStyle: styles.select,
 							}}
 						/>
 					</View>
-
-					<TransactionSelector
-						items={["Expense", "Income", "Transfer", "Savings"]}
-						onSelect={setType}
-						value={type}
-						style={styles.transactionSelector}
-					/>
-
-					<View style={styles.amountContainer}>
-						<ThemedText type="defaultSemiBold" style={styles.amount}>
-							{type === "Expense" && "-"}
-							{amount.length > 0 ? amount : "0.0"}
-						</ThemedText>
-						<CurrencySelect
-							onSelect={setCurrency}
-							currencies={["SEK", "USD", "EUR", "COP"]}
-							currency={currency}
-						/>
-					</View>
-
-					{/* Destination Account if "Transfer" */}
-					{type === "Transfer" && (
-						<View style={styles.row}>
-							<ThemedText type="defaultSemiBold">To: </ThemedText>
-							<Select
-								iconName="wallet.pass"
-								placeholder={
-									accounts && accounts[0] ? accounts[0].name : "Account"
-								}
-								items={accounts?.map((a) => a.name) || []}
-								onSelect={setAccount}
-								value={account}
-								style={{
-									boxStyle: {
-										...styles.select,
-										backgroundColor: 'red',
-									},
-								}}
-							/>
-						</View>
-					)}
-
-					{/* Date */}
-					<View style={styles.row}>
-						<ThemedText type="defaultSemiBold">Date: </ThemedText>
-						<DatePicker
-							date={date}
-							onChange={setDate}
-							style={{
-								boxStyle: {
-									...styles.select,
-									backgroundColor: 'blue',
-								},
-							}}
-						/>
-					</View>
-
-					{/* Description */}
-					<View style={styles.row}>
-						<TextInput
-							style={styles.notesInput}
-							placeholder="Add a comment..."
-							value={description}
-							onChangeText={setDescription}
-						/>
-					</View>
+					<TouchableOpacity onPress={onSubmit} style={styles.button}>
+						<ThemedText type="default">Save</ThemedText>
+					</TouchableOpacity>
 				</View>
 				{/* Custom Keyboard */}
 				{showKeyboard && (
@@ -248,10 +216,15 @@ export default function NewTransaction() {
 const styles = StyleSheet.create({
 	form: {
 		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
 	},
 	button: {
-		padding: 15,
-		alignItems: "center",
+		alignSelf: "center",
+		backgroundColor: 'lightgray',
+		paddingVertical: 4,
+		paddingHorizontal: 12,
+		borderRadius: 20,
 	},
 	buttonText: {
 		color: 'white',
@@ -280,6 +253,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		marginVertical: 10,
+		flex: 1,
 	},
 	currency: {
 		fontSize: 20,
@@ -292,48 +266,30 @@ const styles = StyleSheet.create({
 	row: {
 		flexDirection: "row",
 		alignItems: "center",
-		justifyContent: "space-between",
-		paddingHorizontal: 10,
 		marginVertical: 4,
 	},
+	rowWithBorder: {
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-around",
+		borderTopWidth: StyleSheet.hairlineWidth,
+		borderBottomWidth: StyleSheet.hairlineWidth,
+		borderColor: Colors.light.textDisabled
+	},
 	notesInput: {
-		fontSize: 24,
-		fontWeight: "500",
-		marginTop: 10,
 		flex: 1,
-		color: 'gray',
-		textAlign: "center",
+		marginLeft: 12,
+		fontSize: 16,
 	},
 	keyboard: {
 		flexDirection: "row",
 		flexWrap: "wrap",
 		justifyContent: "space-around",
 	},
-	key: {
-		width: "33.33%",
-		padding: 15,
-		alignItems: "center",
-		justifyContent: "center",
-		borderWidth: StyleSheet.hairlineWidth,
-		borderColor: 'gray',
-	},
-	header: {
-		flexDirection: "row",
-		justifyContent: "space-around",
-		marginBottom: 16,
-	},
 	select: {
 		borderBottomWidth: 0,
 		flexDirection: "row",
-		minWidth: "45%",
 		borderRadius: 30,
-	},
-	title: {
-		textAlign: "center",
-		marginTop: 20,
-	},
-	transactionSelector: {
-		marginHorizontal: 10,
-		marginVertical: 10,
+		marginHorizontal: 4,
 	},
 });

@@ -7,6 +7,8 @@ import { FloatingButton } from "@/components/ui/FloatingButton";
 import { router } from "expo-router";
 import { useGetAccounts, useGetTransactions } from "@/hooks/apiHooks";
 import { useEffect } from "react";
+import TransactionsList from "@/components/ui/TransactionsList";
+import { ThemedView } from "@/components/ThemedView";
 
 export default function TransactionsScreen() {
 	const {
@@ -23,20 +25,10 @@ export default function TransactionsScreen() {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<ThemedText type="title">Transactions</ThemedText>
-			<FlatList
-				data={transactions?.reverse()}
-				keyExtractor={(item) => `${item.id}`}
-				renderItem={({ item }) => (
-					<TransactionCard transaction={item} accounts={accounts} />
-				)}
-				style={styles.transactions}
-				ListEmptyComponent={
-					<ThemedText type="default">No transactions</ThemedText>
-				}
-				refreshing={loading}
-				onRefresh={reload}
-			/>
+			<ThemedView style={styles.container}>
+				<ThemedText type="title">Transactions</ThemedText>
+				<TransactionsList transactions={transactions} accounts={accounts} loading={loading} />
+			</ThemedView>
 			<FloatingButton onPress={() => router.navigate("../new-transaction")} />
 		</SafeAreaView>
 	);

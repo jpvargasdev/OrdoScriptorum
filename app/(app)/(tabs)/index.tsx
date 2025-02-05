@@ -9,15 +9,20 @@ import {
 	useGetAccounts,
 	useGetBudgetSummary,
 	useGetCategories,
+	useGetTransactions,
 } from "@/hooks/apiHooks";
 import { useUserDefaultsStore } from "@/state/user";
 import { ThemedText } from "@/components/ThemedText";
 import { BudgetsGraph } from "@/components/ui/BudgetsGraph";
+import TransactionsList from "@/components/ui/TransactionsList";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 export default function HomeScreen() {
 	const { data: budget, execute: fetchBudgetSummary } = useGetBudgetSummary();
-	const { execute: fetchAccounts } = useGetAccounts();
-	const { startDayOfMonth, endDayOfMonth, user } = useUserDefaultsStore();
+	const { data: accounts, execute: fetchAccounts } = useGetAccounts();
+	const { data: transactions, execute: fetchTransactions, loading } = useGetTransactions()
+	const { startDayOfMonth, endDayOfMonth } = useUserDefaultsStore();
+	const paddingBottom = useBottomTabBarHeight();
 	const { execute: fetchCategories } = useGetCategories();
 
 	useEffect(() => {
@@ -26,13 +31,19 @@ export default function HomeScreen() {
 		});
 		fetchCategories();
 		fetchAccounts();
+		fetchTransactions({
+			query: { limit: 5 }
+		})
 	}, []);
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<ThemedText type="title" style={styles.title}>Hello {user?.display_name?.split(" ")[0]}</ThemedText>
-			<Header budget={budget} />
-			<BudgetsGraph budget={budget} />
+			<ScrollView style={{ ...styles.container, paddingBottom }}>
+				<Header budget={budget} />
+				<BudgetsGraph budget={budget} />
+				<ThemedText style={styles.titleTransactions} type="subtitle">Latest transactions</ThemedText>
+				<TransactionsList accounts={accounts} transactions={transactions} loading={loading} />
+			</ScrollView>
 			<FloatingButton onPress={() => router.navigate("./new-transaction")} />
 		</SafeAreaView>
 	);
@@ -45,7 +56,8 @@ const styles = StyleSheet.create({
 	innerContainer: {
 		flex: 1,
 	},
-	title: {
-		padding: 8,
+	titleTransactions: {
+		marginTop: 16,
+		paddingHorizontal: 8,
 	}
 });

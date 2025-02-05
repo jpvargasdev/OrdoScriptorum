@@ -1,11 +1,10 @@
-import React, { useCallback } from "react";
+import React from "react";
 import {
 	View,
-	Text,
-	TouchableOpacity,
 	StyleSheet,
 	TextStyle,
 	Dimensions,
+	TouchableHighlight,
 } from "react-native";
 import { ThemedText } from "../ThemedText";
 import { IconSymbol } from "./IconSymbol";
@@ -17,13 +16,11 @@ const CustomKeyboard = ({
 	onSubmit,
 }: { onKeyPress: (key: string) => void; onSubmit: () => void }) => {
 	const keys = [
-		["1", "2", "3"], // Row 1
+		["7", "8", "9"], // Row 1
 		["4", "5", "6"], // Row 2
-		["7", "8", "9"], // Row 3
-		["$", "0", "."], // Row 4
+		["1", "2", "3"], // Row 3
+		[".", "0", "delete"], // Row 4
 	];
-
-	const optionsKeys = [["delete"], ["calendar"], ["check"]];
 
 	const renderKey = (key: string, index: number) => {
 		let keyStyle: Record<string, any> = styles.key;
@@ -31,12 +28,11 @@ const CustomKeyboard = ({
 
 		// Apply different styles for special keys
 		if (key === "delete") keyStyle = [styles.key, styles.deleteKey];
-		if (key === "calendar") keyStyle = [styles.key, styles.calendarKey];
-		if (key === "check") keyStyle = [styles.checkKey];
-		if (key === "$") keyStyle = [styles.key, styles.currencyKey];
+		if (key === "check") keyStyle = [styles.key, styles.checkKey];
 
 		return (
-			<TouchableOpacity
+			<TouchableHighlight
+				underlayColor="rgba(0, 0, 0, 0.1)"
 				key={index}
 				style={keyStyle}
 				onPress={() => {
@@ -52,14 +48,12 @@ const CustomKeyboard = ({
 			>
 				{key === "delete" ? (
 					<IconSymbol name="delete.backward" color="black" size={32} />
-				) : key === "calendar" ? (
-					<IconSymbol name="calendar" color="black" size={32} />
 				) : key === "check" ? (
 					<IconSymbol name="checkmark" color="white" size={32} />
 				) : (
 					<ThemedText style={textStyle}>{key}</ThemedText>
 				)}
-			</TouchableOpacity>
+			</TouchableHighlight>
 		);
 	};
 
@@ -73,15 +67,6 @@ const CustomKeyboard = ({
 					</View>
 				))}
 			</View>
-
-			{/* Options Section (Delete, Calendar, Check Button) */}
-			<View style={styles.keyOptionsContainer}>
-				{optionsKeys.map((row, rowIndex) => (
-					<View key={rowIndex} style={styles.row}>
-						{row.map((key, index) => renderKey(key, index))}
-					</View>
-				))}
-			</View>
 		</View>
 	);
 };
@@ -89,49 +74,33 @@ const CustomKeyboard = ({
 const styles = StyleSheet.create({
 	container: {
 		flexDirection: "row",
-		borderRadius: 10,
+		marginHorizontal: 24,
 	},
 	row: {
 		flexDirection: "row",
 		justifyContent: "space-between",
 		alignItems: "center",
-		marginBottom: 10,
 	},
 	keyContainer: {
 		flexDirection: "column",
-		flex: 0.85,
-	},
-	keyOptionsContainer: {
-		flexDirection: "column",
-		flex: 0.3,
+		flex: 1,
 	},
 	key: {
 		flex: 1, // Default flex for all keys
-		marginVertical: 0,
-		marginHorizontal: 4,
-		height: height / 2.7 / 4,
-		borderRadius: 30,
-		backgroundColor: 'gray',
+		height: height / 3 / 4,
 		alignItems: "center",
 		justifyContent: "center",
 	},
 	keyText: {
-		fontSize: 32,
+		fontSize: 30,
+		opacity: 0.8
 	},
 	deleteKey: {
-		backgroundColor: 'pink',
-	},
-	calendarKey: {
-		backgroundColor: 'blue',
-	},
-	currencyKey: {
-		backgroundColor: 'yellow',
 	},
 	checkKey: {
 		flex: 1, // Default flex for all keys
 		marginVertical: 0,
 		marginHorizontal: 4,
-		height: height / 3 / 2 + 24,
 		borderRadius: 15,
 		backgroundColor: 'black',
 		alignItems: "center",
