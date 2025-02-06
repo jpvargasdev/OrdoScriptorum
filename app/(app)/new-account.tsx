@@ -65,7 +65,7 @@ export default function Accounts() {
 				<View style={styles.amountContainer}>
 					<ThemedText type="default">Balance: </ThemedText>
 
-					<ThemedText type="title">
+					<ThemedText type="defaultSemiBold" style={styles.amount}>
 						{balance.length > 0 ? balance : "0.00"}
 					</ThemedText>
 					<CurrencySelect
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
 		marginRight: 10,
 	},
 	amount: {
-		fontSize: 36,
+		fontSize: 56,
 		fontWeight: "bold",
 	},
 	row: {

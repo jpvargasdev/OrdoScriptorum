@@ -31,7 +31,6 @@ export default function NewTransaction() {
 	const { data: categories } = useGetCategories();
 	const { data: accounts } = useGetAccounts();
 
-	const [showKeyboard, setShowKeyboard] = useState(true);
 	const [amount, setAmount] = useState("");
 	const [category, setCategory] = useState("Category");
 	const [date, setDate] = useState(new Date());
@@ -44,20 +43,6 @@ export default function NewTransaction() {
 	const [transferAccount, setTransferAccount] = useState<string>(
 		accounts && accounts[0] ? accounts[0].name : "",
 	);
-
-	useEffect(() => {
-		const showSubscription = Keyboard.addListener("keyboardWillShow", () => {
-			setShowKeyboard(false);
-		});
-		const hideSubscription = Keyboard.addListener("keyboardWillHide", () => {
-			setShowKeyboard(true);
-		});
-
-		return () => {
-			showSubscription.remove();
-			hideSubscription.remove();
-		};
-	}, []);
 
 	const handleKeyPress = (key: string) => {
 		if (key === "delete") {
@@ -204,10 +189,7 @@ export default function NewTransaction() {
 						<ThemedText type="default">Save</ThemedText>
 					</TouchableOpacity>
 				</View>
-				{/* Custom Keyboard */}
-				{showKeyboard && (
-					<CustomKeyboard onKeyPress={handleKeyPress} onSubmit={onSubmit} />
-				)}
+				<CustomKeyboard onKeyPress={handleKeyPress} onSubmit={onSubmit} />
 			</KeyboardAvoidingView>
 		</SafeAreaView>
 	);

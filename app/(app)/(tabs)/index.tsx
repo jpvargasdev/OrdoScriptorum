@@ -29,10 +29,15 @@ export default function HomeScreen() {
 		fetchBudgetSummary({
 			query: { start_day: startDayOfMonth, end_day: endDayOfMonth },
 		});
-		fetchCategories();
-		fetchAccounts();
+		fetchCategories({
+			force: true
+		});
+		fetchAccounts({
+			force: true
+		});
 		fetchTransactions({
-			query: { limit: 5 }
+			query: { limit: 5 },
+			force: true
 		})
 	}, []);
 
