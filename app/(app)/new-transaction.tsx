@@ -1,5 +1,4 @@
 import { ThemedText } from "@/components/ThemedText";
-import CurrencySelect from "@/components/ui/CurrencySelect";
 import CustomKeyboard from "@/components/ui/CustomKeyboard";
 import DatePicker from "@/components/ui/DatePicker";
 import Select from "@/components/ui/Select";
@@ -11,14 +10,13 @@ import {
 	useGetCategories,
 } from "@/hooks/apiHooks";
 import { router } from "expo-router";
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState } from "react";
 import {
 	View,
 	TextInput,
 	StyleSheet,
 	KeyboardAvoidingView,
 	Platform,
-	Keyboard,
 	TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -37,7 +35,9 @@ export default function NewTransaction() {
 	const [description, setDescription] = useState("");
 	const [type, setType] = useState("Expense");
 	const [currency, setCurrency] = useState("SEK");
-	const [account, setAccount] = useState<string>("Account");
+	const [account, setAccount] = useState<string>(
+		accounts && accounts[0] ? accounts[0].name : "",
+  );
 
 	// New state for the destination account in case of Transfer
 	const [transferAccount, setTransferAccount] = useState<string>(
@@ -125,7 +125,7 @@ export default function NewTransaction() {
 				behavior={Platform.OS === "ios" ? "padding" : undefined}
 			>
 				<TransactionSelector
-					items={["Expense", "Income", "Transfer", "Savings"]}
+					items={["Expense", "Income", "Transfer"]}
 					onSelect={setType}
 					value={type}
 				/>
@@ -135,10 +135,13 @@ export default function NewTransaction() {
 						{type === "Expense" && "-"}
 						{amount.length > 0 ? amount : "0.0"}
 					</ThemedText>
-					<CurrencySelect
+					<Select
+            showIcon
+            placeholder="SEK"
 						onSelect={setCurrency}
-						currencies={["SEK", "USD", "EUR", "COP"]}
-						currency={currency}
+						items={["SEK", "USD", "EUR", "COP"]}
+						value={currency}
+            style={{ boxStyle: styles.currencySelector }}
 					/>
 				</View>
 
@@ -152,7 +155,11 @@ export default function NewTransaction() {
 						placeholder="Add Note"
 						value={description}
 						onChangeText={setDescription}
+            multiline
 					/>
+          <TouchableOpacity onPress={onSubmit} style={styles.button}>
+						<ThemedText type="defaultSemiBold">Save</ThemedText>
+					</TouchableOpacity>
 				</View>
 
 				<View style={styles.rowWithBorder}>
@@ -161,7 +168,7 @@ export default function NewTransaction() {
 							showIcon={false}
 							iconName="building.2"
 							placeholder={
-								accounts && accounts[0] ? accounts[0].name : "Account"
+								accounts && accounts[1] ? accounts[1].name : "Account"
 							}
 							items={accounts?.map((a) => a.name) || []}
 							onSelect={setAccount}
@@ -170,6 +177,26 @@ export default function NewTransaction() {
 								boxStyle: styles.select,
 							}}
 						/>
+            {type ==="Transfer" && (
+            	<IconSymbol name="arrow.right" size={12} color="gray" />
+            )}
+            {type==="Transfer" && (
+              (
+                <Select
+                  showIcon={false}
+                  iconName="building.2"
+                  placeholder={
+                    accounts && accounts[0] ? accounts[0].name : "Account"
+                  }
+                  items={accounts?.map((a) => a.name) || []}
+                  onSelect={setTransferAccount}
+                  value={transferAccount}
+                  style={{
+                    boxStyle: styles.select,
+                  }}
+                />
+              )
+            )}
 						{/* Right arrow icon */}
 						<IconSymbol name="arrow.right" size={12} color="gray" />
 						{/* Category */}
@@ -184,10 +211,7 @@ export default function NewTransaction() {
 								boxStyle: styles.select,
 							}}
 						/>
-					</View>
-					<TouchableOpacity onPress={onSubmit} style={styles.button}>
-						<ThemedText type="default">Save</ThemedText>
-					</TouchableOpacity>
+					</View>	
 				</View>
 				<CustomKeyboard onKeyPress={handleKeyPress} onSubmit={onSubmit} />
 			</KeyboardAvoidingView>
@@ -203,10 +227,11 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		alignSelf: "center",
-		backgroundColor: 'lightgray',
-		paddingVertical: 4,
-		paddingHorizontal: 12,
-		borderRadius: 20,
+		backgroundColor: '#dfdfdf',
+		paddingVertical: 8,
+		paddingHorizontal: 16,
+    marginRight: 8,
+		borderRadius: 10,
 	},
 	buttonText: {
 		color: 'white',
@@ -249,6 +274,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center",
 		marginVertical: 4,
+    flexWrap: "wrap",
 	},
 	rowWithBorder: {
 		flexDirection: "row",
@@ -274,4 +300,7 @@ const styles = StyleSheet.create({
 		borderRadius: 30,
 		marginHorizontal: 4,
 	},
+  currencySelector: {
+    borderBottomWidth: 0,
+  }
 });

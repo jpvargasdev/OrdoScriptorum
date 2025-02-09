@@ -1,5 +1,4 @@
 import { ThemedText } from "@/components/ThemedText";
-import CurrencySelect from "@/components/ui/CurrencySelect";
 import CustomKeyboard from "@/components/ui/CustomKeyboard";
 import Select from "@/components/ui/Select";
 import { useCreateAccount } from "@/hooks/apiHooks";
@@ -21,7 +20,7 @@ export default function Accounts() {
 	const [name, setName] = useState("");
 	const [balance, setBalance] = useState("");
 	const [currency, setCurrency] = useState("SEK");
-	const [type, setType] = useState("Cash");
+	const [type, setType] = useState("Select account type");
 
 	const onSubmit = useCallback(async () => {
 		const account: Omit<Account, "id"> = {
@@ -68,10 +67,13 @@ export default function Accounts() {
 					<ThemedText type="defaultSemiBold" style={styles.amount}>
 						{balance.length > 0 ? balance : "0.00"}
 					</ThemedText>
-					<CurrencySelect
+					<Select
+            showIcon
+            placeholder="SEK"
 						onSelect={setCurrency}
-						currencies={["SEK", "USD", "EUR", "COP"]}
-						currency={currency}
+						items={["SEK", "USD", "EUR", "COP"]}
+						value={currency}
+            style={{ boxStyle: styles.currencySelector }}
 					/>
 				</View>
 				{/* Name */}
@@ -106,6 +108,7 @@ export default function Accounts() {
 					]}
 					onSelect={setType}
 					value={type}
+          style={{ boxStyle: styles.selectBox }}
 				/>
 
 				{/* Custom Keyboard */}
@@ -131,6 +134,9 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 	},
+  currency: {
+    borderBottomWidth: 0
+  },
 	chip: {
 		backgroundColor: 'gray',
 		height: 5,
@@ -152,22 +158,23 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 	},
-	currency: {
-		fontSize: 20,
-		fontWeight: "600",
-		marginRight: 10,
+	currencySelector: {
+	  borderBottomWidth: 0,	
 	},
 	amount: {
 		fontSize: 56,
 		fontWeight: "bold",
 	},
+  selectBox: {
+   borderBottomWidth: StyleSheet.hairlineWidth, 
+  },
 	row: {
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "space-between",
 		padding: 15,
 		marginVertical: 5,
-		borderBottomWidth: 1,
+		borderBottomWidth: StyleSheet.hairlineWidth,
 		borderColor: 'gray',
 	},
 	label: {
@@ -180,34 +187,5 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		fontWeight: "400",
 		color: 'gray',
-	},
-	keyboard: {
-		flexDirection: "row",
-		flexWrap: "wrap",
-		justifyContent: "space-around",
-	},
-	key: {
-		width: "33.33%",
-		padding: 15,
-		alignItems: "center",
-		justifyContent: "center",
-		borderWidth: StyleSheet.hairlineWidth,
-		borderColor: 'gray',
-	},
-	keyText: {
-		fontSize: 24,
-		fontWeight: "bold",
-	},
-	expenseBg: {
-		backgroundColor: 'white',
-	},
-	incomeBg: {
-		backgroundColor: 'white',
-	},
-	transactionBg: {
-		backgroundColor: 'white',
-	},
-	savingsBg: {
-		backgroundColor: 'white',
 	},
 });

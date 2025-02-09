@@ -15,14 +15,12 @@ import { useUserDefaultsStore } from "@/state/user";
 import { ThemedText } from "@/components/ThemedText";
 import { BudgetsGraph } from "@/components/ui/BudgetsGraph";
 import TransactionsList from "@/components/ui/TransactionsList";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 export default function HomeScreen() {
 	const { data: budget, execute: fetchBudgetSummary } = useGetBudgetSummary();
 	const { data: accounts, execute: fetchAccounts } = useGetAccounts();
 	const { data: transactions, execute: fetchTransactions, loading } = useGetTransactions()
 	const { startDayOfMonth, endDayOfMonth } = useUserDefaultsStore();
-	const paddingBottom = useBottomTabBarHeight();
 	const { execute: fetchCategories } = useGetCategories();
 
 	useEffect(() => {
@@ -42,8 +40,8 @@ export default function HomeScreen() {
 	}, []);
 
 	return (
-		<SafeAreaView style={styles.container}>
-			<ScrollView style={{ ...styles.container, paddingBottom }}>
+		<SafeAreaView style={{ ...styles.container, paddingBottom: 46 }}>
+			<ScrollView style={styles.innerContainer}>
 				<Header budget={budget} />
 				<BudgetsGraph budget={budget} />
 				<ThemedText style={styles.titleTransactions} type="subtitle">Latest transactions</ThemedText>

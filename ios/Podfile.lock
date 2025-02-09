@@ -1734,6 +1734,27 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNCPicker (2.11.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RNDateTimePicker (8.2.0):
     - DoubleConversion
     - glog
@@ -2068,6 +2089,7 @@ DEPENDENCIES:
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
@@ -2261,6 +2283,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNCPicker:
+    :path: "../node_modules/@react-native-picker/picker"
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNFBApp:
@@ -2376,6 +2400,7 @@ SPEC CHECKSUMS:
   ReactCommon: 49e601e49039dc5795658db8c407b87152a6b401
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   RNCAsyncStorage: d2806c4f4c8555fb3ca3fe5759e2f5e5ef74efe4
+  RNCPicker: 1a44b9398c53f672d80773df7cc54f2126bbe35a
   RNDateTimePicker: dd58d8235c3d12d349c043c2d9bcedcbb513f106
   RNFBApp: 6ea10ef8a45c43cd75d580599484c0931e6c3683
   RNFBAuth: 3dec5ed9a2570fd63e738bcd7d8c3d39b053f6b2

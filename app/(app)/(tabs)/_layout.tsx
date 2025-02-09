@@ -1,6 +1,6 @@
 import { Tabs } from "expo-router";
 import React from "react";
-import { Platform, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
 import { HapticTab } from "@/components/HapticTab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
@@ -18,17 +18,13 @@ export default function TabLayout() {
         tabBarButton: HapticTab,
         tabBarStyle: {
           position: "absolute",
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
         },
         tabBarBackground: () => (
           <BlurView
-            tint="prominent"
+            tint="regular"
             intensity={80}
             style={{
               ...StyleSheet.absoluteFillObject,
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
               overflow: "hidden",
               backgroundColor: "transparent"
             }}
