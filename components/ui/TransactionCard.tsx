@@ -47,14 +47,14 @@ export function TransactionCard({
 				</ThemedText>
 				<ThemedText type="small">{account?.name}</ThemedText>
 			</View>
-			{onDeleteTransaction && (
+			{onDeleteTransaction ? (
 				<TouchableOpacity
 					style={styles.icon}
 					onPress={() => onDeleteTransaction(transaction)}
 				>
 					<IconSymbol name="trash" size={20} color="red" />
 				</TouchableOpacity>
-			)}
+			) : <View style={{ width: 10 }} />}
 		</TouchableOpacity>
 	);
 }
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
 		justifyContent: "space-between",
 		borderBottomWidth: StyleSheet.hairlineWidth,
 		borderColor: "gray",
-		marginVertical: 8,
+		paddingVertical: 8,
 	},
 	icon: {
 		justifyContent: "center",

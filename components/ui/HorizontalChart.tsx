@@ -23,7 +23,7 @@ export function HorizontalBarChart({
 	return (
 		<View style={styles.container}>
 			<ThemedText type="small" style={styles.label}>
-				{title}: ${totalBudget.toFixed(2)}
+				{title}: {totalBudget.toFixed(2)} SEK
 			</ThemedText>
 
 			<Svg height="30" width="100%">
@@ -45,9 +45,15 @@ export function HorizontalBarChart({
 				/>
 			</Svg>
 
-			<ThemedText type="small" style={styles.label}>
-				Spent: ${currentSpent.toFixed(2)} ({spentPercentage.toFixed(1)}%)
-			</ThemedText>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <ThemedText type="small" style={styles.label}>
+          Spent: {currentSpent.toFixed(2)} ({spentPercentage.toFixed(1)}%) SEK
+        </ThemedText>
+
+        <ThemedText type="small" style={styles.label}>
+          Money Left: {(totalBudget - currentSpent).toFixed(2)} SEK
+        </ThemedText>
+      </View>
 		</View>
 	);
 }

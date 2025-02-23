@@ -143,14 +143,14 @@ const styles = StyleSheet.create({
 	},
 	logoutButton: {
 		backgroundColor: "black",
-		padding: 5,
+		padding: 8,
 		alignItems: "center",
 	},
 	deleteButton: {
 		backgroundColor: "black",
-		padding: 5,
+		padding: 8,
 		alignItems: "center",
-		marginTop: 5,
+		marginTop: 12,
 	},
 	deleteButtonText: {
 		color: "white",

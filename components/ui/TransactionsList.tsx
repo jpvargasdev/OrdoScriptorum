@@ -36,6 +36,5 @@ export default function TransactionsList({
 const styles = StyleSheet.create({
 	transactions: {
 		flex: 1,
-		padding: 8,
 	},
 });

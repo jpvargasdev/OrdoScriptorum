@@ -8,10 +8,11 @@ import { useState } from "react";
 export default function Section({
 	text,
 	children,
-}: { text: string; children?: React.ReactNode }) {
+  isOpen = false
+}: { text: string; isOpen: boolean; children?: React.ReactNode }) {
 	const titleColor = useThemeColor({}, "textSecondary");
 	const backgroundColor = useThemeColor({}, "border");
-	const [isOpen, setIsOpen] = useState(true);
+	const [isSectionOpen, setIsOpen] = useState(isOpen);
 	return (
 		<View>
 			<ThemedView
@@ -21,7 +22,7 @@ export default function Section({
 			>
 				<TouchableOpacity
 					style={styles.headerContainer}
-					onPress={() => setIsOpen(!isOpen)}
+					onPress={() => setIsOpen(!isSectionOpen)}
 				>
 					<ThemedText
 						type="defaultSemiBold"
@@ -37,7 +38,7 @@ export default function Section({
 					/>
 				</TouchableOpacity>
 			</ThemedView>
-			{isOpen && children}
+			{isSectionOpen && children}
 		</View>
 	);
 }

@@ -36,6 +36,10 @@ function getIncomePercentage(total_income: number, total_expenses: number) {
 		return 0;
 	}
 
+  if (Math.abs(total_income) <= 0) {
+    return 0;
+  }
+
 	const percentage = (total_expenses / total_income) * 100;
 	return Math.abs(percentage);
 }
@@ -82,7 +86,7 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 
 	return (
 		<ThemedView lightColor={backgroundColor} darkColor={backgroundColor}>
-			<Section text="Net Worth">
+			<Section text="Net Worth" isOpen>
 				<View style={styles.netWorth}>
 					<ThemedText type="small">Net Worth: {data?.net_worth} SEK</ThemedText>
 					<ThemedText type="small">

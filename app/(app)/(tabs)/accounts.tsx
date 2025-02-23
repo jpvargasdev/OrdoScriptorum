@@ -83,19 +83,17 @@ const styles = StyleSheet.create({
 	},
 	headerRow: {
 		flexDirection: "row",
-		paddingVertical: 10,
-		borderRadius: 4,
+		paddingVertical: 12,
+    borderBottomWidth: StyleSheet.hairlineWidth,
 	},
 	row: {
 		flexDirection: "row",
 		paddingVertical: 8,
 		alignItems: "center",
 		borderBottomWidth: StyleSheet.hairlineWidth,
-		borderBottomColor: "gray",
 	},
 	cell: {
 		flex: 1,
-		padding: 4,
 		alignItems: "center",
 		justifyContent: "center",
 		textAlign: "center",
@@ -105,18 +103,5 @@ const styles = StyleSheet.create({
 		color: "gray",
 	},
 	tableBody: {
-		marginTop: 10,
-	},
-	addButton: {
-		backgroundColor: "green",
-		paddingVertical: 12,
-		borderRadius: 4,
-		alignItems: "center",
-		marginTop: 20,
-	},
-	addButtonText: {
-		color: "white",
-		fontWeight: "bold",
-		fontSize: 14,
 	},
 });
