@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image, ImageURISource, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
 import { ThemedText } from "../ThemedText";
 import { useUserDefaultsStore } from "@/state/user";
 import { useEffect, useState } from "react";
@@ -22,7 +22,9 @@ export function Header({ budget }: { budget: BudgetSummary | null }) {
 	return (
 		<View style={styles.container}>
 			<View style={styles.header}>
-				<ThemedText type="title">Hello {user?.display_name?.split(" ")[0]}</ThemedText>
+				<ThemedText type="title">
+					Hello {user?.display_name?.split(" ")[0]}
+				</ThemedText>
 				{user?.photo_url && (
 					<TouchableOpacity onPress={() => router.navigate("../settings")}>
 						<Image source={{ uri: user.photo_url }} style={styles.avatar} />
@@ -32,8 +34,13 @@ export function Header({ budget }: { budget: BudgetSummary | null }) {
 			<ThemedText type="subtitle">You've already spent</ThemedText>
 			<View style={styles.total_expenses}>
 				<Image source={money_wings} style={styles.money_wings} />
-				<ThemedText type="subtitle" style={styles.amount}>{budget?.total_expenses.toLocaleString()}</ThemedText>
-				<ThemedText type="small" style={styles.currency}> SEK</ThemedText>
+				<ThemedText type="subtitle" style={styles.amount}>
+					{budget?.total_expenses.toLocaleString()}
+				</ThemedText>
+				<ThemedText type="small" style={styles.currency}>
+					{" "}
+					SEK
+				</ThemedText>
 			</View>
 			<ThemedText type="small">
 				and there's still {daysLeft} days left until payday
@@ -48,7 +55,7 @@ const styles = StyleSheet.create({
 		padding: 8,
 	},
 	header: {
-		flexDirection: 'row',
+		flexDirection: "row",
 		marginBottom: 8,
 		justifyContent: "space-between",
 		alignItems: "center",
@@ -74,5 +81,5 @@ const styles = StyleSheet.create({
 		width: 40,
 		height: 40,
 		borderRadius: 20,
-	}
+	},
 });

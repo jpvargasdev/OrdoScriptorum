@@ -13,7 +13,7 @@ interface ChartData {
 		totalIncome: number;
 		totalExpenses: number;
 		percentage: number;
-	}
+	};
 	needs: {
 		totalBudget: number;
 		currentSpent: number;
@@ -23,35 +23,38 @@ interface ChartData {
 		totalBudget: number;
 		currentSpent: number;
 		spentPercentage: number;
-	}
+	};
 	savings: {
 		totalBudget: number;
 		currentSpent: number;
 		spentPercentage: number;
-	}
+	};
 }
 
-function getIncomePercentage (total_income: number, total_expenses: number) {
+function getIncomePercentage(total_income: number, total_expenses: number) {
 	if (Math.abs(total_expenses) <= 0) {
-		return 0
+		return 0;
 	}
 
-	const percentage = (total_expenses / total_income) * 100
-	return Math.abs(percentage)
+	const percentage = (total_expenses / total_income) * 100;
+	return Math.abs(percentage);
 }
 
 function getChartData(budget: BudgetSummary | null): ChartData | null {
 	if (!budget) {
 		return null;
 	}
-	const net_percentage = getIncomePercentage(budget.total_income, budget.total_expenses);
+	const net_percentage = getIncomePercentage(
+		budget.total_income,
+		budget.total_expenses,
+	);
 	const chartData = {
 		net_worth: budget.net_worth,
 		net_balance: budget.net_balance,
 		income: {
 			totalIncome: budget.total_income,
 			totalExpenses: budget.total_expenses,
-			percentage: net_percentage
+			percentage: net_percentage,
 		},
 		needs: {
 			totalBudget: budget.needs_budget,
@@ -82,27 +85,46 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 			<Section text="Net Worth">
 				<View style={styles.netWorth}>
 					<ThemedText type="small">Net Worth: {data?.net_worth} SEK</ThemedText>
-					<ThemedText type="small">Net Balance: {data?.net_balance} SEK</ThemedText>
+					<ThemedText type="small">
+						Net Balance: {data?.net_balance} SEK
+					</ThemedText>
 				</View>
 			</Section>
-			<Section text="Budget Summary" >
+			<Section text="Budget Summary">
 				{data && (
-					<HorizontalBarChart totalBudget={data.income.totalIncome} currentSpent={data.income.totalExpenses || 0} spentPercentage={data.income.percentage} title="Total Income" />
+					<HorizontalBarChart
+						totalBudget={data.income.totalIncome}
+						currentSpent={data.income.totalExpenses || 0}
+						spentPercentage={data.income.percentage}
+						title="Total Income"
+					/>
 				)}
 			</Section>
-			<Section text="Needs 50%" >
+			<Section text="Needs 50%">
 				{data?.needs && (
-					<HorizontalBarChart totalBudget={data.needs.totalBudget} currentSpent={data.needs.currentSpent} spentPercentage={data.needs.spentPercentage} />
+					<HorizontalBarChart
+						totalBudget={data.needs.totalBudget}
+						currentSpent={data.needs.currentSpent}
+						spentPercentage={data.needs.spentPercentage}
+					/>
 				)}
 			</Section>
-			<Section text="Wants 30%" >
+			<Section text="Wants 30%">
 				{data?.wants && (
-					<HorizontalBarChart totalBudget={data.wants.totalBudget} currentSpent={data.wants.currentSpent} spentPercentage={data.wants.spentPercentage} />
+					<HorizontalBarChart
+						totalBudget={data.wants.totalBudget}
+						currentSpent={data.wants.currentSpent}
+						spentPercentage={data.wants.spentPercentage}
+					/>
 				)}
 			</Section>
-			<Section text="Savings 20%" >
+			<Section text="Savings 20%">
 				{data?.savings && (
-					<HorizontalBarChart totalBudget={data.savings.totalBudget} currentSpent={data.savings.currentSpent} spentPercentage={data.savings.spentPercentage} />
+					<HorizontalBarChart
+						totalBudget={data.savings.totalBudget}
+						currentSpent={data.savings.currentSpent}
+						spentPercentage={data.savings.spentPercentage}
+					/>
 				)}
 			</Section>
 		</ThemedView>
@@ -111,6 +133,6 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 
 const styles = StyleSheet.create({
 	netWorth: {
-		padding: 8
-	}
-})
+		padding: 8,
+	},
+});

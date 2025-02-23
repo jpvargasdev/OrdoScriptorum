@@ -68,12 +68,12 @@ export default function Accounts() {
 						{balance.length > 0 ? balance : "0.00"}
 					</ThemedText>
 					<Select
-            showIcon
-            placeholder="SEK"
+						showIcon
+						placeholder="SEK"
 						onSelect={setCurrency}
 						items={["SEK", "USD", "EUR", "COP"]}
 						value={currency}
-            style={{ boxStyle: styles.currencySelector }}
+						style={{ boxStyle: styles.currencySelector }}
 					/>
 				</View>
 				{/* Name */}
@@ -108,7 +108,7 @@ export default function Accounts() {
 					]}
 					onSelect={setType}
 					value={type}
-          style={{ boxStyle: styles.selectBox }}
+					style={{ boxStyle: styles.selectBox }}
 				/>
 
 				{/* Custom Keyboard */}
@@ -121,24 +121,24 @@ export default function Accounts() {
 const styles = StyleSheet.create({
 	button: {
 		alignSelf: "center",
-		backgroundColor: 'lightgray',
+		backgroundColor: "lightgray",
 		paddingVertical: 4,
 		paddingHorizontal: 12,
 		borderRadius: 20,
 	},
 	buttonText: {
-		color: 'white',
+		color: "white",
 		fontSize: 16,
 		fontWeight: "bold",
 	},
 	container: {
 		flex: 1,
 	},
-  currency: {
-    borderBottomWidth: 0
-  },
+	currency: {
+		borderBottomWidth: 0,
+	},
 	chip: {
-		backgroundColor: 'gray',
+		backgroundColor: "gray",
 		height: 5,
 		width: 30,
 		borderRadius: 10,
@@ -159,15 +159,15 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	currencySelector: {
-	  borderBottomWidth: 0,	
+		borderBottomWidth: 0,
 	},
 	amount: {
 		fontSize: 56,
 		fontWeight: "bold",
 	},
-  selectBox: {
-   borderBottomWidth: StyleSheet.hairlineWidth, 
-  },
+	selectBox: {
+		borderBottomWidth: StyleSheet.hairlineWidth,
+	},
 	row: {
 		flexDirection: "row",
 		alignItems: "center",
@@ -175,17 +175,17 @@ const styles = StyleSheet.create({
 		padding: 15,
 		marginVertical: 5,
 		borderBottomWidth: StyleSheet.hairlineWidth,
-		borderColor: 'gray',
+		borderColor: "gray",
 	},
 	label: {
 		fontSize: 16,
 		fontWeight: "500",
-		color: 'gray',
+		color: "gray",
 	},
 	notesInput: {
 		flex: 1,
 		fontSize: 16,
 		fontWeight: "400",
-		color: 'gray',
+		color: "gray",
 	},
 });

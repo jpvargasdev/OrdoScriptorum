@@ -16,13 +16,11 @@ import { useCreateUser } from "@/hooks/apiHooks";
 import { useSession } from "@/components/SessionProvider";
 import { setHeaders } from "@/state";
 import { router } from "expo-router";
-import { useThemeColor } from "@/hooks/useThemeColor";
 
 GoogleSignin.configure();
 
 const SignInScreen = () => {
 	const { execute: executeCreateUser } = useCreateUser();
-	const textPrimaryColor = useThemeColor({}, "textPrimary");
 	const { signIn } = useSession();
 
 	const onSignin = React.useCallback(async () => {
@@ -85,10 +83,7 @@ const SignInScreen = () => {
 
 	return (
 		<ThemedView style={styles.container}>
-			<ThemedText
-				type="title"
-				style={styles.title}
-			>
+			<ThemedText type="title" style={styles.title}>
 				Welcome to Expenses
 			</ThemedText>
 			<GoogleSigninButton

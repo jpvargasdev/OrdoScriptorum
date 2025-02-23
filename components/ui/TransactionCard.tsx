@@ -6,7 +6,12 @@ import { ThemedText } from "../ThemedText";
 export function TransactionCard({
 	transaction,
 	accounts = [],
-}: { transaction: Transaction; accounts: Account[] | null }) {
+	onDeleteTransaction,
+}: {
+	transaction: Transaction;
+	accounts: Account[] | null;
+	onDeleteTransaction?: (transaction: Transaction) => void;
+}) {
 	const account = accounts?.find((a) => a.id === transaction.account_id);
 	const iconName =
 		transaction.transaction_type === "Transfer"
@@ -16,10 +21,10 @@ export function TransactionCard({
 				: "minus";
 	const iconColor =
 		transaction.transaction_type === "Transfer"
-			? 'blue'
+			? "blue"
 			: transaction.amount > 0
-				? 'green'
-				: 'red';
+				? "green"
+				: "red";
 	return (
 		<TouchableOpacity style={styles.container}>
 			<View style={styles.icon}>
@@ -42,7 +47,15 @@ export function TransactionCard({
 				</ThemedText>
 				<ThemedText type="small">{account?.name}</ThemedText>
 			</View>
-		</TouchableOpacity>
+      {onDeleteTransaction && (
+        <TouchableOpacity
+          style={styles.icon}
+          onPress={() => onDeleteTransaction(transaction)}
+        >
+          <IconSymbol name="trash" size={20} color="red" />
+        </TouchableOpacity>
+      )}
+    </TouchableOpacity>
 	);
 }
 
@@ -52,14 +65,13 @@ const styles = StyleSheet.create({
 		color: "red",
 		justifyContent: "space-between",
 		borderBottomWidth: StyleSheet.hairlineWidth,
-		borderColor: 'gray',
-		marginVertical: 0,
-		paddingVertical: 8,
+		borderColor: "gray",
+		marginVertical: 8,
 	},
 	icon: {
 		justifyContent: "center",
 		alignItems: "center",
-		width: 60,
+		width: 45,
 	},
 	description: {
 		flex: 1,

@@ -1,11 +1,6 @@
 import React from "react";
-import {
-	View,
-	StyleSheet,
-	ViewStyle,
-} from "react-native";
+import { View, StyleSheet, ViewStyle } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-
 
 const DatePicker = ({
 	date,
@@ -16,7 +11,6 @@ const DatePicker = ({
 	onChange: (event: any, selectedDate?: Date) => void;
 	style?: { boxStyle?: ViewStyle };
 }) => {
-
 	const onChangeDate = (_: any, selectedDate?: Date) => {
 		if (selectedDate) {
 			onChange(selectedDate);
@@ -45,7 +39,7 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	datePicker: {
-		backgroundColor: 'transparent',
-		borderRadius: 30
-	}
+		backgroundColor: "transparent",
+		borderRadius: 30,
+	},
 });

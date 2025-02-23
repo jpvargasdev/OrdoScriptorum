@@ -4,9 +4,12 @@ import { useColorScheme } from "@/hooks/useColorScheme.web";
 import { useThemeColor } from "@/hooks/useThemeColor";
 
 export function FloatingButton({ onPress }: { onPress?: () => void }) {
-	const buttonBackground = useThemeColor({}, 'buttonBackground');
+	const buttonBackground = useThemeColor({}, "buttonBackground");
 	return (
-		<TouchableOpacity style={styles.container(buttonBackground as string)} onPress={onPress}>
+		<TouchableOpacity
+			style={styles.container(buttonBackground as string)}
+			onPress={onPress}
+		>
 			<IconSymbol name="plus" size={25} color="white" />
 		</TouchableOpacity>
 	);
@@ -24,5 +27,5 @@ const styles = {
 		justifyContent: "center",
 		alignItems: "center",
 		zIndex: 999,
-	})
-}
+	}),
+};

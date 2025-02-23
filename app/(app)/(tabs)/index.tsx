@@ -19,7 +19,11 @@ import TransactionsList from "@/components/ui/TransactionsList";
 export default function HomeScreen() {
 	const { data: budget, execute: fetchBudgetSummary } = useGetBudgetSummary();
 	const { data: accounts, execute: fetchAccounts } = useGetAccounts();
-	const { data: transactions, execute: fetchTransactions, loading } = useGetTransactions()
+	const {
+		data: transactions,
+		execute: fetchTransactions,
+		loading,
+	} = useGetTransactions();
 	const { startDayOfMonth, endDayOfMonth } = useUserDefaultsStore();
 	const { execute: fetchCategories } = useGetCategories();
 
@@ -28,15 +32,15 @@ export default function HomeScreen() {
 			query: { start_day: startDayOfMonth, end_day: endDayOfMonth },
 		});
 		fetchCategories({
-			force: true
+			force: true,
 		});
 		fetchAccounts({
-			force: true
+			force: true,
 		});
 		fetchTransactions({
 			query: { limit: 5 },
-			force: true
-		})
+			force: true,
+		});
 	}, []);
 
 	return (
@@ -44,8 +48,14 @@ export default function HomeScreen() {
 			<ScrollView style={styles.innerContainer}>
 				<Header budget={budget} />
 				<BudgetsGraph budget={budget} />
-				<ThemedText style={styles.titleTransactions} type="subtitle">Latest transactions</ThemedText>
-				<TransactionsList accounts={accounts} transactions={transactions} loading={loading} />
+				<ThemedText style={styles.titleTransactions} type="subtitle">
+					Latest transactions
+				</ThemedText>
+				<TransactionsList
+					accounts={accounts}
+					transactions={transactions}
+					loading={loading}
+				/>
 			</ScrollView>
 			<FloatingButton onPress={() => router.navigate("./new-transaction")} />
 		</SafeAreaView>
@@ -62,5 +72,5 @@ const styles = StyleSheet.create({
 	titleTransactions: {
 		marginTop: 16,
 		paddingHorizontal: 8,
-	}
+	},
 });

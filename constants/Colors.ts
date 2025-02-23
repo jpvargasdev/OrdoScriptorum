@@ -21,10 +21,10 @@ export const Colors = {
 		warning: "#FF9800", // Orange for warnings
 		danger: "#F44336", // Red for alerts and errors
 
-		blue: "#3D5AFE",   // Azul intenso
+		blue: "#3D5AFE", // Azul intenso
 		pink: "#FF4081", // Rosa vibrante
-		green: "#00E676",   // Verde brillante
-		yellow: "#FFD600",   // Amarillo dorado
+		green: "#00E676", // Verde brillante
+		yellow: "#FFD600", // Amarillo dorado
 	},
 	dark: {
 		background: "#121212", // Pure black background
@@ -43,9 +43,9 @@ export const Colors = {
 		warning: "#FF9800", // Orange for warnings
 		danger: "#F44336", // Red for alerts and errors
 
-		blue: "#3D5AFE",    // Azul intenso
-		pink: "#FF4081",    // Rosa vibrante
-		green: "#00E676",   // Verde brillante
-		yellow: "#FFD600",  // Amarillo dorado
+		blue: "#3D5AFE", // Azul intenso
+		pink: "#FF4081", // Rosa vibrante
+		green: "#00E676", // Verde brillante
+		yellow: "#FFD600", // Amarillo dorado
 	},
 };

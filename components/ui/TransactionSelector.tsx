@@ -1,9 +1,5 @@
 import React from "react";
-import {
-	TouchableOpacity,
-	StyleSheet,
-	ViewStyle,
-} from "react-native";
+import { TouchableOpacity, StyleSheet, ViewStyle } from "react-native";
 import { ThemedText } from "../ThemedText";
 import { BlurView } from "expo-blur";
 import { Colors } from "@/constants/Colors";
@@ -19,11 +15,7 @@ const TransactionSelector = ({
 	style?: ViewStyle;
 }) => {
 	return (
-		<BlurView
-			tint="dark"
-			intensity={80}
-			style={styles.container}
-		>
+		<BlurView tint="dark" intensity={80} style={styles.container}>
 			{items.map((item, index) => {
 				const isSelected = value === item; // Check if this item is selected
 				return (
@@ -32,7 +24,11 @@ const TransactionSelector = ({
 						style={[styles.button, isSelected && styles.selectedButton]}
 						onPress={() => onSelect(item)}
 					>
-						<ThemedText lightColor={Colors.dark.buttonText} darkColor={Colors.light.buttonText} style={isSelected && styles.selectedText}>
+						<ThemedText
+							lightColor={Colors.dark.buttonText}
+							darkColor={Colors.light.buttonText}
+							style={isSelected && styles.selectedText}
+						>
 							{item}
 						</ThemedText>
 					</TouchableOpacity>
@@ -49,7 +45,7 @@ const styles = StyleSheet.create({
 		borderRadius: 20,
 		margin: 8,
 		overflow: "hidden",
-		backgroundColor: "transparent"
+		backgroundColor: "transparent",
 	},
 	button: {
 		flex: 1, // Buttons take equal space
@@ -58,11 +54,11 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	selectedButton: {
-		backgroundColor: 'black',
+		backgroundColor: "black",
 		borderRadius: 30,
 	},
 	selectedText: {
-		color: 'white',
+		color: "white",
 	},
 });
 

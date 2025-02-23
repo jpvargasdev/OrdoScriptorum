@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 8,
 		alignItems: "center",
 		borderBottomWidth: StyleSheet.hairlineWidth,
-		borderBottomColor: 'gray',
+		borderBottomColor: "gray",
 	},
 	cell: {
 		flex: 1,
@@ -102,20 +102,20 @@ const styles = StyleSheet.create({
 	},
 	headerText: {
 		fontWeight: "bold",
-		color: 'gray',
+		color: "gray",
 	},
 	tableBody: {
 		marginTop: 10,
 	},
 	addButton: {
-		backgroundColor: 'green',
+		backgroundColor: "green",
 		paddingVertical: 12,
 		borderRadius: 4,
 		alignItems: "center",
 		marginTop: 20,
 	},
 	addButtonText: {
-		color: 'white',
+		color: "white",
 		fontWeight: "bold",
 		fontSize: 14,
 	},

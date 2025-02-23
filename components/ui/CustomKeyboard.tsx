@@ -93,16 +93,15 @@ const styles = StyleSheet.create({
 	},
 	keyText: {
 		fontSize: 30,
-		opacity: 0.8
+		opacity: 0.8,
 	},
-	deleteKey: {
-	},
+	deleteKey: {},
 	checkKey: {
 		flex: 1, // Default flex for all keys
 		marginVertical: 0,
 		marginHorizontal: 4,
 		borderRadius: 15,
-		backgroundColor: 'black',
+		backgroundColor: "black",
 		alignItems: "center",
 		justifyContent: "center",
 	},

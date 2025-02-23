@@ -1,12 +1,12 @@
 import "react-native-reanimated";
 
 import {
+	ThemeProvider,
 	DarkTheme,
 	DefaultTheme,
-	ThemeProvider,
 } from "@react-navigation/native";
+
 import { useFonts } from "expo-font";
-import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -44,7 +44,6 @@ export default function AppLayout() {
 			<SessionProvider>
 				<Slot />
 			</SessionProvider>
-			<StatusBar style="auto" />
 		</ThemeProvider>
 	);
 }

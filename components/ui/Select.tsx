@@ -7,7 +7,7 @@ import {
 	Modal,
 	TextStyle,
 	ViewStyle,
-  Button,
+	Button,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { IconSymbol } from "./IconSymbol";
@@ -55,15 +55,13 @@ const Select: React.FC<SelectProps> = ({
 			<TouchableOpacity
 				style={{ ...styles.selectBox, ...boxStyle }}
 				onPress={() => {
-          setModalVisible(true)
-          if (items && items.length > 0 && !selectedItem) {
-            setSelectedItem(items[0])
-          }
-        }}
+					setModalVisible(true);
+					if (items && items.length > 0 && !selectedItem) {
+						setSelectedItem(items[0]);
+					}
+				}}
 			>
-				{iconName && (
-					<IconSymbol name={iconName} size={16} color={'black'} />
-				)}
+				{iconName && <IconSymbol name={iconName} size={16} color={"black"} />}
 				<ThemedText
 					style={{ ...styles.selectText, ...textStyle, ...showIconStyle }}
 					type="defaultSemiBold"
@@ -71,37 +69,35 @@ const Select: React.FC<SelectProps> = ({
 					{selectedItem || placeholder}
 				</ThemedText>
 				{showIcon && (
-					<IconSymbol
-						name="chevron.down"
-						size={16}
-						color={'gray'}
-					/>
+					<IconSymbol name="chevron.down" size={16} color={"gray"} />
 				)}
 			</TouchableOpacity>
 
 			<Modal
 				visible={modalVisible}
 				animationType="slide"
-        transparent
+				transparent
 				onRequestClose={() => setModalVisible(false)}
 			>
 				<View style={styles.modalOverlay}>
 					<BlurView style={styles.modalContainer} intensity={80} tint="default">
-            <View style={styles.buttonContainer}>
-              <Button title="Close" onPress={() => setModalVisible(false)} />
-              <Button title="Select" onPress={() => handleSelect(selectedItem)} />
-            </View>
-            <Picker
-              selectedValue={selectedItem}
-              placeholder="Select an Item"
-              onValueChange={(itemValue: string) =>
-                setSelectedItem(itemValue)
-              }>
-              {items.map((item, index) => (
-                <Picker.Item label={item} value={item} key={index} />
-              ))}
-            </Picker>					
-          </BlurView>
+						<View style={styles.buttonContainer}>
+							<Button title="Close" onPress={() => setModalVisible(false)} />
+							<Button
+								title="Select"
+								onPress={() => handleSelect(selectedItem)}
+							/>
+						</View>
+						<Picker
+							selectedValue={selectedItem}
+							placeholder="Select an Item"
+							onValueChange={(itemValue: string) => setSelectedItem(itemValue)}
+						>
+							{items.map((item, index) => (
+								<Picker.Item label={item} value={item} key={index} />
+							))}
+						</Picker>
+					</BlurView>
 				</View>
 			</Modal>
 		</View>
@@ -115,14 +111,14 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 10,
 		paddingVertical: 8,
 		borderBottomWidth: 1,
-		borderColor: 'gray',
+		borderColor: "gray",
 		justifyContent: "space-between",
 		alignItems: "center",
 		flexDirection: "row",
 	},
 	selectText: {
 		fontSize: 16,
-		color: 'gray',
+		color: "gray",
 	},
 	modalOverlay: {
 		flex: 1,
@@ -130,28 +126,28 @@ const styles = StyleSheet.create({
 	},
 	modalContainer: {
 		margin: 20,
-		backgroundColor: 'transparent',
+		backgroundColor: "transparent",
 		maxHeight: "50%",
-    borderRadius: 20,
-    overflow: "hidden",
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: Colors.light.border
+		borderRadius: 20,
+		overflow: "hidden",
+		borderWidth: StyleSheet.hairlineWidth,
+		borderColor: Colors.light.border,
 	},
 	item: {
 		padding: 15,
 		borderBottomWidth: 1,
-		borderBottomColor: 'gray',
+		borderBottomColor: "gray",
 	},
 	itemText: {
 		fontSize: 16,
-		color: 'gray',
+		color: "gray",
 	},
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 16,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: Colors.light.border,
-  }
+	buttonContainer: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+		alignItems: "center",
+		paddingHorizontal: 16,
+		borderBottomWidth: StyleSheet.hairlineWidth,
+		borderBottomColor: Colors.light.border,
+	},
 });

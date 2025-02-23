@@ -13,7 +13,7 @@ export function Card(props: { children: ReactNode; style: object }) {
 
 const styles = StyleSheet.create({
 	container: {
-		shadowColor: 'black',
+		shadowColor: "black",
 		shadowOffset: {
 			width: 0,
 			height: 1,

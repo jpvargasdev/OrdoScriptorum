@@ -37,7 +37,7 @@ export default function NewTransaction() {
 	const [currency, setCurrency] = useState("SEK");
 	const [account, setAccount] = useState<string>(
 		accounts && accounts[0] ? accounts[0].name : "",
-  );
+	);
 
 	// New state for the destination account in case of Transfer
 	const [transferAccount, setTransferAccount] = useState<string>(
@@ -136,28 +136,25 @@ export default function NewTransaction() {
 						{amount.length > 0 ? amount : "0.0"}
 					</ThemedText>
 					<Select
-            showIcon
-            placeholder="SEK"
+						showIcon
+						placeholder="SEK"
 						onSelect={setCurrency}
 						items={["SEK", "USD", "EUR", "COP"]}
 						value={currency}
-            style={{ boxStyle: styles.currencySelector }}
+						style={{ boxStyle: styles.currencySelector }}
 					/>
 				</View>
 
 				<View style={styles.row}>
-					<DatePicker
-						date={date}
-						onChange={setDate}
-					/>
+					<DatePicker date={date} onChange={setDate} />
 					<TextInput
 						style={styles.notesInput}
 						placeholder="Add Note"
 						value={description}
 						onChangeText={setDescription}
-            multiline
+						multiline
 					/>
-          <TouchableOpacity onPress={onSubmit} style={styles.button}>
+					<TouchableOpacity onPress={onSubmit} style={styles.button}>
 						<ThemedText type="defaultSemiBold">Save</ThemedText>
 					</TouchableOpacity>
 				</View>
@@ -177,26 +174,24 @@ export default function NewTransaction() {
 								boxStyle: styles.select,
 							}}
 						/>
-            {type ==="Transfer" && (
-            	<IconSymbol name="arrow.right" size={12} color="gray" />
-            )}
-            {type==="Transfer" && (
-              (
-                <Select
-                  showIcon={false}
-                  iconName="building.2"
-                  placeholder={
-                    accounts && accounts[0] ? accounts[0].name : "Account"
-                  }
-                  items={accounts?.map((a) => a.name) || []}
-                  onSelect={setTransferAccount}
-                  value={transferAccount}
-                  style={{
-                    boxStyle: styles.select,
-                  }}
-                />
-              )
-            )}
+						{type === "Transfer" && (
+							<IconSymbol name="arrow.right" size={12} color="gray" />
+						)}
+						{type === "Transfer" && (
+							<Select
+								showIcon={false}
+								iconName="building.2"
+								placeholder={
+									accounts && accounts[0] ? accounts[0].name : "Account"
+								}
+								items={accounts?.map((a) => a.name) || []}
+								onSelect={setTransferAccount}
+								value={transferAccount}
+								style={{
+									boxStyle: styles.select,
+								}}
+							/>
+						)}
 						{/* Right arrow icon */}
 						<IconSymbol name="arrow.right" size={12} color="gray" />
 						{/* Category */}
@@ -211,7 +206,7 @@ export default function NewTransaction() {
 								boxStyle: styles.select,
 							}}
 						/>
-					</View>	
+					</View>
 				</View>
 				<CustomKeyboard onKeyPress={handleKeyPress} onSubmit={onSubmit} />
 			</KeyboardAvoidingView>
@@ -227,14 +222,14 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		alignSelf: "center",
-		backgroundColor: '#dfdfdf',
+		backgroundColor: "#dfdfdf",
 		paddingVertical: 8,
 		paddingHorizontal: 16,
-    marginRight: 8,
+		marginRight: 8,
 		borderRadius: 10,
 	},
 	buttonText: {
-		color: 'white',
+		color: "white",
 		fontSize: 16,
 		fontWeight: "bold",
 	},
@@ -244,7 +239,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 16,
 	},
 	chip: {
-		backgroundColor: 'gray',
+		backgroundColor: "gray",
 		height: 5,
 		width: 30,
 		borderRadius: 10,
@@ -274,7 +269,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center",
 		marginVertical: 4,
-    flexWrap: "wrap",
+		flexWrap: "wrap",
 	},
 	rowWithBorder: {
 		flexDirection: "row",
@@ -282,7 +277,7 @@ const styles = StyleSheet.create({
 		justifyContent: "space-around",
 		borderTopWidth: StyleSheet.hairlineWidth,
 		borderBottomWidth: StyleSheet.hairlineWidth,
-		borderColor: Colors.light.textDisabled
+		borderColor: Colors.light.textDisabled,
 	},
 	notesInput: {
 		flex: 1,
@@ -300,7 +295,7 @@ const styles = StyleSheet.create({
 		borderRadius: 30,
 		marginHorizontal: 4,
 	},
-  currencySelector: {
-    borderBottomWidth: 0,
-  }
+	currencySelector: {
+		borderBottomWidth: 0,
+	},
 });
