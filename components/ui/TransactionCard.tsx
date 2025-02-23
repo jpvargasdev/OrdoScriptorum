@@ -47,15 +47,15 @@ export function TransactionCard({
 				</ThemedText>
 				<ThemedText type="small">{account?.name}</ThemedText>
 			</View>
-      {onDeleteTransaction && (
-        <TouchableOpacity
-          style={styles.icon}
-          onPress={() => onDeleteTransaction(transaction)}
-        >
-          <IconSymbol name="trash" size={20} color="red" />
-        </TouchableOpacity>
-      )}
-    </TouchableOpacity>
+			{onDeleteTransaction && (
+				<TouchableOpacity
+					style={styles.icon}
+					onPress={() => onDeleteTransaction(transaction)}
+				>
+					<IconSymbol name="trash" size={20} color="red" />
+				</TouchableOpacity>
+			)}
+		</TouchableOpacity>
 	);
 }
 
