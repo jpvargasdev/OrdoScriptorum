@@ -1,4 +1,4 @@
-import { StyleSheet, Alert } from "react-native";
+import { StyleSheet } from "react-native";
 
 import { ThemedText } from "@/components/ThemedText";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -26,24 +26,8 @@ export default function TransactionsScreen() {
 
 	const onDeleteTransaction = useCallback(
 		async (transaction: Transaction) => {
-      Alert.alert(
-        'Alert Title',
-        'My Alert Msg',
-        [
-          {
-            text: 'Cancel',
-            onPress: () => Alert.alert('Cancel Pressed'),
-            style: 'cancel',
-          },
-        ],
-        {
-          cancelable: true,
-          onDismiss: () =>
-            Alert.alert(
-              'This alert was dismissed by tapping outside of the alert dialog.',
-            ),
-        },
-      );},
+      deleteTransaction({ id: transaction.id });
+    },
 		[deleteTransaction],
 	);
 
