@@ -3,9 +3,7 @@ import { create } from "zustand";
 import axios from "axios";
 import { useUserDefaultsStore } from "./user";
 
-const API_BASE_URL = process.env.API_BASE_URL
-	? `${process.env.API_BASE_URL}/api/v1`
-	: "";
+const API_BASE_URL = `${process.env.EXPO_PUBLIC_API_BASE_URL}/api/v1`
 
 const session = useUserDefaultsStore.getState().session;
 
