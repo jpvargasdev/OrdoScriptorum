@@ -35,6 +35,12 @@ export default function TransactionsScreen() {
 		getTransactions();
 	}, []);
 
+	const onRefresh = useCallback(() => {
+		getTransactions({
+			force: true
+		});
+	}, [getTransactions]);
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<ThemedView style={styles.container}>
@@ -44,6 +50,7 @@ export default function TransactionsScreen() {
 					accounts={accounts}
 					loading={loading || deleteLoading}
 					onDeleteTransaction={onDeleteTransaction}
+					onRefresh={onRefresh}
 				/>
 			</ThemedView>
 			<FloatingButton onPress={() => router.navigate("../new-transaction")} />

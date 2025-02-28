@@ -47,11 +47,11 @@ export function HorizontalBarChart({
 
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <ThemedText type="small" style={styles.label}>
-          Spent: {currentSpent.toFixed(2)} ({spentPercentage.toFixed(1)}%) SEK
+          Spent: {currentSpent.toFixed(2)} ({spentPercentage.toFixed(1)}%)
         </ThemedText>
 
         <ThemedText type="small" style={styles.label}>
-          Money Left: {(totalBudget - currentSpent).toFixed(2)} SEK
+          Left: {(totalBudget - currentSpent).toFixed(2)} ({(100 - spentPercentage).toFixed(1)}%)
         </ThemedText>
       </View>
 		</View>

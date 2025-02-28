@@ -7,11 +7,13 @@ export default function TransactionsList({
 	accounts,
 	loading,
 	onDeleteTransaction,
+	onRefresh
 }: {
 	transactions: Transaction[] | null;
 	accounts: Account[] | null;
 	loading: boolean;
 	onDeleteTransaction?: (transaction: Transaction) => void;
+	onRefresh?: () => void;
 }) {
 	return (
 		<FlatList
@@ -29,6 +31,7 @@ export default function TransactionsList({
 				<ThemedText type="default">No transactions</ThemedText>
 			}
 			refreshing={loading}
+			onRefresh={onRefresh}
 		/>
 	);
 }

@@ -9,7 +9,7 @@ export default function Section({
 	text,
 	children,
   isOpen = false
-}: { text: string; isOpen: boolean; children?: React.ReactNode }) {
+}: { text: string; isOpen?: boolean; children?: React.ReactNode }) {
 	const titleColor = useThemeColor({}, "textSecondary");
 	const backgroundColor = useThemeColor({}, "border");
 	const [isSectionOpen, setIsOpen] = useState(isOpen);
