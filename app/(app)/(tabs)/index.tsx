@@ -38,7 +38,6 @@ export default function HomeScreen() {
 			force: true,
 		});
 		fetchTransactions({
-			query: { limit: 5 },
 			force: true,
 		});
 	}, []);
