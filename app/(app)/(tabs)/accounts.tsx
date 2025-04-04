@@ -64,7 +64,7 @@ export default function AccountsScreen() {
 							{item.currency}
 						</ThemedText>
 						<ThemedText type="defaultSemiBold" style={styles.cell}>
-							{item.balance}
+							{Number(item.balance).toFixed(2)}
 						</ThemedText>
 					</TouchableOpacity>
 				)}

@@ -88,9 +88,9 @@ export function BudgetsGraph({ budget }: { budget: BudgetSummary | null }) {
 		<ThemedView lightColor={backgroundColor} darkColor={backgroundColor}>
 			<Section text="Net Worth" isOpen>
 				<View style={styles.netWorth}>
-					<ThemedText type="small">Net Worth: {data?.net_worth} SEK</ThemedText>
+					<ThemedText type="small">Net Worth: {Number(data?.net_worth).toFixed(2)} SEK</ThemedText>
 					<ThemedText type="small">
-						Net Balance: {data?.net_balance} SEK
+						Net Balance: {Number(data?.net_balance).toFixed(2)} SEK
 					</ThemedText>
 				</View>
 			</Section>

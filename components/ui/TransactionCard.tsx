@@ -43,7 +43,7 @@ export function TransactionCard({
 			</View>
 			<View style={styles.amount}>
 				<ThemedText type="defaultSemiBold">
-					{transaction.amount} {transaction.currency}
+					{Number(transaction.amount).toFixed(2)} {transaction.currency}
 				</ThemedText>
 				<ThemedText type="small">{account?.name}</ThemedText>
 			</View>
