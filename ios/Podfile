@@ -15,7 +15,6 @@ prepare_react_native_project!
 
 target 'Tracker' do
   use_expo_modules!
-
   if ENV['EXPO_USE_COMMUNITY_AUTOLINKING'] == '1'
     config_command = ['node', '-e', "process.argv=['', '', 'config'];require('@react-native-community/cli').run()"];
   else
@@ -30,11 +29,11 @@ target 'Tracker' do
       'ios'
     ]
   end
-
   config = use_native_modules!(config_command)
 
   use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
   use_frameworks! :linkage => ENV['USE_FRAMEWORKS'].to_sym if ENV['USE_FRAMEWORKS']
+  use_frameworks! :linkage => :static
 
   use_react_native!(
     :path => config[:reactNativePath],

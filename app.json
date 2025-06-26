@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.juapavama.expensetracker",
+      "bundleIdentifier": "co.juapavama.expensetracker",
       "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
@@ -18,7 +18,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.iclown.expensetracker",
+      "package": "co.juapavama.expensetracker",
       "googleServicesFile": "./google-services.json"
     },
     "web": {
