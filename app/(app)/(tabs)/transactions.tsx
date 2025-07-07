@@ -26,8 +26,8 @@ export default function TransactionsScreen() {
 
 	const onDeleteTransaction = useCallback(
 		async (transaction: Transaction) => {
-      deleteTransaction({ id: transaction.id });
-    },
+			deleteTransaction({ id: transaction.id });
+		},
 		[deleteTransaction],
 	);
 
@@ -37,7 +37,7 @@ export default function TransactionsScreen() {
 
 	const onRefresh = useCallback(() => {
 		getTransactions({
-			force: true
+			force: true,
 		});
 	}, [getTransactions]);
 

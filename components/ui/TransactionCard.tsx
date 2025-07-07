@@ -54,7 +54,9 @@ export function TransactionCard({
 				>
 					<IconSymbol name="trash" size={20} color="red" />
 				</TouchableOpacity>
-			) : <View style={{ width: 10 }} />}
+			) : (
+				<View style={{ width: 10 }} />
+			)}
 		</TouchableOpacity>
 	);
 }

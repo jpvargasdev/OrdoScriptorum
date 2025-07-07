@@ -8,7 +8,7 @@ import { useState } from "react";
 export default function Section({
 	text,
 	children,
-  isOpen = false
+	isOpen = false,
 }: { text: string; isOpen?: boolean; children?: React.ReactNode }) {
 	const titleColor = useThemeColor({}, "textSecondary");
 	const backgroundColor = useThemeColor({}, "border");

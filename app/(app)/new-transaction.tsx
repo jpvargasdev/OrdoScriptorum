@@ -18,6 +18,8 @@ import {
 	KeyboardAvoidingView,
 	Platform,
 	TouchableOpacity,
+	Keyboard,
+	TouchableWithoutFeedback,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "@/constants/Colors";
@@ -33,6 +35,7 @@ export default function NewTransaction() {
 	const [category, setCategory] = useState("Category");
 	const [date, setDate] = useState(new Date());
 	const [description, setDescription] = useState("");
+	const [showNumPad, setShowNumpad] = useState(true);
 	const [type, setType] = useState("Expense");
 	const [currency, setCurrency] = useState("SEK");
 	const [account, setAccount] = useState<string>(
@@ -43,6 +46,16 @@ export default function NewTransaction() {
 	const [transferAccount, setTransferAccount] = useState<string>(
 		accounts && accounts[0] ? accounts[0].name : "",
 	);
+
+	// add keyboard listener to hide numpad
+	Keyboard.addListener("keyboardWillHide", () => {
+		setShowNumpad(true);
+	});
+
+	// add keyboard listener to show numpad
+	Keyboard.addListener("keyboardWillShow", () => {
+		setShowNumpad(false);
+	});
 
 	const handleKeyPress = (key: string) => {
 		if (key === "delete") {
@@ -119,97 +132,99 @@ export default function NewTransaction() {
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
-			<View style={styles.chip} />
-			<KeyboardAvoidingView
-				style={styles.container}
-				behavior={Platform.OS === "ios" ? "padding" : undefined}
-			>
-				<TransactionSelector
-					items={["Expense", "Income", "Transfer"]}
-					onSelect={setType}
-					value={type}
-				/>
-
-				<View style={styles.amountContainer}>
-					<ThemedText type="defaultSemiBold" style={styles.amount}>
-						{type === "Expense" && "-"}
-						{amount.length > 0 ? amount : "0.0"}
-					</ThemedText>
-					<Select
-						showIcon
-						placeholder="SEK"
-						onSelect={setCurrency}
-						items={["SEK", "USD", "EUR", "COP"]}
-						value={currency}
-						style={{ boxStyle: styles.currencySelector }}
-					/>
-				</View>
-
-				<View style={styles.row}>
-					<DatePicker date={date} onChange={setDate} />
-					<TextInput
-						style={styles.notesInput}
-						placeholder="Add Note"
-						value={description}
-						onChangeText={setDescription}
-						multiline
-					/>
-					<TouchableOpacity onPress={onSubmit} style={styles.button}>
-						<ThemedText type="defaultSemiBold">Save</ThemedText>
-					</TouchableOpacity>
-				</View>
-
-				<View style={styles.rowWithBorder}>
-					<View style={styles.row}>
+			<TransactionSelector
+				items={["Expense", "Income", "Transfer"]}
+				onSelect={setType}
+				value={type}
+			/>
+			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+				<KeyboardAvoidingView
+					style={styles.container}
+					behavior={Platform.OS === "ios" ? "padding" : undefined}
+				>
+					<View style={styles.amountContainer}>
+						<ThemedText type="defaultSemiBold" style={styles.amount}>
+							{type === "Expense" && "-"}
+							{amount.length > 0 ? amount : "0.0"}
+						</ThemedText>
 						<Select
-							showIcon={false}
-							iconName="building.2"
-							placeholder={
-								accounts && accounts[1] ? accounts[1].name : "Account"
-							}
-							items={accounts?.map((a) => a.name) || []}
-							onSelect={setAccount}
-							value={account}
-							style={{
-								boxStyle: styles.select,
-							}}
+							showIcon
+							placeholder="SEK"
+							onSelect={setCurrency}
+							items={["SEK", "USD", "EUR", "COP"]}
+							value={currency}
+							style={{ boxStyle: styles.currencySelector }}
 						/>
-						{type === "Transfer" && (
-							<IconSymbol name="arrow.right" size={12} color="gray" />
-						)}
-						{type === "Transfer" && (
+					</View>
+
+					<View style={styles.row}>
+						<DatePicker date={date} onChange={setDate} />
+						<TextInput
+							style={styles.notesInput}
+							placeholder="Add Note"
+							value={description}
+							onChangeText={setDescription}
+							multiline
+						/>
+						<TouchableOpacity onPress={onSubmit} style={styles.button}>
+							<ThemedText type="defaultSemiBold">Save</ThemedText>
+						</TouchableOpacity>
+					</View>
+
+					<View style={styles.rowWithBorder}>
+						<View style={styles.row}>
 							<Select
 								showIcon={false}
 								iconName="building.2"
 								placeholder={
-									accounts && accounts[0] ? accounts[0].name : "Account"
+									accounts && accounts[1] ? accounts[1].name : "Account"
 								}
 								items={accounts?.map((a) => a.name) || []}
-								onSelect={setTransferAccount}
-								value={transferAccount}
+								onSelect={setAccount}
+								value={account}
 								style={{
 									boxStyle: styles.select,
 								}}
 							/>
-						)}
-						{/* Right arrow icon */}
-						<IconSymbol name="arrow.right" size={12} color="gray" />
-						{/* Category */}
-						<Select
-							showIcon={false}
-							iconName="list.bullet.indent"
-							placeholder={"Category"}
-							items={categories?.map((c) => c.name) || []}
-							onSelect={setCategory}
-							value={category}
-							style={{
-								boxStyle: styles.select,
-							}}
-						/>
+							{type === "Transfer" && (
+								<IconSymbol name="arrow.right" size={12} color="gray" />
+							)}
+							{type === "Transfer" && (
+								<Select
+									showIcon={false}
+									iconName="building.2"
+									placeholder={
+										accounts && accounts[0] ? accounts[0].name : "Account"
+									}
+									items={accounts?.map((a) => a.name) || []}
+									onSelect={setTransferAccount}
+									value={transferAccount}
+									style={{
+										boxStyle: styles.select,
+									}}
+								/>
+							)}
+							{/* Right arrow icon */}
+							<IconSymbol name="arrow.right" size={12} color="gray" />
+							{/* Category */}
+							<Select
+								showIcon={false}
+								iconName="list.bullet.indent"
+								placeholder={"Category"}
+								items={categories?.map((c) => c.name) || []}
+								onSelect={setCategory}
+								value={category}
+								style={{
+									boxStyle: styles.select,
+								}}
+							/>
+						</View>
 					</View>
-				</View>
-				<CustomKeyboard onKeyPress={handleKeyPress} onSubmit={onSubmit} />
-			</KeyboardAvoidingView>
+					{showNumPad && (
+						<CustomKeyboard onKeyPress={handleKeyPress} onSubmit={onSubmit} />
+					)}
+				</KeyboardAvoidingView>
+			</TouchableWithoutFeedback>
 		</SafeAreaView>
 	);
 }
@@ -236,7 +251,6 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		justifyContent: "space-between",
-		paddingVertical: 16,
 	},
 	chip: {
 		backgroundColor: "gray",

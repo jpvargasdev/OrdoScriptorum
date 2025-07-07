@@ -11,26 +11,26 @@ export function Header({ budget }: { budget: BudgetSummary | null }) {
 	const { endDayOfMonth, user } = useUserDefaultsStore();
 
 	useEffect(() => {
-    const today = new Date();
-    const currentDay = today.getDate();
+		const today = new Date();
+		const currentDay = today.getDate();
 
-    let daysLeft;
-    if (currentDay >= endDayOfMonth) {
-      // If today is after the end day, calculate for next month
-      const nextMonth = new Date(today);
-      nextMonth.setMonth(today.getMonth() + 1);
-      nextMonth.setDate(endDayOfMonth);
+		let daysLeft;
+		if (currentDay >= endDayOfMonth) {
+			// If today is after the end day, calculate for next month
+			const nextMonth = new Date(today);
+			nextMonth.setMonth(today.getMonth() + 1);
+			nextMonth.setDate(endDayOfMonth);
 
-      // Calculate days difference
-      const diffTime = nextMonth.getTime() - today.getTime();
-      daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Convert ms to days
-    } else {
-      // Regular calculation within the same month
-      daysLeft = endDayOfMonth - currentDay;
-    }
+			// Calculate days difference
+			const diffTime = nextMonth.getTime() - today.getTime();
+			daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Convert ms to days
+		} else {
+			// Regular calculation within the same month
+			daysLeft = endDayOfMonth - currentDay;
+		}
 
-    setDaysLeft(daysLeft);
-  }, [endDayOfMonth]);
+		setDaysLeft(daysLeft);
+	}, [endDayOfMonth]);
 
 	return (
 		<View style={styles.container}>

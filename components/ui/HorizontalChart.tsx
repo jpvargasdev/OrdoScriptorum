@@ -45,15 +45,16 @@ export function HorizontalBarChart({
 				/>
 			</Svg>
 
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <ThemedText type="small" style={styles.label}>
-          Spent: {currentSpent.toFixed(2)} ({spentPercentage.toFixed(1)}%)
-        </ThemedText>
+			<View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+				<ThemedText type="small" style={styles.label}>
+					Spent: {currentSpent.toFixed(2)} ({spentPercentage.toFixed(1)}%)
+				</ThemedText>
 
-        <ThemedText type="small" style={styles.label}>
-          Left: {(totalBudget - currentSpent).toFixed(2)} ({(100 - spentPercentage).toFixed(1)}%)
-        </ThemedText>
-      </View>
+				<ThemedText type="small" style={styles.label}>
+					Left: {(totalBudget - currentSpent).toFixed(2)} (
+					{(100 - spentPercentage).toFixed(1)}%)
+				</ThemedText>
+			</View>
 		</View>
 	);
 }

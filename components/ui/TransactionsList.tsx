@@ -7,7 +7,7 @@ export default function TransactionsList({
 	accounts,
 	loading,
 	onDeleteTransaction,
-	onRefresh
+	onRefresh,
 }: {
 	transactions: Transaction[] | null;
 	accounts: Account[] | null;

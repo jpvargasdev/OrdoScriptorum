@@ -11,6 +11,8 @@ import {
 	KeyboardAvoidingView,
 	Platform,
 	TouchableOpacity,
+	Keyboard,
+	TouchableWithoutFeedback,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -20,7 +22,18 @@ export default function Accounts() {
 	const [name, setName] = useState("");
 	const [balance, setBalance] = useState("");
 	const [currency, setCurrency] = useState("SEK");
+	const [showNumPad, setShowNumpad] = useState(true);
 	const [type, setType] = useState("Select account type");
+
+	// add keyboard listener to hide numpad
+	Keyboard.addListener("keyboardWillHide", () => {
+		setShowNumpad(true);
+	});
+
+	// add keyboard listener to show numpad
+	Keyboard.addListener("keyboardWillShow", () => {
+		setShowNumpad(false);
+	});
 
 	const onSubmit = useCallback(async () => {
 		const account: Omit<Account, "id"> = {
@@ -55,65 +68,68 @@ export default function Accounts() {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<View style={styles.chip} />
-			<KeyboardAvoidingView
-				style={styles.container}
-				behavior={Platform.OS === "ios" ? "padding" : undefined}
-			>
-				{/* Amount Section */}
-				<View style={styles.amountContainer}>
-					<ThemedText type="default">Balance: </ThemedText>
+			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+				<KeyboardAvoidingView
+					style={styles.container}
+					behavior={Platform.OS === "ios" ? "padding" : undefined}
+				>
+					{/* Amount Section */}
+					<View style={styles.amountContainer}>
+						<ThemedText type="default">Balance: </ThemedText>
 
-					<ThemedText type="defaultSemiBold" style={styles.amount}>
-						{balance.length > 0 ? balance : "0.00"}
-					</ThemedText>
+						<ThemedText type="defaultSemiBold" style={styles.amount}>
+							{balance.length > 0 ? balance : "0.00"}
+						</ThemedText>
+						<Select
+							showIcon
+							placeholder="SEK"
+							onSelect={setCurrency}
+							items={["SEK", "USD", "EUR", "COP"]}
+							value={currency}
+							style={{ boxStyle: styles.currencySelector }}
+						/>
+					</View>
+					{/* Name */}
+					<View style={styles.row}>
+						<TextInput
+							style={styles.notesInput}
+							placeholder="Account Name"
+							value={name}
+							onChangeText={setName}
+						/>
+						<TouchableOpacity onPress={onSubmit} style={styles.button}>
+							<ThemedText type="default">Save</ThemedText>
+						</TouchableOpacity>
+					</View>
+
+					{/* Type */}
 					<Select
 						showIcon
-						placeholder="SEK"
-						onSelect={setCurrency}
-						items={["SEK", "USD", "EUR", "COP"]}
-						value={currency}
-						style={{ boxStyle: styles.currencySelector }}
+						placeholder={"Account type"}
+						items={[
+							"Checking Account",
+							"Savings Account",
+							"Credit Card",
+							"Debit Card",
+							"Investment Account",
+							"Loan",
+							"Mortgage",
+							"Student Loan",
+							"Personal Loan",
+							"Business Loan",
+							"Other",
+						]}
+						onSelect={setType}
+						value={type}
+						style={{ boxStyle: styles.selectBox }}
 					/>
-				</View>
-				{/* Name */}
-				<View style={styles.row}>
-					<TextInput
-						style={styles.notesInput}
-						placeholder="Account Name"
-						value={name}
-						onChangeText={setName}
-					/>
-					<TouchableOpacity onPress={onSubmit} style={styles.button}>
-						<ThemedText type="default">Save</ThemedText>
-					</TouchableOpacity>
-				</View>
 
-				{/* Type */}
-				<Select
-					showIcon
-					placeholder={"Account type"}
-					items={[
-						"Checking Account",
-						"Savings Account",
-						"Credit Card",
-						"Debit Card",
-						"Investment Account",
-						"Loan",
-						"Mortgage",
-						"Student Loan",
-						"Personal Loan",
-						"Business Loan",
-						"Other",
-					]}
-					onSelect={setType}
-					value={type}
-					style={{ boxStyle: styles.selectBox }}
-				/>
-
-				{/* Custom Keyboard */}
-				<CustomKeyboard onKeyPress={handleKeyPress} onSubmit={onSubmit} />
-			</KeyboardAvoidingView>
+					{/* Custom Keyboard */}
+					{showNumPad && (
+						<CustomKeyboard onKeyPress={handleKeyPress} onSubmit={onSubmit} />
+					)}
+				</KeyboardAvoidingView>
+			</TouchableWithoutFeedback>
 		</SafeAreaView>
 	);
 }
@@ -137,20 +153,9 @@ const styles = StyleSheet.create({
 	currency: {
 		borderBottomWidth: 0,
 	},
-	chip: {
-		backgroundColor: "gray",
-		height: 5,
-		width: 30,
-		borderRadius: 10,
-		marginTop: 5,
-		alignSelf: "center",
-	},
 	keyboardContainer: {
 		position: "absolute",
 		bottom: 0,
-	},
-	header: {
-		marginBottom: 10,
 	},
 	amountContainer: {
 		flex: 1,

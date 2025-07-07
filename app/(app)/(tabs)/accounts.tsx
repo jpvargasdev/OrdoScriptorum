@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
 	headerRow: {
 		flexDirection: "row",
 		paddingVertical: 12,
-    borderBottomWidth: StyleSheet.hairlineWidth,
+		borderBottomWidth: StyleSheet.hairlineWidth,
 	},
 	row: {
 		flexDirection: "row",
@@ -102,6 +102,5 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		color: "gray",
 	},
-	tableBody: {
-	},
+	tableBody: {},
 });
