@@ -1,0 +1,46 @@
+{
+	"project_info": {
+		"project_number": "138415318523",
+		"project_id": "ordoscriptorum-ba091",
+		"storage_bucket": "ordoscriptorum-ba091.firebasestorage.app"
+	},
+	"client": [
+		{
+			"client_info": {
+				"mobilesdk_app_id": "1:138415318523:android:bc0940a89a400248e8175e",
+				"android_client_info": {
+					"package_name": "com.juapavama.ordoscriptorum"
+				}
+			},
+			"oauth_client": [
+				{
+					"client_id": "138415318523-37kl02lg6ulc31jan2dgt2gb520ariu6.apps.googleusercontent.com",
+					"client_type": 3
+				}
+			],
+			"api_key": [
+				{
+					"current_key": "AIzaSyDxPkxLjMpowIZ_pDH2Rb81TDU18XlK-AY"
+				}
+			],
+			"services": {
+				"appinvite_service": {
+					"other_platform_oauth_client": [
+						{
+							"client_id": "138415318523-37kl02lg6ulc31jan2dgt2gb520ariu6.apps.googleusercontent.com",
+							"client_type": 3
+						},
+						{
+							"client_id": "138415318523-rd2c20pfqi8vssenbt0gqp5bjtqs1078.apps.googleusercontent.com",
+							"client_type": 2,
+							"ios_info": {
+								"bundle_id": "co.juapavama.expensetracker"
+							}
+						}
+					]
+				}
+			}
+		}
+	],
+	"configuration_version": "1"
+}

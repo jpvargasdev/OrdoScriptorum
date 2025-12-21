@@ -10,6 +10,7 @@ web-build/
 expo-env.d.ts
 
 # Native
+.kotlin/
 *.orig.*
 *.jks
 *.p8
@@ -35,11 +36,10 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
-app-example
+# generated native folders
+/ios
+/android
 
-
-*.db
-
-*.env
-ios/GoogleService-Info.plist
-android/google-services.json
+GoogleService-Info.plist
+google-services.json
+.env
