@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import React, { useEffect } from "react";
 import { Header } from "@/components/ui/Header";
@@ -44,18 +44,20 @@ export default function HomeScreen() {
 
 	return (
 		<SafeAreaView style={{ ...styles.container, paddingBottom: 46 }}>
-			<ScrollView style={styles.innerContainer}>
-				<Header budget={budget} />
-				<BudgetsGraph budget={budget} />
-				<ThemedText style={styles.titleTransactions} type="subtitle">
-					Latest transactions
-				</ThemedText>
-				<TransactionsList
-					accounts={accounts}
-					transactions={transactions}
-					loading={loading}
-				/>
-			</ScrollView>
+			<TransactionsList
+				accounts={accounts}
+				transactions={transactions}
+				loading={loading}
+				ListHeaderComponent={
+					<View style={styles.innerContainer}>
+						<Header budget={budget} />
+						<BudgetsGraph budget={budget} />
+						<ThemedText style={styles.titleTransactions} type="subtitle">
+							Latest transactions
+						</ThemedText>
+					</View>
+				}
+			/>
 			<FloatingButton onPress={() => router.navigate("./new-transaction")} />
 		</SafeAreaView>
 	);
