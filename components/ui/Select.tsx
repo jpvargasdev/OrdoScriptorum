@@ -1,5 +1,5 @@
 import type React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
 	View,
 	TouchableOpacity,
@@ -38,10 +38,17 @@ const Select: React.FC<SelectProps> = ({
 	style: { textStyle, boxStyle } = {},
 	value,
 }) => {
-	const [selectedItem, setSelectedItem] = useState<string | null>(null);
+	const [selectedItem, setSelectedItem] = useState<string | undefined>(
+		value || undefined,
+	);
 	const [modalVisible, setModalVisible] = useState(false);
 
-	const handleSelect = (item: string | null) => {
+	// Sync internal state with external value prop
+	useEffect(() => {
+		setSelectedItem(value || undefined);
+	}, [value]);
+
+	const handleSelect = (item: string | undefined) => {
 		setSelectedItem(item);
 		setModalVisible(false);
 		onSelect(item || "");

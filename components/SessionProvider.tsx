@@ -41,11 +41,11 @@ export function SessionProvider({ children }: PropsWithChildren) {
 	useEffect(() => {
 		const createNewSessionToken = async () => {
 			const user = await auth().currentUser;
-      if (!user) {
-        return;
-      }
-      const token = await user.getIdToken();
-      
+			if (!user) {
+				return;
+			}
+			const token = await user.getIdToken();
+
 			setHeaders({
 				Authorization: `Bearer ${token}`,
 				"Content-Type": "application/json",

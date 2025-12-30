@@ -24,6 +24,7 @@ export default function AppLayout() {
 			<Stack.Screen name="new-account" options={{ headerShown: false }} />
 			<Stack.Screen name="account" options={{ headerShown: false }} />
 			<Stack.Screen name="new-transaction" options={{ headerShown: false }} />
+			<Stack.Screen name="edit-transaction" options={{ headerShown: false }} />
 			<Stack.Screen name="transactions-by" options={{ headerShown: false }} />
 		</Stack>
 	);

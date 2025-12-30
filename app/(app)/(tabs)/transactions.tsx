@@ -4,11 +4,7 @@ import { ThemedText } from "@/components/ThemedText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FloatingButton } from "@/components/ui/FloatingButton";
 import { router } from "expo-router";
-import {
-	useDeleteTransaction,
-	useGetAccounts,
-	useGetTransactions,
-} from "@/hooks/apiHooks";
+import { useGetAccounts, useGetTransactions } from "@/hooks/apiHooks";
 import { useEffect, useCallback } from "react";
 import TransactionsList from "@/components/ui/TransactionsList";
 import { ThemedView } from "@/components/ThemedView";
@@ -19,17 +15,8 @@ export default function TransactionsScreen() {
 		execute: getTransactions,
 		loading,
 	} = useGetTransactions();
-	const { execute: deleteTransaction, loading: deleteLoading } =
-		useDeleteTransaction();
 
 	const { data: accounts } = useGetAccounts();
-
-	const onDeleteTransaction = useCallback(
-		async (transaction: Transaction) => {
-			deleteTransaction({ id: transaction.id });
-		},
-		[deleteTransaction],
-	);
 
 	useEffect(() => {
 		getTransactions();
@@ -48,8 +35,7 @@ export default function TransactionsScreen() {
 				<TransactionsList
 					transactions={transactions}
 					accounts={accounts}
-					loading={loading || deleteLoading}
-					onDeleteTransaction={onDeleteTransaction}
+					loading={loading}
 					onRefresh={onRefresh}
 				/>
 			</ThemedView>

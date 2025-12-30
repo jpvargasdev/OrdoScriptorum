@@ -1,4 +1,5 @@
 import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { router } from "expo-router";
 
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { ThemedText } from "../ThemedText";
@@ -6,11 +7,9 @@ import { ThemedText } from "../ThemedText";
 export function TransactionCard({
 	transaction,
 	accounts = [],
-	onDeleteTransaction,
 }: {
 	transaction: Transaction;
 	accounts: Account[] | null;
-	onDeleteTransaction?: (transaction: Transaction) => void;
 }) {
 	const account = accounts?.find((a) => a.id === transaction.account_id);
 	const iconName =
@@ -25,8 +24,13 @@ export function TransactionCard({
 			: transaction.amount > 0
 				? "green"
 				: "red";
+
+	const handlePress = () => {
+		router.push(`/edit-transaction?id=${transaction.id}`);
+	};
+
 	return (
-		<TouchableOpacity style={styles.container}>
+		<TouchableOpacity style={styles.container} onPress={handlePress}>
 			<View style={styles.icon}>
 				<IconSymbol size={20} color={iconColor} name={iconName} />
 			</View>
@@ -47,16 +51,9 @@ export function TransactionCard({
 				</ThemedText>
 				<ThemedText type="small">{account?.name}</ThemedText>
 			</View>
-			{onDeleteTransaction ? (
-				<TouchableOpacity
-					style={styles.icon}
-					onPress={() => onDeleteTransaction(transaction)}
-				>
-					<IconSymbol name="trash" size={20} color="red" />
-				</TouchableOpacity>
-			) : (
-				<View style={{ width: 10 }} />
-			)}
+			<View style={styles.chevron}>
+				<IconSymbol name="chevron.right" size={16} color="gray" />
+			</View>
 		</TouchableOpacity>
 	);
 }
@@ -81,5 +78,10 @@ const styles = StyleSheet.create({
 	amount: {
 		justifyContent: "center",
 		alignItems: "flex-end",
+	},
+	chevron: {
+		justifyContent: "center",
+		alignItems: "center",
+		width: 30,
 	},
 });
