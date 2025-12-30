@@ -1,20 +1,20 @@
 import { StyleSheet, FlatList } from "react-native";
 
 import { TransactionCard } from "@/components/ui/TransactionCard";
-import { ThemedText } from "@/components/ThemedText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FloatingButton } from "@/components/ui/FloatingButton";
-import { router, useLocalSearchParams, useNavigation } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import {
 	useGetAccounts,
 	useGetTransactionsByMainCategory,
 } from "@/hooks/apiHooks";
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useUserDefaultsStore } from "@/state/user";
+import { ScreenHeader } from "@/components/ui/ScreenHeader";
+import { ThemedText } from "@/components/ThemedText";
 
 export default function TransactionsByScreen() {
 	const { id } = useLocalSearchParams();
-	const navigation = useNavigation();
 	const { startDayOfMonth, endDayOfMonth } = useUserDefaultsStore();
 	const {
 		data: transactions,
@@ -32,15 +32,9 @@ export default function TransactionsByScreen() {
 		});
 	}, []);
 
-	useLayoutEffect(() => {
-		navigation.setOptions({
-			title: id,
-		});
-	}, [id]);
-
 	return (
 		<SafeAreaView style={styles.container}>
-			<ThemedText type="title">{id} Transactions</ThemedText>
+			<ScreenHeader title={`${id} Transactions`} />
 			<FlatList
 				data={transactions?.reverse()}
 				keyExtractor={(item) => `${item.id}`}
@@ -66,10 +60,5 @@ const styles = StyleSheet.create({
 	},
 	transactions: {
 		flex: 1,
-	},
-	sectionTitle: {
-		flexDirection: "row",
-		justifyContent: "space-between",
-		marginBottom: 8,
 	},
 });

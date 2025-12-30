@@ -2,7 +2,7 @@
 	"expo": {
 		"name": "OrdoScriptorum",
 		"slug": "OrdoScriptorum",
-    "scheme": "OrdoScriptorum",
+		"scheme": "OrdoScriptorum",
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
@@ -17,7 +17,7 @@
 			"googleServicesFile": "./GoogleService-Info.plist",
 			"supportsTablet": true,
 			"bundleIdentifier": "co.juapavama.expensetracker",
-      "icon": "./assets/icon-ios.icon"
+			"icon": "./assets/icon-ios.icon"
 		},
 		"android": {
 			"adaptiveIcon": {

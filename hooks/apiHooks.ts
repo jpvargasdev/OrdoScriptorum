@@ -83,7 +83,7 @@ export const useGetTransactions = request<Transaction[]>({
 	url: "/transactions",
 });
 
-export const useGetTransactionsByID = request<Transaction[]>({
+export const useGetTransactionsByID = request<Transaction>({
 	method: "GET",
 	url: "/transactions",
 });
