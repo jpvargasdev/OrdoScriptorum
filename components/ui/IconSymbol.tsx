@@ -24,6 +24,7 @@ const MAPPING = {
 	"trash.fill": "delete",
 	"exclamationmark.triangle.fill": "warning",
 	"rectangle.portrait.and.arrow.right": "logout",
+	"chevron.down": "expand-more",
 } as Partial<
 	Record<
 		import("expo-symbols").SymbolViewProps["name"],

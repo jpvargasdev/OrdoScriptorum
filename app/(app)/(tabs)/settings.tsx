@@ -60,7 +60,7 @@ const SettingsScreen = () => {
 					<ThemedText type="subtitle">Budget:</ThemedText>
 
 					<View style={styles.inputContainer}>
-						<ThemedText type="default">Start Day of Month:</ThemedText>
+						<ThemedText type="defaultSemiBold">Start Day of Month:</ThemedText>
 						<TextInput
 							style={styles.input}
 							value={startDayOfMonth.toString()}
@@ -70,7 +70,7 @@ const SettingsScreen = () => {
 					</View>
 
 					<View style={styles.inputContainer}>
-						<ThemedText type="default">End Day of Month:</ThemedText>
+						<ThemedText type="defaultSemiBold">End Day of Month:</ThemedText>
 						<TextInput
 							style={styles.input}
 							value={endDayOfMonth.toString()}

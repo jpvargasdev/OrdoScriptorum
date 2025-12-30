@@ -1,16 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
-	View,
 	StyleSheet,
 	ScrollView,
 	ActivityIndicator,
-	TouchableOpacity,
 	RefreshControl,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router } from "expo-router";
 import { ThemedText } from "@/components/ThemedText";
-import { IconSymbol } from "@/components/ui/IconSymbol";
+import { ScreenHeader } from "@/components/ui/ScreenHeader";
 import CategorySection from "@/components/ui/CategorySection";
 import CategoryFormModal from "@/components/ui/CategoryFormModal";
 import DeleteCategoryModal from "@/components/ui/DeleteCategoryModal";
@@ -26,8 +23,6 @@ import { Colors } from "@/constants/Colors";
 const MAIN_CATEGORIES = ["Needs", "Wants", "Savings"];
 
 export default function CategoriesScreen() {
-	const textColor = Colors.light.textPrimary;
-
 	// API hooks
 	const {
 		data: categories,
@@ -194,19 +189,7 @@ export default function CategoriesScreen() {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			{/* Header */}
-			<View style={styles.header}>
-				<TouchableOpacity
-					onPress={() => router.back()}
-					style={styles.backButton}
-				>
-					<IconSymbol name="chevron.left" size={24} color={textColor} />
-				</TouchableOpacity>
-				<ThemedText type="subtitle" style={styles.headerTitle}>
-					Categories
-				</ThemedText>
-				<View style={styles.headerRight} />
-			</View>
+			<ScreenHeader title="Categories" />
 
 			{/* Content */}
 			<ScrollView
@@ -273,35 +256,10 @@ const styles = StyleSheet.create({
 	loadingText: {
 		marginTop: 16,
 	},
-	header: {
-		flexDirection: "row",
-		alignItems: "center",
-		justifyContent: "space-between",
-		paddingHorizontal: 8,
-		paddingVertical: 12,
-	},
-	backButton: {
-		padding: 8,
-		width: 44,
-	},
-	headerTitle: {
-		flex: 1,
-		textAlign: "center",
-	},
-	headerRight: {
-		width: 44,
-	},
 	content: {
 		flex: 1,
 	},
 	contentContainer: {
 		paddingBottom: 32,
-	},
-	description: {
-		paddingHorizontal: 16,
-		paddingVertical: 12,
-		color: Colors.light.textSecondary,
-		lineHeight: 20,
-		marginBottom: 8,
 	},
 });

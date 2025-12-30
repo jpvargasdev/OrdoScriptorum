@@ -20,11 +20,10 @@ import { ThemedText } from "@/components/ThemedText";
 import { BlurView } from "expo-blur";
 import { Colors } from "@/constants/Colors";
 import { IconSymbol } from "@/components/ui/IconSymbol";
-import { useThemeColor } from "@/hooks/useThemeColor";
+import { ScreenHeader } from "@/components/ui/ScreenHeader";
 
 export default function EditTransaction() {
 	const { id } = useLocalSearchParams<{ id: string }>();
-	const textColor = useThemeColor({}, "textPrimary");
 
 	const {
 		data: transaction,
@@ -149,31 +148,23 @@ export default function EditTransaction() {
 		);
 	}
 
+	const deleteButton = (
+		<TouchableOpacity
+			onPress={handleDeletePress}
+			style={styles.deleteHeaderButton}
+			disabled={deleteLoading}
+		>
+			{deleteLoading ? (
+				<ActivityIndicator size="small" color="red" />
+			) : (
+				<IconSymbol name="trash" size={24} color="red" />
+			)}
+		</TouchableOpacity>
+	);
+
 	return (
 		<SafeAreaView style={styles.container}>
-			{/* Custom Header with Back Button and Title */}
-			<View style={styles.header}>
-				<TouchableOpacity
-					onPress={() => router.back()}
-					style={styles.backButton}
-				>
-					<IconSymbol name="chevron.left" size={24} color={textColor} />
-				</TouchableOpacity>
-				<ThemedText type="subtitle" style={styles.headerTitle}>
-					Edit Transaction
-				</ThemedText>
-				<TouchableOpacity
-					onPress={handleDeletePress}
-					style={styles.deleteHeaderButton}
-					disabled={deleteLoading}
-				>
-					{deleteLoading ? (
-						<ActivityIndicator size="small" color="red" />
-					) : (
-						<IconSymbol name="trash" size={24} color="red" />
-					)}
-				</TouchableOpacity>
-			</View>
+			<ScreenHeader title="Edit Transaction" rightElement={deleteButton} />
 
 			{updateError && (
 				<View style={styles.errorBanner}>
@@ -245,25 +236,8 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 	},
-	header: {
-		flexDirection: "row",
-		alignItems: "center",
-		justifyContent: "space-between",
-		paddingHorizontal: 8,
-		paddingVertical: 12,
-	},
-	backButton: {
-		padding: 8,
-		width: 44,
-	},
-	headerTitle: {
-		flex: 1,
-		textAlign: "center",
-	},
 	deleteHeaderButton: {
 		padding: 8,
-		width: 44,
-		alignItems: "center",
 	},
 	loadingContainer: {
 		flex: 1,

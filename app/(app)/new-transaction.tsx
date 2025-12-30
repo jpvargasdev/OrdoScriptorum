@@ -9,6 +9,7 @@ import { router } from "expo-router";
 import React, { useCallback } from "react";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ScreenHeader } from "@/components/ui/ScreenHeader";
 
 export default function NewTransaction() {
 	const { execute: executeTransaction, loading: transactionLoading } =
@@ -79,12 +80,15 @@ export default function NewTransaction() {
 
 	return (
 		<SafeAreaView style={styles.container}>
+			<ScreenHeader title="New Transaction" />
+
 			<TransactionForm
 				mode="create"
 				categories={categories}
 				accounts={accounts}
 				loading={loading}
 				onSubmit={handleSubmit}
+				showHeader={false}
 			/>
 		</SafeAreaView>
 	);

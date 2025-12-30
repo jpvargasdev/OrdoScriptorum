@@ -1,9 +1,10 @@
 import { ThemedText } from "@/components/ThemedText";
 import CustomKeyboard from "@/components/ui/CustomKeyboard";
 import Select from "@/components/ui/Select";
+import { ScreenHeader } from "@/components/ui/ScreenHeader";
 import { useCreateAccount } from "@/hooks/apiHooks";
 import { router } from "expo-router";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import {
 	View,
 	TextInput,
@@ -16,7 +17,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function Accounts() {
+export default function NewAccount() {
 	const { execute } = useCreateAccount();
 
 	const [name, setName] = useState("");
@@ -25,15 +26,19 @@ export default function Accounts() {
 	const [showNumPad, setShowNumpad] = useState(true);
 	const [type, setType] = useState("Select account type");
 
-	// add keyboard listener to hide numpad
-	Keyboard.addListener("keyboardWillHide", () => {
-		setShowNumpad(true);
-	});
+	useEffect(() => {
+		const hideSubscription = Keyboard.addListener("keyboardWillHide", () => {
+			setShowNumpad(true);
+		});
+		const showSubscription = Keyboard.addListener("keyboardWillShow", () => {
+			setShowNumpad(false);
+		});
 
-	// add keyboard listener to show numpad
-	Keyboard.addListener("keyboardWillShow", () => {
-		setShowNumpad(false);
-	});
+		return () => {
+			hideSubscription.remove();
+			showSubscription.remove();
+		};
+	}, []);
 
 	const onSubmit = useCallback(async () => {
 		const account: Omit<Account, "id"> = {
@@ -68,9 +73,11 @@ export default function Accounts() {
 
 	return (
 		<SafeAreaView style={styles.container}>
+			<ScreenHeader title="New Account" />
+
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<KeyboardAvoidingView
-					style={styles.container}
+					style={styles.content}
 					behavior={Platform.OS === "ios" ? "padding" : undefined}
 				>
 					{/* Amount Section */}
@@ -148,6 +155,9 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 	},
 	container: {
+		flex: 1,
+	},
+	content: {
 		flex: 1,
 	},
 	currency: {

@@ -1,6 +1,7 @@
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { TransactionCard } from "@/components/ui/TransactionCard";
+import { ScreenHeader } from "@/components/ui/ScreenHeader";
 import { useGetAccounts, useGetTransactionsByAccount } from "@/hooks/apiHooks";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
@@ -29,25 +30,27 @@ export default function Account() {
 
 	if (!mAccount) {
 		return (
-			<ThemedView>
-				<ThemedText>Account not found</ThemedText>
-			</ThemedView>
+			<SafeAreaView style={styles.container}>
+				<ScreenHeader title="Account" />
+				<ThemedView style={styles.notFound}>
+					<ThemedText>Account not found</ThemedText>
+				</ThemedView>
+			</SafeAreaView>
 		);
 	}
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<ThemedView>
+			<ScreenHeader title={mAccount.name} />
+
+			<ThemedView style={styles.content}>
 				<View style={styles.header}>
-					<ThemedText type="title">{mAccount.name}</ThemedText>
-					<View>
-						<ThemedText type="defaultSemiBold">
-							Account Type: {mAccount.type}
-						</ThemedText>
-						<ThemedText type="defaultSemiBold">
-							Balance: {mAccount.balance} {mAccount.currency}
-						</ThemedText>
-					</View>
+					<ThemedText type="defaultSemiBold">
+						Account Type: {mAccount.type}
+					</ThemedText>
+					<ThemedText type="defaultSemiBold">
+						Balance: {mAccount.balance} {mAccount.currency}
+					</ThemedText>
 				</View>
 
 				<View style={styles.innerContainer}>
@@ -71,9 +74,18 @@ export default function Account() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		padding: 24,
+	},
+	content: {
+		flex: 1,
+		paddingHorizontal: 16,
+	},
+	notFound: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
 	},
 	innerContainer: {
+		flex: 1,
 		marginTop: 24,
 	},
 	transactions: {
@@ -82,5 +94,6 @@ const styles = StyleSheet.create({
 	header: {
 		justifyContent: "space-between",
 		alignItems: "flex-start",
+		paddingTop: 8,
 	},
 });
