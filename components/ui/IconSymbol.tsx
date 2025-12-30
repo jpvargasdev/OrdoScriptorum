@@ -13,7 +13,17 @@ const MAPPING = {
 	"paperplane.fill": "send",
 	"chevron.left.forwardslash.chevron.right": "code",
 	"chevron.right": "chevron-right",
-	"wallet.bifold": "wallet.bifold",
+	"chevron.left": "chevron-left",
+	"wallet.bifold": "account-balance-wallet",
+	"folder.fill": "folder",
+	"heart.fill": "favorite",
+	"banknote.fill": "payments",
+	"plus.circle.fill": "add-circle",
+	pencil: "edit",
+	trash: "delete",
+	"trash.fill": "delete",
+	"exclamationmark.triangle.fill": "warning",
+	"rectangle.portrait.and.arrow.right": "logout",
 } as Partial<
 	Record<
 		import("expo-symbols").SymbolViewProps["name"],

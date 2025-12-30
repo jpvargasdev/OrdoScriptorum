@@ -14,6 +14,9 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSession } from "@/components/SessionProvider";
+import { router } from "expo-router";
+import { IconSymbol } from "@/components/ui/IconSymbol";
+import { Colors } from "@/constants/Colors";
 
 const SettingsScreen = () => {
 	const { signOut } = useSession();
@@ -40,6 +43,10 @@ const SettingsScreen = () => {
 				{ text: "Delete", style: "destructive", onPress: onDeleteAllData },
 			],
 		);
+	};
+
+	const handleNavigateToCategories = () => {
+		router.push("/categories");
 	};
 
 	return (
@@ -74,18 +81,61 @@ const SettingsScreen = () => {
 				</View>
 			</TouchableWithoutFeedback>
 
-			{/* Logout Button */}
-			<TouchableOpacity style={styles.logoutButton} onPress={signOut}>
-				<Text style={styles.logoutButtonText}>Logout</Text>
-			</TouchableOpacity>
+			{/* Data Management Section */}
+			<View style={styles.section}>
+				<ThemedText type="subtitle">Data Management:</ThemedText>
 
-			{/* Delete All Data Button */}
-			<TouchableOpacity
-				style={styles.deleteButton}
-				onPress={handleDeleteAllData}
-			>
-				<Text style={styles.deleteButtonText}>Delete All Data</Text>
-			</TouchableOpacity>
+				<TouchableOpacity
+					style={styles.menuOption}
+					onPress={handleNavigateToCategories}
+				>
+					<View style={styles.menuOptionLeft}>
+						<IconSymbol
+							name="folder.fill"
+							size={20}
+							color={Colors.light.textSecondary}
+						/>
+						<ThemedText type="defaultSemiBold">Categories</ThemedText>
+					</View>
+					<IconSymbol
+						name="chevron.right"
+						size={16}
+						color={Colors.light.textSecondary}
+					/>
+				</TouchableOpacity>
+			</View>
+
+			{/* Account Section */}
+			<View style={styles.section}>
+				<ThemedText type="subtitle">Account:</ThemedText>
+
+				<TouchableOpacity style={styles.menuOption} onPress={signOut}>
+					<View style={styles.menuOptionLeft}>
+						<IconSymbol
+							name="rectangle.portrait.and.arrow.right"
+							size={20}
+							color={Colors.light.textSecondary}
+						/>
+						<ThemedText type="defaultSemiBold">Logout</ThemedText>
+					</View>
+				</TouchableOpacity>
+
+				<TouchableOpacity
+					style={styles.menuOption}
+					onPress={handleDeleteAllData}
+				>
+					<View style={styles.menuOptionLeft}>
+						<IconSymbol
+							name="trash.fill"
+							size={20}
+							color={Colors.light.danger}
+						/>
+						<ThemedText type="defaultSemiBold" style={styles.dangerText}>
+							Delete All Data
+						</ThemedText>
+					</View>
+				</TouchableOpacity>
+			</View>
 		</SafeAreaView>
 	);
 };
@@ -121,6 +171,23 @@ const styles = StyleSheet.create({
 	section: {
 		marginVertical: 20,
 	},
+	menuOption: {
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-between",
+		backgroundColor: Colors.light.background,
+		padding: 16,
+		marginTop: 12,
+		borderRadius: 12,
+	},
+	menuOptionLeft: {
+		flexDirection: "row",
+		alignItems: "center",
+		gap: 12,
+	},
+	dangerText: {
+		color: Colors.light.danger,
+	},
 	option: {
 		backgroundColor: "white",
 		padding: 15,
@@ -135,26 +202,5 @@ const styles = StyleSheet.create({
 	optionText: {
 		fontSize: 16,
 		color: "gray",
-	},
-	logoutButtonText: {
-		color: "white",
-		fontSize: 16,
-		fontWeight: "bold",
-	},
-	logoutButton: {
-		backgroundColor: "black",
-		padding: 8,
-		alignItems: "center",
-	},
-	deleteButton: {
-		backgroundColor: "black",
-		padding: 8,
-		alignItems: "center",
-		marginTop: 12,
-	},
-	deleteButtonText: {
-		color: "white",
-		fontSize: 16,
-		fontWeight: "bold",
 	},
 });
